@@ -9557,13 +9557,13 @@ Source: http://www.jst.com .. eZH.pdf</description>
 <instance part="JP1" gate="A" x="63.5" y="118.11"/>
 <instance part="+3V6" gate="G$1" x="43.18" y="115.57" rot="R90"/>
 <instance part="SUPPLY2" gate="GND" x="52.07" y="110.49"/>
-<instance part="SUPPLY7" gate="GND" x="77.47" y="118.11" rot="R270"/>
+<instance part="SUPPLY7" gate="GND" x="95.25" y="120.65" rot="R270"/>
 <instance part="X3" gate="-1" x="111.76" y="125.73"/>
 <instance part="X3" gate="-2" x="111.76" y="123.19"/>
 <instance part="X3" gate="-3" x="111.76" y="120.65"/>
 <instance part="X3" gate="-4" x="111.76" y="118.11"/>
 <instance part="P+1" gate="1" x="-12.7" y="2.54"/>
-<instance part="P+2" gate="1" x="86.36" y="120.65" rot="R90"/>
+<instance part="P+2" gate="1" x="83.82" y="118.11" rot="R90"/>
 <instance part="LED2" gate="G$1" x="-76.2" y="16.51"/>
 <instance part="SUPPLY8" gate="GND" x="147.32" y="132.08" rot="R90"/>
 <instance part="R2" gate="G$1" x="139.7" y="132.08"/>
@@ -9651,11 +9651,6 @@ Source: http://www.jst.com .. eZH.pdf</description>
 <pinref part="SUPPLY2" gate="GND" pin="GND"/>
 </segment>
 <segment>
-<wire x1="106.68" y1="118.11" x2="80.01" y2="118.11" width="0.1524" layer="91"/>
-<pinref part="SUPPLY7" gate="GND" pin="GND"/>
-<pinref part="X3" gate="-4" pin="1"/>
-</segment>
-<segment>
 <pinref part="SUPPLY29" gate="GND" pin="GND"/>
 <pinref part="R1" gate="G$1" pin="2"/>
 </segment>
@@ -9666,6 +9661,11 @@ Source: http://www.jst.com .. eZH.pdf</description>
 <segment>
 <pinref part="SUPPLY9" gate="GND" pin="GND"/>
 <pinref part="R3" gate="G$1" pin="2"/>
+</segment>
+<segment>
+<pinref part="X3" gate="-3" pin="1"/>
+<pinref part="SUPPLY7" gate="GND" pin="GND"/>
+<wire x1="106.68" y1="120.65" x2="97.79" y2="120.65" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="SDA" class="0">
@@ -10090,9 +10090,9 @@ Source: http://www.jst.com .. eZH.pdf</description>
 <junction x="-12.7" y="-5.08"/>
 </segment>
 <segment>
-<pinref part="X3" gate="-3" pin="1"/>
+<pinref part="X3" gate="-4" pin="1"/>
 <pinref part="P+2" gate="1" pin="+5V"/>
-<wire x1="106.68" y1="120.65" x2="88.9" y2="120.65" width="0.1524" layer="91"/>
+<wire x1="106.68" y1="118.11" x2="86.36" y2="118.11" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="N$2" class="0">
