@@ -9886,6 +9886,66 @@ You are welcome to use this library for commercial purposes. For attribution, we
 </deviceset>
 </devicesets>
 </library>
+<library name="LDCL015">
+<packages>
+<package name="SOT23-5">
+<description>&lt;b&gt;Small Outline Transistor&lt;/b&gt;</description>
+<wire x1="1.4224" y1="0.4294" x2="1.4224" y2="-0.4294" width="0.2032" layer="21"/>
+<wire x1="1.4" y1="-0.8" x2="-1.4" y2="-0.8" width="0.1524" layer="51"/>
+<wire x1="-1.4224" y1="-0.4294" x2="-1.4224" y2="0.4294" width="0.2032" layer="21"/>
+<wire x1="-1.4" y1="0.8" x2="1.4" y2="0.8" width="0.1524" layer="51"/>
+<wire x1="-0.2684" y1="0.8104" x2="0.2684" y2="0.8104" width="0.2032" layer="21"/>
+<wire x1="1.4" y1="0.8" x2="1.4" y2="-0.8" width="0.1524" layer="51"/>
+<wire x1="-1.4" y1="0.8" x2="-1.4" y2="-0.8" width="0.1524" layer="51"/>
+<smd name="1" x="-0.95" y="-1.3001" dx="0.55" dy="1.2" layer="1"/>
+<smd name="2" x="0" y="-1.3001" dx="0.55" dy="1.2" layer="1"/>
+<smd name="3" x="0.95" y="-1.3001" dx="0.55" dy="1.2" layer="1"/>
+<smd name="4" x="0.95" y="1.3001" dx="0.55" dy="1.2" layer="1"/>
+<smd name="5" x="-0.95" y="1.3001" dx="0.55" dy="1.2" layer="1"/>
+<text x="-0.889" y="2.159" size="0.4064" layer="25">&gt;NAME</text>
+<text x="-0.9525" y="-0.1905" size="0.4064" layer="27">&gt;VALUE</text>
+<rectangle x1="-1.2" y1="-1.5" x2="-0.7" y2="-0.85" layer="51"/>
+<rectangle x1="-0.25" y1="-1.5" x2="0.25" y2="-0.85" layer="51"/>
+<rectangle x1="0.7" y1="-1.5" x2="1.2" y2="-0.85" layer="51"/>
+<rectangle x1="0.7" y1="0.85" x2="1.2" y2="1.5" layer="51"/>
+<rectangle x1="-1.2" y1="0.85" x2="-0.7" y2="1.5" layer="51"/>
+</package>
+</packages>
+<symbols>
+<symbol name="LDCL015">
+<wire x1="-7.62" y1="5.08" x2="-7.62" y2="-5.08" width="0.254" layer="94"/>
+<wire x1="-7.62" y1="-5.08" x2="10.16" y2="-5.08" width="0.254" layer="94"/>
+<wire x1="10.16" y1="-5.08" x2="10.16" y2="5.08" width="0.254" layer="94"/>
+<wire x1="10.16" y1="5.08" x2="-7.62" y2="5.08" width="0.254" layer="94"/>
+<pin name="VIN" x="-10.16" y="2.54" length="short"/>
+<pin name="ENA" x="-10.16" y="0" length="short"/>
+<pin name="ADJ/NC" x="0" y="7.62" length="short" rot="R270"/>
+<pin name="GND" x="5.08" y="-7.62" length="short" rot="R90"/>
+<pin name="OUT" x="12.7" y="2.54" length="short" rot="R180"/>
+</symbol>
+</symbols>
+<devicesets>
+<deviceset name="LDCL015">
+<gates>
+<gate name="G$1" symbol="LDCL015" x="0" y="0"/>
+</gates>
+<devices>
+<device name="" package="SOT23-5">
+<connects>
+<connect gate="G$1" pin="ADJ/NC" pad="4"/>
+<connect gate="G$1" pin="ENA" pad="3"/>
+<connect gate="G$1" pin="GND" pad="2"/>
+<connect gate="G$1" pin="OUT" pad="5"/>
+<connect gate="G$1" pin="VIN" pad="1"/>
+</connects>
+<technologies>
+<technology name=""/>
+</technologies>
+</device>
+</devices>
+</deviceset>
+</devicesets>
+</library>
 </libraries>
 <attributes>
 </attributes>
@@ -9945,6 +10005,10 @@ You are welcome to use this library for commercial purposes. For attribution, we
 <part name="R4" library="SparkFun" deviceset="RESISTOR-ARRAY" device="0603-ARV" value="150Ω"/>
 <part name="LED5" library="SparkFun" deviceset="LED" device="0603"/>
 <part name="SUPPLY12" library="supply2" deviceset="GND" device=""/>
+<part name="U$4" library="LDCL015" deviceset="LDCL015" device=""/>
+<part name="SUPPLY27" library="supply2" deviceset="GND" device=""/>
+<part name="+3V19" library="supply1" deviceset="+3V3" device=""/>
+<part name="P+4" library="supply1" deviceset="+5V" device=""/>
 </parts>
 <sheets>
 <sheet>
@@ -10016,6 +10080,10 @@ You are welcome to use this library for commercial purposes. For attribution, we
 <instance part="R4" gate="D" x="152.4" y="142.24"/>
 <instance part="LED5" gate="G$1" x="129.54" y="152.4" rot="R90"/>
 <instance part="SUPPLY12" gate="GND" x="160.02" y="152.4" rot="R90"/>
+<instance part="U$4" gate="G$1" x="144.78" y="-38.1"/>
+<instance part="SUPPLY27" gate="GND" x="149.86" y="-48.26" rot="MR0"/>
+<instance part="+3V19" gate="G$1" x="157.48" y="-25.4"/>
+<instance part="P+4" gate="1" x="127" y="-25.4"/>
 </instances>
 <busses>
 </busses>
@@ -10126,6 +10194,10 @@ You are welcome to use this library for commercial purposes. For attribution, we
 <pinref part="X3" gate="-1" pin="1"/>
 <pinref part="SUPPLY7" gate="GND" pin="GND"/>
 <wire x1="106.68" y1="125.73" x2="100.33" y2="125.73" width="0.1524" layer="91"/>
+</segment>
+<segment>
+<pinref part="U$4" gate="G$1" pin="GND"/>
+<pinref part="SUPPLY27" gate="GND" pin="GND"/>
 </segment>
 </net>
 <net name="SDA" class="0">
@@ -10310,6 +10382,11 @@ You are welcome to use this library for commercial purposes. For attribution, we
 <pinref part="CN1" gate="G$1" pin="3"/>
 <wire x1="76.2" y1="-77.47" x2="68.58" y2="-77.47" width="0.1524" layer="91"/>
 <pinref part="+3V7" gate="G$1" pin="+3V3"/>
+</segment>
+<segment>
+<pinref part="U$4" gate="G$1" pin="OUT"/>
+<pinref part="+3V19" gate="G$1" pin="+3V3"/>
+<wire x1="157.48" y1="-27.94" x2="157.48" y2="-35.56" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="ADCENA" class="0">
@@ -10565,6 +10642,15 @@ You are welcome to use this library for commercial purposes. For attribution, we
 <wire x1="76.2" y1="-48.26" x2="68.58" y2="-48.26" width="0.1524" layer="91"/>
 <pinref part="P+3" gate="1" pin="+5V"/>
 <pinref part="J3" gate="G$1" pin="VBUS"/>
+</segment>
+<segment>
+<pinref part="P+4" gate="1" pin="+5V"/>
+<pinref part="U$4" gate="G$1" pin="VIN"/>
+<wire x1="127" y1="-27.94" x2="127" y2="-35.56" width="0.1524" layer="91"/>
+<wire x1="127" y1="-35.56" x2="134.62" y2="-35.56" width="0.1524" layer="91"/>
+<pinref part="U$4" gate="G$1" pin="ENA"/>
+<wire x1="134.62" y1="-38.1" x2="134.62" y2="-35.56" width="0.1524" layer="91"/>
+<junction x="134.62" y="-35.56"/>
 </segment>
 </net>
 <net name="N$7" class="0">
