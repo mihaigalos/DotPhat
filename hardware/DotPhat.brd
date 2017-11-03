@@ -161,7 +161,7 @@
 <wire x1="0" y1="65" x2="0" y2="0" width="0" layer="20"/>
 <text x="11.4" y="0.3222" size="1.016" layer="21" rot="R90">MOSI</text>
 <text x="28.2" y="0.5" size="1.016" layer="21" rot="R90">GND</text>
-<text x="13.8" y="43.9" size="0.8128" layer="21">DotPhat v0.1.4</text>
+<text x="13.8" y="43.9" size="0.8128" layer="21">DotPhat v0.1.5</text>
 <text x="15.3" y="42.4" size="0.8128" layer="21">11.2017</text>
 <rectangle x1="14" y1="28.7" x2="19.8" y2="34.9" layer="43"/>
 <rectangle x1="24.2" y1="20" x2="30" y2="49.9" layer="41"/>
