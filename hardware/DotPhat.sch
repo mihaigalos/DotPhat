@@ -17820,6 +17820,92 @@ Source: http://www.diodes.com/datasheets/ds23001.pdf</description>
 </deviceset>
 </devicesets>
 </library>
+<library name="CAT24M01YI">
+<packages>
+<package name="TSSOP8">
+<description>&lt;b&gt;Thin Shrink Small Outline Package&lt;/b&gt;&lt;p&gt;
+package type ST</description>
+<wire x1="2.15" y1="2.67" x2="-2.15" y2="2.67" width="0.2032" layer="21"/>
+<wire x1="-2.15" y1="2.67" x2="-2.15" y2="-0.13" width="0.2032" layer="21"/>
+<wire x1="-2.15" y1="-0.13" x2="2.15" y2="-0.13" width="0.2032" layer="21"/>
+<wire x1="2.15" y1="-0.13" x2="2.15" y2="2.67" width="0.2032" layer="21"/>
+<circle x="-2.185" y="3.16" radius="0.325" width="0" layer="21"/>
+<smd name="SDA" x="2.925" y="0.295" dx="0.35" dy="1.2" layer="1" rot="R90"/>
+<smd name="SCL" x="2.925" y="0.945" dx="0.35" dy="1.2" layer="1" rot="R90"/>
+<smd name="WP" x="2.925" y="1.595" dx="0.35" dy="1.2" layer="1" rot="R90"/>
+<smd name="VCC" x="2.925" y="2.245" dx="0.35" dy="1.2" layer="1" rot="R90"/>
+<smd name="NC" x="-2.925" y="2.245" dx="0.35" dy="1.2" layer="1" rot="R90"/>
+<smd name="A1" x="-2.925" y="1.595" dx="0.35" dy="1.2" layer="1" rot="R90"/>
+<smd name="A2" x="-2.925" y="0.945" dx="0.35" dy="1.2" layer="1" rot="R90"/>
+<smd name="GND" x="-2.925" y="0.295" dx="0.35" dy="1.2" layer="1" rot="R90"/>
+<text x="2.925" y="-0.355" size="1.27" layer="25" rot="R180">&gt;NAME</text>
+<text x="3.25" y="4.195" size="1.27" layer="27" rot="R180">&gt;VALUE</text>
+<rectangle x1="2.575" y1="-0.205" x2="2.825" y2="0.795" layer="51" rot="R90"/>
+<rectangle x1="2.575" y1="0.445" x2="2.825" y2="1.445" layer="51" rot="R90"/>
+<rectangle x1="2.575" y1="1.095" x2="2.825" y2="2.095" layer="51" rot="R90"/>
+<rectangle x1="2.575" y1="1.745" x2="2.825" y2="2.745" layer="51" rot="R90"/>
+<rectangle x1="-2.825" y1="1.745" x2="-2.575" y2="2.745" layer="51" rot="R90"/>
+<rectangle x1="-2.825" y1="1.095" x2="-2.575" y2="2.095" layer="51" rot="R90"/>
+<rectangle x1="-2.825" y1="0.445" x2="-2.575" y2="1.445" layer="51" rot="R90"/>
+<rectangle x1="-2.825" y1="-0.205" x2="-2.575" y2="0.795" layer="51" rot="R90"/>
+</package>
+</packages>
+<symbols>
+<symbol name="SERIALEEPROM">
+<wire x1="-10.16" y1="7.62" x2="12.7" y2="7.62" width="0.254" layer="94"/>
+<wire x1="12.7" y1="7.62" x2="12.7" y2="-7.62" width="0.254" layer="94"/>
+<wire x1="12.7" y1="-7.62" x2="-10.16" y2="-7.62" width="0.254" layer="94"/>
+<wire x1="-10.16" y1="-7.62" x2="-10.16" y2="7.62" width="0.254" layer="94"/>
+<wire x1="-2.54" y1="6.35" x2="4.826" y2="6.35" width="0.1524" layer="94"/>
+<wire x1="4.826" y1="6.35" x2="4.826" y2="-6.604" width="0.1524" layer="94"/>
+<wire x1="4.826" y1="-6.604" x2="-1.016" y2="-6.604" width="0.1524" layer="94"/>
+<wire x1="-1.016" y1="-6.604" x2="-2.54" y2="-6.604" width="0.1524" layer="94"/>
+<wire x1="-2.54" y1="-6.604" x2="-2.54" y2="1.016" width="0.1524" layer="94"/>
+<wire x1="-2.54" y1="1.016" x2="-2.54" y2="6.35" width="0.1524" layer="94"/>
+<wire x1="-2.54" y1="1.016" x2="-1.016" y2="1.016" width="0.1524" layer="94"/>
+<wire x1="-1.016" y1="1.016" x2="-1.016" y2="-6.604" width="0.1524" layer="94"/>
+<text x="3.81" y="-4.826" size="1.778" layer="94" rot="R90">Array</text>
+<text x="-10.16" y="8.89" size="1.778" layer="95">&gt;NAME</text>
+<text x="-10.16" y="-10.16" size="1.778" layer="96">&gt;VALUE</text>
+<text x="1.524" y="-4.826" size="1.778" layer="94" rot="R90">EEPROM</text>
+<pin name="VCC" x="15.24" y="5.08" length="short" direction="pwr" rot="R180"/>
+<pin name="GND" x="15.24" y="-5.08" length="short" direction="pwr" rot="R180"/>
+<pin name="SCL" x="-12.7" y="2.54" length="short" direction="in"/>
+<pin name="SDA" x="-12.7" y="5.08" length="short"/>
+<pin name="A1" x="-12.7" y="-2.54" length="short"/>
+<pin name="A2" x="-12.7" y="-5.08" length="short"/>
+<pin name="WP" x="15.24" y="0" length="short" rot="R180"/>
+</symbol>
+</symbols>
+<devicesets>
+<deviceset name="CAT24M01" prefix="IC">
+<description>Serial &lt;B&gt;EEPROM&lt;/B&gt;&lt;p&gt;
+1Mb, I2C</description>
+<gates>
+<gate name="G$1" symbol="SERIALEEPROM" x="0" y="0"/>
+</gates>
+<devices>
+<device name="TS" package="TSSOP8">
+<connects>
+<connect gate="G$1" pin="A1" pad="A1"/>
+<connect gate="G$1" pin="A2" pad="A2"/>
+<connect gate="G$1" pin="GND" pad="GND NC"/>
+<connect gate="G$1" pin="SCL" pad="SCL"/>
+<connect gate="G$1" pin="SDA" pad="SDA"/>
+<connect gate="G$1" pin="VCC" pad="VCC"/>
+<connect gate="G$1" pin="WP" pad="WP"/>
+</connects>
+<technologies>
+<technology name="0">
+<attribute name="MF" value="On Semiconductor" constant="no"/>
+<attribute name="MPN" value="24C00T-E/ST" constant="no"/>
+</technology>
+</technologies>
+</device>
+</devices>
+</deviceset>
+</devicesets>
+</library>
 </libraries>
 <attributes>
 </attributes>
@@ -17897,6 +17983,9 @@ Source: http://www.diodes.com/datasheets/ds23001.pdf</description>
 <part name="R3" library="rcl" deviceset="R-EU_" device="R0603"/>
 <part name="R5" library="rcl" deviceset="R-EU_" device="R0603"/>
 <part name="P+5" library="supply1" deviceset="+5V" device=""/>
+<part name="SUPPLY16" library="supply2" deviceset="GND" device=""/>
+<part name="IC1" library="CAT24M01YI" deviceset="CAT24M01" device="TS" technology="0"/>
+<part name="+3V9" library="supply1" deviceset="+3V3" device=""/>
 </parts>
 <sheets>
 <sheet>
@@ -17990,6 +18079,9 @@ Source: http://www.diodes.com/datasheets/ds23001.pdf</description>
 <instance part="R3" gate="G$1" x="261.62" y="-58.42"/>
 <instance part="R5" gate="G$1" x="271.78" y="-45.72" rot="R90"/>
 <instance part="P+5" gate="1" x="271.78" y="-38.1"/>
+<instance part="SUPPLY16" gate="GND" x="111.76" y="-170.18"/>
+<instance part="IC1" gate="G$1" x="93.98" y="-162.56"/>
+<instance part="+3V9" gate="G$1" x="111.76" y="-147.32"/>
 </instances>
 <busses>
 </busses>
@@ -18130,6 +18222,11 @@ Source: http://www.diodes.com/datasheets/ds23001.pdf</description>
 <wire x1="236.22" y1="-71.12" x2="236.22" y2="-76.2" width="0.1524" layer="91"/>
 <junction x="236.22" y="-71.12"/>
 </segment>
+<segment>
+<pinref part="IC1" gate="G$1" pin="GND"/>
+<pinref part="SUPPLY16" gate="GND" pin="GND"/>
+<wire x1="109.22" y1="-167.64" x2="111.76" y2="-167.64" width="0.1524" layer="91"/>
+</segment>
 </net>
 <net name="SDA" class="0">
 <segment>
@@ -18156,6 +18253,11 @@ Source: http://www.diodes.com/datasheets/ds23001.pdf</description>
 <pinref part="U2" gate="G$1" pin="SDA"/>
 <wire x1="238.76" y1="12.7" x2="241.3" y2="12.7" width="0.1524" layer="91"/>
 <label x="241.3" y="12.7" size="1.27" layer="95" xref="yes"/>
+</segment>
+<segment>
+<wire x1="81.28" y1="-157.48" x2="78.74" y2="-157.48" width="0.1524" layer="91"/>
+<label x="78.74" y="-157.48" size="1.27" layer="95" rot="R180" xref="yes"/>
+<pinref part="IC1" gate="G$1" pin="SDA"/>
 </segment>
 </net>
 <net name="RST" class="0">
@@ -18347,6 +18449,12 @@ Source: http://www.diodes.com/datasheets/ds23001.pdf</description>
 <pinref part="+3V12" gate="G$1" pin="+3V3"/>
 <pinref part="JP2" gate="G$1" pin="1"/>
 </segment>
+<segment>
+<wire x1="111.76" y1="-149.86" x2="111.76" y2="-157.48" width="0.1524" layer="91"/>
+<pinref part="IC1" gate="G$1" pin="VCC"/>
+<wire x1="111.76" y1="-157.48" x2="109.22" y2="-157.48" width="0.1524" layer="91"/>
+<pinref part="+3V9" gate="G$1" pin="+3V3"/>
+</segment>
 </net>
 <net name="ADCENA" class="0">
 <segment>
@@ -18448,6 +18556,11 @@ Source: http://www.diodes.com/datasheets/ds23001.pdf</description>
 <pinref part="U2" gate="G$1" pin="SCL"/>
 <wire x1="238.76" y1="10.16" x2="241.3" y2="10.16" width="0.1524" layer="91"/>
 <label x="241.3" y="10.16" size="1.27" layer="95" xref="yes"/>
+</segment>
+<segment>
+<pinref part="IC1" gate="G$1" pin="SCL"/>
+<wire x1="81.28" y1="-160.02" x2="78.74" y2="-160.02" width="0.1524" layer="91"/>
+<label x="78.74" y="-160.02" size="1.27" layer="95" rot="R180" xref="yes"/>
 </segment>
 </net>
 <net name="PUSH" class="0">
