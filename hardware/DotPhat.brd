@@ -155,8 +155,8 @@
 </layers>
 <board>
 <plain>
-<text x="11.4" y="0.3222" size="1.016" layer="21" rot="R90">MOSI</text>
-<text x="28.2" y="0.5" size="1.016" layer="21" rot="R90">GND</text>
+<text x="11.355296875" y="0.44234375" size="0.8128" layer="21" rot="R90">MOSI</text>
+<text x="27.99045" y="0.7514625" size="0.8128" layer="21" rot="R90">GND</text>
 <text x="13.8" y="43.9" size="0.8128" layer="21">DotPhat v0.1.6</text>
 <text x="15.3" y="42.4" size="0.8128" layer="21">11.2017</text>
 <rectangle x1="14" y1="28.7" x2="19.8" y2="34.9" layer="43"/>
@@ -1692,8 +1692,8 @@
 <text x="8.770875" y="58.335671875" size="1.016" layer="21" rot="R90">On</text>
 <rectangle x1="25.2222" y1="44.1198" x2="29.1846" y2="45.4914" layer="1"/>
 <rectangle x1="25.2222" y1="44.1198" x2="29.1846" y2="45.4914" layer="29"/>
-<text x="11.260328125" y="7.857490625" size="1.016" layer="21" rot="R180">SDA</text>
-<text x="11.3339875" y="19.922234375" size="1.016" layer="21" rot="R180">GND</text>
+<text x="11.04239375" y="7.958075" size="0.8128" layer="21" rot="R180">SDA</text>
+<text x="11.116053125" y="19.838415625" size="0.8128" layer="21" rot="R180">GND</text>
 <text x="22.352" y="26.543" size="1.016" layer="21" rot="R90">Radio</text>
 <text x="28.1628" y="31.9434" size="0.8128" layer="21" rot="R270">868Mhz</text>
 <text x="26.929" y="31.9234" size="0.8128" layer="21" rot="R270">915Mhz</text>
