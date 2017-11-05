@@ -1694,7 +1694,7 @@
 <rectangle x1="25.2222" y1="44.1198" x2="29.1846" y2="45.4914" layer="29"/>
 <text x="11.04239375" y="7.958075" size="0.8128" layer="21" rot="R180">SDA</text>
 <text x="11.116053125" y="19.838415625" size="0.8128" layer="21" rot="R180">GND</text>
-<text x="22.352" y="26.543" size="1.016" layer="21" rot="R90">Radio</text>
+<text x="21.86305" y="27.7360375" size="0.8128" layer="21" rot="R90">Radio</text>
 <text x="28.1628" y="31.9434" size="0.8128" layer="21" rot="R270">868Mhz</text>
 <text x="26.929" y="31.9234" size="0.8128" layer="21" rot="R270">915Mhz</text>
 <rectangle x1="26.8928" y1="26.2318" x2="27.8326" y2="27.1208" layer="21" rot="R180"/>
@@ -4928,6 +4928,44 @@ package type ST</description>
 </package>
 </packages>
 </library>
+<library name="SparkFun-IC-Special-Function">
+<description>&lt;h3&gt;SparkFun Special Function ICs&lt;/h3&gt;
+This library contains ICs that do not really fit into the other, more generic categories.  Basically, anything that serves some function but has a bunch of brains or special bias circuitry that prevents it from being used as a general part qualifies for this category.
+&lt;p&gt;Contents:
+&lt;ul&gt;&lt;li&gt;555 timers&lt;/li&gt;
+&lt;li&gt;LED drivers&lt;/li&gt;
+&lt;li&gt;H-Bridge drivers&lt;/li&gt;
+&lt;li&gt;Motor drivers&lt;/li&gt;
+&lt;li&gt;Waveform generators&lt;/li&gt;
+&lt;li&gt;Crypto&lt;/li&gt;
+&lt;/ul&gt;&lt;/p&gt;&lt;br&gt;
+We've spent an enormous amount of time creating and checking these footprints and parts, but it is &lt;b&gt; the end user's responsibility&lt;/b&gt; to ensure correctness and suitablity for a given componet or application. 
+&lt;br&gt;
+&lt;br&gt;If you enjoy using this library, please buy one of our products at &lt;a href=" www.sparkfun.com"&gt;SparkFun.com&lt;/a&gt;.
+&lt;br&gt;
+&lt;br&gt;
+&lt;b&gt;Licensing:&lt;/b&gt; Creative Commons ShareAlike 4.0 International - https://creativecommons.org/licenses/by-sa/4.0/ 
+&lt;br&gt;
+&lt;br&gt;
+You are welcome to use this library for commercial purposes. For attribution, we ask that when you begin to sell your device using our footprint, you email us with a link to the product being sold. We want bragging rights that we helped (in a very small part) to create your 8th world wonder. We would like the opportunity to feature your device on our homepage.</description>
+<packages>
+<package name="SOT23-3">
+<wire x1="1.4224" y1="0.6604" x2="1.4224" y2="-0.6604" width="0.1524" layer="51"/>
+<wire x1="1.4224" y1="-0.6604" x2="-1.4224" y2="-0.6604" width="0.1524" layer="51"/>
+<wire x1="-1.4224" y1="-0.6604" x2="-1.4224" y2="0.6604" width="0.1524" layer="51"/>
+<wire x1="-1.4224" y1="0.6604" x2="1.4224" y2="0.6604" width="0.1524" layer="51"/>
+<wire x1="-0.8" y1="0.7" x2="-1.4" y2="0.7" width="0.2032" layer="21"/>
+<wire x1="-1.4" y1="0.7" x2="-1.4" y2="-0.1" width="0.2032" layer="21"/>
+<wire x1="0.8" y1="0.7" x2="1.4" y2="0.7" width="0.2032" layer="21"/>
+<wire x1="1.4" y1="0.7" x2="1.4" y2="-0.1" width="0.2032" layer="21"/>
+<smd name="3" x="0" y="1.1" dx="0.8" dy="0.9" layer="1"/>
+<smd name="2" x="0.95" y="-1" dx="0.8" dy="0.9" layer="1"/>
+<smd name="1" x="-0.95" y="-1" dx="0.8" dy="0.9" layer="1"/>
+<text x="-1.905" y="0" size="0.6096" layer="25" font="vector" ratio="20" rot="R90" align="bottom-center">&gt;NAME</text>
+<text x="2.54" y="0" size="0.6096" layer="27" font="vector" ratio="20" rot="R90" align="bottom-center">&gt;VALUE</text>
+</package>
+</packages>
+</library>
 </libraries>
 <attributes>
 </attributes>
@@ -5165,6 +5203,9 @@ design rules under a new name.</description>
 <attribute name="MF" value="On Semiconductor" x="-0.20116875" y="59.9396875" size="1.778" layer="27" display="off"/>
 <attribute name="MPN" value="24C00T-E/ST" x="-0.20116875" y="59.9396875" size="1.778" layer="27" display="off"/>
 </element>
+<element name="U3" library="SparkFun-IC-Special-Function" package="SOT23-3" value="ATSHA204-TSU" x="22.748746875" y="26.55138125">
+<attribute name="PROD_ID" value="IC-11208" x="22.748746875" y="26.55138125" size="1.778" layer="27" display="off"/>
+</element>
 </elements>
 <signals>
 <signal name="GND">
@@ -5245,8 +5286,8 @@ design rules under a new name.</description>
 <via x="28.9" y="4.9" extent="1-16" drill="0.3"/>
 <via x="28.9" y="2.8" extent="1-16" drill="0.3"/>
 <via x="28.9" y="0.8" extent="1-16" drill="0.3"/>
-<via x="23.6" y="24.5" extent="1-16" drill="0.3"/>
-<via x="23.6" y="26.7" extent="1-16" drill="0.3"/>
+<via x="23.66985" y="24.259715625" extent="1-16" drill="0.3"/>
+<via x="23.706171875" y="26.990575" extent="1-16" drill="0.3"/>
 <via x="23.6" y="28.6" extent="1-16" drill="0.3"/>
 <via x="23.6" y="30.4" extent="1-16" drill="0.3"/>
 <via x="23.6" y="32.5" extent="1-16" drill="0.3"/>
@@ -5377,7 +5418,7 @@ design rules under a new name.</description>
 <contactref element="IC1" pad="GND"/>
 <via x="11.012215625" y="59.892821875" extent="1-16" drill="0.3"/>
 <via x="6.79510625" y="56.03326875" extent="1-16" drill="0.3"/>
-<wire x1="12.559509375" y1="34.086125" x2="13.2" y2="35.6" width="0" layer="19" extent="1-1"/>
+<contactref element="U3" pad="3"/>
 <wire x1="18.34" y1="25.884" x2="19.20955" y2="24.900128125" width="0" layer="19" extent="1-1"/>
 </signal>
 <signal name="SDA">
@@ -5502,8 +5543,6 @@ design rules under a new name.</description>
 </signal>
 <signal name="LED">
 <contactref element="U1" pad="12"/>
-<wire x1="19.89734375" y1="31.770571875" x2="19.44014375" y2="31.770571875" width="0.1524" layer="1"/>
-<wire x1="21.4884" y1="33.3756" x2="19.89734375" y2="31.770571875" width="0.1524" layer="1"/>
 <wire x1="21.4884" y1="37.6428" x2="21.4884" y2="33.3756" width="0.1524" layer="1"/>
 <wire x1="20.8788" y1="38.2524" x2="21.4884" y2="37.6428" width="0.1524" layer="1"/>
 <wire x1="20.2692" y1="38.2524" x2="20.8788" y2="38.2524" width="0.1524" layer="1"/>
@@ -5520,6 +5559,12 @@ design rules under a new name.</description>
 <wire x1="21.209" y1="40.64" x2="20.0914" y2="40.64" width="0.1524" layer="1"/>
 <wire x1="20.0914" y1="40.64" x2="19.8944" y2="40.443" width="0.1524" layer="1"/>
 <wire x1="19.8944" y1="40.443" x2="19.8944" y2="40.1674" width="0.1524" layer="1"/>
+<wire x1="21.4884" y1="33.3756" x2="21.139403125" y2="33.026603125" width="0.1524" layer="1"/>
+<wire x1="21.139403125" y1="33.026603125" x2="21.139403125" y2="32.04718125" width="0.1524" layer="1"/>
+<wire x1="21.139403125" y1="32.04718125" x2="21.0192625" y2="31.915865625" width="0.1524" layer="1"/>
+<wire x1="21.0192625" y1="31.915865625" x2="20.602959375" y2="31.9158625" width="0.1524" layer="1"/>
+<wire x1="20.602959375" y1="31.9158625" x2="20.4241375" y2="31.770571875" width="0.1524" layer="1"/>
+<wire x1="20.4241375" y1="31.770571875" x2="19.44014375" y2="31.770571875" width="0.1524" layer="1"/>
 </signal>
 <signal name="LIGHT_SENSE">
 <contactref element="U1" pad="22"/>
@@ -5753,7 +5798,8 @@ design rules under a new name.</description>
 <wire x1="18.45436875" y1="24.536909375" x2="18.747740625" y2="24.2435375" width="0.1524" layer="1"/>
 <wire x1="18.747740625" y1="24.2435375" x2="20.792946875" y2="24.2435375" width="0.1524" layer="1"/>
 <wire x1="20.792946875" y1="24.2435375" x2="21.871684375" y2="23.1648" width="0.1524" layer="1"/>
-<wire x1="21.871684375" y1="23.1648" x2="22.86" y2="23.1648" width="0.1524" layer="1"/>
+<wire x1="21.871684375" y1="23.1648" x2="22.7180125" y2="23.1648" width="0.1524" layer="1"/>
+<wire x1="22.7180125" y1="23.1648" x2="22.86" y2="23.1648" width="0.1524" layer="1"/>
 <wire x1="7.9248" y1="25.57348125" x2="7.9248" y2="20.062696875" width="0.1524" layer="1"/>
 <wire x1="7.9248" y1="20.062696875" x2="8.831834375" y2="19.1556625" width="0.1524" layer="1"/>
 <wire x1="8.831834375" y1="19.1556625" x2="12.4754625" y2="19.1556625" width="0.1524" layer="1"/>
@@ -5778,9 +5824,27 @@ design rules under a new name.</description>
 <via x="9.26490625" y="59.71336875" extent="1-16" drill="0.3"/>
 <wire x1="9.26490625" y1="59.71336875" x2="8.343165625" y2="60.450703125" width="0.1524" layer="1"/>
 <wire x1="8.343165625" y1="60.450703125" x2="8.343165625" y2="60.967659375" width="0.1524" layer="1"/>
+<contactref element="U3" pad="2"/>
+<wire x1="23.698746875" y1="25.55138125" x2="23.131775" y2="25.55138125" width="0.1524" layer="1"/>
+<wire x1="23.131775" y1="25.55138125" x2="22.7878625" y2="25.20746875" width="0.1524" layer="1"/>
+<wire x1="22.7878625" y1="25.20746875" x2="22.7878625" y2="23.23465" width="0.1524" layer="1"/>
+<wire x1="22.7878625" y1="23.23465" x2="22.7180125" y2="23.1648" width="0.1524" layer="1"/>
 </signal>
 <signal name="ADCENA">
 <contactref element="U1" pad="13"/>
+<contactref element="U3" pad="1"/>
+<wire x1="19.37" y1="32.25" x2="20.216240625" y2="32.25" width="0.1524" layer="1"/>
+<wire x1="20.216240625" y1="32.25" x2="20.54986875" y2="32.5026" width="0.1524" layer="1"/>
+<via x="20.54986875" y="32.5026" extent="1-16" drill="0.3"/>
+<wire x1="20.54986875" y1="32.5026" x2="20.61413125" y2="32.5026" width="0.1524" layer="16"/>
+<wire x1="21.798746875" y1="25.55138125" x2="21.770846875" y2="25.55138125" width="0.1524" layer="1"/>
+<wire x1="21.770846875" y1="25.55138125" x2="21.770846875" y2="28.635703125" width="0.1524" layer="1"/>
+<wire x1="21.770846875" y1="28.635703125" x2="22.581109375" y2="29.445965625" width="0.1524" layer="1"/>
+<via x="22.581109375" y="29.445965625" extent="1-16" drill="0.3"/>
+<wire x1="22.581109375" y1="29.445965625" x2="22.581109375" y2="33.173159375" width="0.1524" layer="16"/>
+<wire x1="22.581109375" y1="33.173159375" x2="22.2877375" y2="33.46653125" width="0.1524" layer="16"/>
+<wire x1="22.2877375" y1="33.46653125" x2="21.5138" y2="33.46653125" width="0.1524" layer="16"/>
+<wire x1="21.5138" y1="33.46653125" x2="20.54986875" y2="32.5026" width="0.1524" layer="16"/>
 </signal>
 <signal name="MOSI">
 <contactref element="U1" pad="15"/>
@@ -6502,18 +6566,18 @@ design rules under a new name.</description>
 <approved hash="6,1,650427e40b262116"/>
 <approved hash="6,1,7ffe7f8e7fc67fb6"/>
 <approved hash="19,1,08e1bd38cebbb09d"/>
-<approved hash="19,16,fc4537f23668b839"/>
-<approved hash="19,16,0218c25a2f2723f8"/>
 <approved hash="19,16,9389875c9f0bce38"/>
 <approved hash="19,16,c881930ebd2ce9a3"/>
 <approved hash="19,16,7d1ef6015f9bc393"/>
+<approved hash="19,16,fc4537f23668b839"/>
+<approved hash="19,16,0218c25a2f2723f8"/>
 <approved hash="19,16,a9b43e52227fb599"/>
+<approved hash="19,16,75fd6b32dba910da"/>
+<approved hash="19,16,b373e59548220570"/>
+<approved hash="19,16,eba2b3ee9755fbea"/>
 <approved hash="19,16,1290de5849250446"/>
 <approved hash="19,16,b373e59548220570"/>
 <approved hash="19,16,18a8abd2423b6e60"/>
-<approved hash="19,16,eba2b3ee9755fbea"/>
-<approved hash="19,16,75fd6b32dba910da"/>
-<approved hash="19,16,b373e59548220570"/>
 <approved hash="19,16,eba2b3ee9755fbea"/>
 <approved hash="6,16,7282cbde4bd1f28d"/>
 <approved hash="6,16,8700e2e8e21387fb"/>
