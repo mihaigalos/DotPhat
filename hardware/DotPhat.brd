@@ -157,7 +157,7 @@
 <plain>
 <text x="11.355296875" y="0.44234375" size="0.8128" layer="21" rot="R90">MOSI</text>
 <text x="27.99045" y="0.7514625" size="0.8128" layer="21" rot="R90">GND</text>
-<text x="13.8" y="43.9" size="0.8128" layer="21">DotPhat v0.1.6</text>
+<text x="13.8" y="43.9" size="0.8128" layer="21">DotPhat v0.1.7</text>
 <text x="15.3" y="42.4" size="0.8128" layer="21">11.2017</text>
 <rectangle x1="14" y1="28.7" x2="19.8" y2="34.9" layer="43"/>
 <rectangle x1="24.2" y1="20" x2="30" y2="49.9" layer="41"/>
