@@ -18068,6 +18068,11 @@ You are welcome to use this library for commercial purposes. For attribution, we
 <part name="U3" library="SparkFun-IC-Special-Function" deviceset="ATSHA204" device="-TSU"/>
 <part name="+3V10" library="supply1" deviceset="+3V3" device=""/>
 <part name="SUPPLY18" library="supply2" deviceset="GND" device=""/>
+<part name="R6" library="rcl" deviceset="R-EU_" device="R0603"/>
+<part name="+3V13" library="supply1" deviceset="+3V3" device=""/>
+<part name="C2" library="rcl" deviceset="C-EU" device="C3216"/>
+<part name="+3V15" library="supply1" deviceset="+3V3" device=""/>
+<part name="SUPPLY20" library="supply2" deviceset="GND" device=""/>
 </parts>
 <sheets>
 <sheet>
@@ -18167,6 +18172,11 @@ You are welcome to use this library for commercial purposes. For attribution, we
 <instance part="U3" gate="G$1" x="144.78" y="-160.02"/>
 <instance part="+3V10" gate="G$1" x="157.48" y="-154.94"/>
 <instance part="SUPPLY18" gate="GND" x="157.48" y="-165.1"/>
+<instance part="R6" gate="G$1" x="132.08" y="-154.94" rot="R90"/>
+<instance part="+3V13" gate="G$1" x="132.08" y="-147.32"/>
+<instance part="C2" gate="G$1" x="142.24" y="-88.9" rot="R180"/>
+<instance part="+3V15" gate="G$1" x="142.24" y="-81.28"/>
+<instance part="SUPPLY20" gate="GND" x="142.24" y="-93.98"/>
 </instances>
 <busses>
 </busses>
@@ -18316,6 +18326,10 @@ You are welcome to use this library for commercial purposes. For attribution, we
 <pinref part="U3" gate="G$1" pin="GND"/>
 <wire x1="152.4" y1="-162.56" x2="157.48" y2="-162.56" width="0.1524" layer="91"/>
 <pinref part="SUPPLY18" gate="GND" pin="GND"/>
+</segment>
+<segment>
+<pinref part="C2" gate="G$1" pin="1"/>
+<pinref part="SUPPLY20" gate="GND" pin="GND"/>
 </segment>
 </net>
 <net name="SDA" class="0">
@@ -18534,6 +18548,14 @@ You are welcome to use this library for commercial purposes. For attribution, we
 <wire x1="152.4" y1="-157.48" x2="157.48" y2="-157.48" width="0.1524" layer="91"/>
 <pinref part="+3V10" gate="G$1" pin="+3V3"/>
 </segment>
+<segment>
+<pinref part="R6" gate="G$1" pin="2"/>
+<pinref part="+3V13" gate="G$1" pin="+3V3"/>
+</segment>
+<segment>
+<pinref part="C2" gate="G$1" pin="2"/>
+<pinref part="+3V15" gate="G$1" pin="+3V3"/>
+</segment>
 </net>
 <net name="ADCENA" class="0">
 <segment>
@@ -18543,8 +18565,11 @@ You are welcome to use this library for commercial purposes. For attribution, we
 </segment>
 <segment>
 <pinref part="U3" gate="G$1" pin="SDA"/>
-<wire x1="134.62" y1="-160.02" x2="129.54" y2="-160.02" width="0.1524" layer="91"/>
+<wire x1="134.62" y1="-160.02" x2="132.08" y2="-160.02" width="0.1524" layer="91"/>
 <label x="129.54" y="-160.02" size="1.27" layer="95" rot="R180" xref="yes"/>
+<pinref part="R6" gate="G$1" pin="1"/>
+<wire x1="132.08" y1="-160.02" x2="129.54" y2="-160.02" width="0.1524" layer="91"/>
+<junction x="132.08" y="-160.02"/>
 </segment>
 </net>
 <net name="MOSI" class="0">
