@@ -1,0 +1,2 @@
+*.sch diff=eagle-diff-git
+*.brd diff=eagle-diff-git
