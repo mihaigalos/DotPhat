@@ -1147,6 +1147,24 @@ RFM69CW</text>
 <smd name="4" x="3.81" y="0" dx="1.27" dy="2.54" layer="1"/>
 <smd name="1" x="-3.81" y="0" dx="1.27" dy="2.54" layer="1"/>
 </package>
+<package name="SMT-0540-S-R">
+<wire x1="2.5" y1="-2.5" x2="-2.5" y2="-2.5" width="0.127" layer="21"/>
+<wire x1="-2.5" y1="-2.5" x2="-2.5" y2="1" width="0.127" layer="21"/>
+<wire x1="-2.5" y1="1" x2="-2.5" y2="1.5" width="0.127" layer="21"/>
+<wire x1="-2.5" y1="1.5" x2="-1.5" y2="2.5" width="0.127" layer="21"/>
+<wire x1="-1.5" y1="2.5" x2="2.5" y2="2.5" width="0.127" layer="21"/>
+<wire x1="2.5" y1="2.5" x2="2.5" y2="-2.5" width="0.127" layer="21"/>
+<wire x1="-3.2" y1="0.8" x2="-3.2" y2="-0.7" width="0.127" layer="21" curve="93.949868"/>
+<wire x1="-2.9" y1="-0.4" x2="-2.9" y2="0.5" width="0.127" layer="21" curve="-104.250033"/>
+<wire x1="-2.7" y1="-0.1" x2="-2.7" y2="0.2" width="0.127" layer="21" curve="-106.260205"/>
+<wire x1="-2.5" y1="1" x2="-2.1" y2="0.7" width="0.127" layer="21" curve="-90"/>
+<wire x1="-2.1" y1="0.7" x2="-2.1" y2="-0.7" width="0.127" layer="21"/>
+<wire x1="-2.1" y1="-0.7" x2="-2.4" y2="-1" width="0.127" layer="21" curve="-90"/>
+<circle x="1.6" y="-1.3" radius="0.3162" width="0.127" layer="21"/>
+<smd name="-" x="1.7" y="2.7" dx="1" dy="1" layer="1"/>
+<smd name="M" x="-1.7" y="-2.7" dx="1" dy="1" layer="1"/>
+<smd name="+" x="1.7" y="-2.7" dx="1" dy="1" layer="1"/>
+</package>
 </packages>
 <symbols>
 <symbol name="U.FL">
@@ -1184,6 +1202,23 @@ RFM69CW</text>
 <pin name="2" x="-5.08" y="0" length="middle"/>
 <pin name="3" x="-5.08" y="-2.54" length="middle"/>
 <pin name="4" x="-5.08" y="-5.08" length="middle"/>
+</symbol>
+<symbol name="SP">
+<wire x1="-1.905" y1="-0.635" x2="1.905" y2="-0.635" width="0.254" layer="94"/>
+<wire x1="1.905" y1="-0.635" x2="1.905" y2="0" width="0.254" layer="94"/>
+<wire x1="1.905" y1="2.54" x2="-1.905" y2="2.54" width="0.254" layer="94"/>
+<wire x1="-1.905" y1="-0.635" x2="-1.905" y2="0" width="0.254" layer="94"/>
+<wire x1="1.905" y1="2.54" x2="5.08" y2="5.08" width="0.254" layer="94"/>
+<wire x1="5.08" y1="5.08" x2="-5.08" y2="5.08" width="0.254" layer="94"/>
+<wire x1="-1.905" y1="2.54" x2="-5.08" y2="5.08" width="0.254" layer="94"/>
+<wire x1="2.54" y1="0" x2="1.905" y2="0" width="0.1524" layer="94"/>
+<wire x1="1.905" y1="0" x2="1.905" y2="2.54" width="0.254" layer="94"/>
+<wire x1="-2.54" y1="0" x2="-1.905" y2="0" width="0.1524" layer="94"/>
+<wire x1="-1.905" y1="0" x2="-1.905" y2="2.54" width="0.254" layer="94"/>
+<text x="-3.81" y="6.35" size="1.778" layer="95">&gt;NAME</text>
+<text x="-3.81" y="-3.175" size="1.778" layer="96">&gt;VALUE</text>
+<pin name="-" x="5.08" y="0" visible="off" length="short" direction="pas" rot="R180"/>
+<pin name="+" x="-5.08" y="0" visible="off" length="short" direction="pas"/>
 </symbol>
 </symbols>
 <devicesets>
@@ -1347,6 +1382,25 @@ RFM69CW</text>
 <connect gate="G$1" pin="2" pad="2"/>
 <connect gate="G$1" pin="3" pad="3"/>
 <connect gate="G$1" pin="4" pad="4"/>
+</connects>
+<technologies>
+<technology name=""/>
+</technologies>
+</device>
+</devices>
+</deviceset>
+<deviceset name="SMT-0540-S-R" prefix="SPK">
+<description>&lt;b&gt;SMT-0549-S-R&lt;/b&gt;
+&lt;P&gt;
+Small surface-mount magnetic buzzer</description>
+<gates>
+<gate name="G$1" symbol="SP" x="0" y="-2.54"/>
+</gates>
+<devices>
+<device name="" package="SMT-0540-S-R">
+<connects>
+<connect gate="G$1" pin="+" pad="-"/>
+<connect gate="G$1" pin="-" pad="+"/>
 </connects>
 <technologies>
 <technology name=""/>
@@ -2839,56 +2893,6 @@ Source: http://document.sharpsma.com/files/GM1WA55311A_SS.pdf</description>
 </connects>
 <technologies>
 <technology name=""/>
-</technologies>
-</device>
-</devices>
-</deviceset>
-</devicesets>
-</library>
-<library name="Seeed-OPL-Connector">
-<packages>
-<package name="BZ2-7.6-D12.0XH6.5MM">
-<circle x="0" y="0" radius="6" width="0.127" layer="21"/>
-<circle x="0" y="0" radius="1.3" width="0.127" layer="21"/>
-<pad name="+" x="-3.8" y="0" drill="0.9" diameter="1.5"/>
-<pad name="-" x="3.8" y="0" drill="0.9" diameter="1.5"/>
-<circle x="0" y="0" radius="6" width="0.127" layer="39"/>
-<text x="-1.905" y="6.35" size="0.889" layer="25" ratio="11">&gt;NAME</text>
-<text x="-1.905" y="-3.175" size="0.889" layer="27" ratio="11">&gt;VALUE</text>
-<wire x1="-4.445" y1="1.905" x2="-3.81" y2="1.905" width="0.254" layer="21"/>
-<wire x1="-3.175" y1="1.905" x2="-3.81" y2="1.905" width="0.254" layer="21"/>
-<wire x1="-3.81" y1="1.905" x2="-3.81" y2="2.54" width="0.254" layer="21"/>
-<wire x1="-3.81" y1="1.905" x2="-3.81" y2="1.27" width="0.254" layer="21"/>
-</package>
-</packages>
-<symbols>
-<symbol name="BUZZER">
-<pin name="+" x="-7.62" y="0" length="short"/>
-<pin name="-" x="7.62" y="0" length="short" rot="R180"/>
-<wire x1="-5.08" y1="0" x2="-3.683" y2="0" width="0.1524" layer="94"/>
-<wire x1="5.08" y1="0" x2="3.683" y2="0" width="0.1524" layer="94"/>
-<circle x="0" y="0" radius="3.5921" width="0.1524" layer="94"/>
-<text x="-7.62" y="3.81" size="1.27" layer="95" ratio="10">&gt;NAME</text>
-<text x="1.27" y="3.81" size="1.27" layer="96" ratio="10">&gt;VALUE</text>
-</symbol>
-</symbols>
-<devicesets>
-<deviceset name="DIP-BUZZER-3V(KS-12065D03YA)" prefix="BUZ" uservalue="yes">
-<description>312010004</description>
-<gates>
-<gate name="G$1" symbol="BUZZER" x="0" y="0"/>
-</gates>
-<devices>
-<device name="" package="BZ2-7.6-D12.0XH6.5MM">
-<connects>
-<connect gate="G$1" pin="+" pad="+"/>
-<connect gate="G$1" pin="-" pad="-"/>
-</connects>
-<technologies>
-<technology name="">
-<attribute name="MPN" value="KS-12065D03YA" constant="no"/>
-<attribute name="VALUE" value="KS-12065D03YA" constant="no"/>
-</technology>
 </technologies>
 </device>
 </devices>
@@ -18520,7 +18524,6 @@ You are welcome to use this library for commercial purposes. For attribution, we
 <part name="+3V14" library="supply1" deviceset="+3V3" device=""/>
 <part name="LED1" library="led" deviceset="GM1WA55311A" device=""/>
 <part name="J2" library="SparkFun-Connectors" deviceset="RASPBERRYPI-40-PIN-GPIO" device="_PTH"/>
-<part name="BUZ1" library="Seeed-OPL-Connector" deviceset="DIP-BUZZER-3V(KS-12065D03YA)" device="" value="KS-12065D03YA"/>
 <part name="LOGO1" library="Spark" deviceset="OSHW-LOGO" device="S"/>
 <part name="SUPPLY29" library="supply2" deviceset="GND" device=""/>
 <part name="+3V1" library="supply1" deviceset="+3V3" device=""/>
@@ -18590,6 +18593,8 @@ You are welcome to use this library for commercial purposes. For attribution, we
 <part name="SUPPLY26" library="supply2" deviceset="GND" device=""/>
 <part name="C8" library="rcl" deviceset="C-EU" device="C0402"/>
 <part name="C10" library="rcl" deviceset="C-EU" device="C0402"/>
+<part name="SPK1" library="adafruit" deviceset="SMT-0540-S-R" device=""/>
+<part name="SUPPLY22" library="supply2" deviceset="GND" device=""/>
 </parts>
 <sheets>
 <sheet>
@@ -18620,7 +18625,6 @@ You are welcome to use this library for commercial purposes. For attribution, we
 <instance part="+3V14" gate="G$1" x="-22.86" y="81.28"/>
 <instance part="LED1" gate="G$1" x="-22.86" y="73.66"/>
 <instance part="J2" gate="G$1" x="2.54" y="-30.48"/>
-<instance part="BUZ1" gate="G$1" x="-58.42" y="83.82"/>
 <instance part="LOGO1" gate="G$1" x="-22.86" y="104.14"/>
 <instance part="SUPPLY29" gate="GND" x="160.02" y="142.24" rot="R90"/>
 <instance part="+3V1" gate="G$1" x="115.57" y="142.24" rot="R90"/>
@@ -18702,6 +18706,8 @@ You are welcome to use this library for commercial purposes. For attribution, we
 <instance part="SUPPLY26" gate="GND" x="165.1" y="-124.46"/>
 <instance part="C8" gate="G$1" x="149.86" y="-114.3" rot="R90"/>
 <instance part="C10" gate="G$1" x="149.86" y="-129.54" rot="R90"/>
+<instance part="SPK1" gate="G$1" x="-73.66" y="63.5" rot="R90"/>
+<instance part="SUPPLY22" gate="GND" x="-73.66" y="53.34" rot="MR0"/>
 </instances>
 <busses>
 </busses>
@@ -18740,11 +18746,6 @@ You are welcome to use this library for commercial purposes. For attribution, we
 <segment>
 <pinref part="Y1" gate="G$1" pin="2"/>
 <pinref part="SUPPLY30" gate="GND" pin="GND"/>
-</segment>
-<segment>
-<pinref part="BUZ1" gate="G$1" pin="-"/>
-<wire x1="-50.8" y1="83.82" x2="-48.26" y2="83.82" width="0.1524" layer="91"/>
-<label x="-48.26" y="83.82" size="1.27" layer="95" xref="yes"/>
 </segment>
 <segment>
 <pinref part="R7" gate="A" pin="2"/>
@@ -18872,6 +18873,11 @@ You are welcome to use this library for commercial purposes. For attribution, we
 <junction x="154.94" y="-121.92"/>
 <pinref part="C8" gate="G$1" pin="2"/>
 <pinref part="C10" gate="G$1" pin="2"/>
+</segment>
+<segment>
+<pinref part="SPK1" gate="G$1" pin="+"/>
+<wire x1="-73.66" y1="58.42" x2="-73.66" y2="55.88" width="0.1524" layer="91"/>
+<pinref part="SUPPLY22" gate="GND" pin="GND"/>
 </segment>
 </net>
 <net name="SDA" class="0">
@@ -19272,9 +19278,9 @@ You are welcome to use this library for commercial purposes. For attribution, we
 <label x="78.74" y="60.96" size="1.27" layer="95" xref="yes"/>
 </segment>
 <segment>
-<pinref part="BUZ1" gate="G$1" pin="+"/>
-<wire x1="-66.04" y1="83.82" x2="-68.58" y2="83.82" width="0.1524" layer="91"/>
-<label x="-68.58" y="83.82" size="1.27" layer="95" rot="R180" xref="yes"/>
+<pinref part="SPK1" gate="G$1" pin="-"/>
+<wire x1="-73.66" y1="68.58" x2="-73.66" y2="76.2" width="0.1524" layer="91"/>
+<label x="-73.66" y="76.2" size="1.27" layer="95" xref="yes"/>
 </segment>
 </net>
 <net name="OUTA" class="0">

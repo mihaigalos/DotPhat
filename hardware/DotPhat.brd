@@ -1997,6 +1997,24 @@ Source: RS Components</description>
 <rectangle x1="2.286" y1="-0.254" x2="2.794" y2="0.254" layer="51"/>
 <rectangle x1="-0.254" y1="-0.254" x2="0.254" y2="0.254" layer="51"/>
 </package>
+<package name="SMT-0540-S-R">
+<wire x1="2.5" y1="-2.5" x2="-2.5" y2="-2.5" width="0.127" layer="21"/>
+<wire x1="-2.5" y1="-2.5" x2="-2.5" y2="1" width="0.127" layer="21"/>
+<wire x1="-2.5" y1="1" x2="-2.5" y2="1.5" width="0.127" layer="21"/>
+<wire x1="-2.5" y1="1.5" x2="-1.5" y2="2.5" width="0.127" layer="21"/>
+<wire x1="-1.5" y1="2.5" x2="2.5" y2="2.5" width="0.127" layer="21"/>
+<wire x1="2.5" y1="2.5" x2="2.5" y2="-2.5" width="0.127" layer="21"/>
+<wire x1="-3.2" y1="0.8" x2="-3.2" y2="-0.7" width="0.127" layer="21" curve="93.949868"/>
+<wire x1="-2.9" y1="-0.4" x2="-2.9" y2="0.5" width="0.127" layer="21" curve="-104.250033"/>
+<wire x1="-2.7" y1="-0.1" x2="-2.7" y2="0.2" width="0.127" layer="21" curve="-106.260205"/>
+<wire x1="-2.5" y1="1" x2="-2.1" y2="0.7" width="0.127" layer="21" curve="-90"/>
+<wire x1="-2.1" y1="0.7" x2="-2.1" y2="-0.7" width="0.127" layer="21"/>
+<wire x1="-2.1" y1="-0.7" x2="-2.4" y2="-1" width="0.127" layer="21" curve="-90"/>
+<circle x="1.6" y="-1.3" radius="0.3162" width="0.127" layer="21"/>
+<smd name="-" x="1.7" y="2.7" dx="1" dy="1" layer="1"/>
+<smd name="M" x="-1.7" y="-2.7" dx="1" dy="1" layer="1"/>
+<smd name="+" x="1.7" y="-2.7" dx="1" dy="1" layer="1"/>
+</package>
 </packages>
 </library>
 <library name="SparkFun-Clocks">
@@ -2490,23 +2508,6 @@ Source: http://document.sharpsma.com/files/GM1WA55311A_SS.pdf</description>
 <rectangle x1="0.175" y1="-1.45" x2="0.775" y2="-0.325" layer="31" rot="R180"/>
 <rectangle x1="-0.775" y1="-1.45" x2="-0.175" y2="-0.325" layer="31" rot="R180"/>
 <rectangle x1="-0.4" y1="0.25" x2="-0.25" y2="0.65" layer="51"/>
-</package>
-</packages>
-</library>
-<library name="Seeed-OPL-Connector">
-<packages>
-<package name="BZ2-7.6-D12.0XH6.5MM">
-<circle x="0" y="0" radius="6" width="0.127" layer="21"/>
-<circle x="0" y="0" radius="1.3" width="0.127" layer="21"/>
-<pad name="+" x="-3.8" y="0" drill="0.9" diameter="1.5"/>
-<pad name="-" x="3.8" y="0" drill="0.9" diameter="1.5"/>
-<circle x="0" y="0" radius="6" width="0.127" layer="39"/>
-<text x="-1.905" y="6.35" size="0.889" layer="25" ratio="11">&gt;NAME</text>
-<text x="-1.905" y="-3.175" size="0.889" layer="27" ratio="11">&gt;VALUE</text>
-<wire x1="-4.445" y1="1.905" x2="-3.81" y2="1.905" width="0.254" layer="21"/>
-<wire x1="-3.175" y1="1.905" x2="-3.81" y2="1.905" width="0.254" layer="21"/>
-<wire x1="-3.81" y1="1.905" x2="-3.81" y2="2.54" width="0.254" layer="21"/>
-<wire x1="-3.81" y1="1.905" x2="-3.81" y2="1.27" width="0.254" layer="21"/>
 </package>
 </packages>
 </library>
@@ -5207,9 +5208,6 @@ design rules under a new name.</description>
 <attribute name="SF_ID" value="PRT-13054" x="3.5" y="32.5" size="1.778" layer="27" rot="R180" display="off"/>
 <attribute name="PROD_ID" value="CONN-12263" x="3.5" y="32.5" size="1.778" layer="27" rot="R180" display="off"/>
 </element>
-<element name="BUZ1" library="Seeed-OPL-Connector" package="BZ2-7.6-D12.0XH6.5MM" value="KS-12065D03YA" x="16.4" y="51.4">
-<attribute name="MPN" value="KS-12065D03YA" x="16.4" y="51.4" size="1.778" layer="27" display="off"/>
-</element>
 <element name="LOGO1" library="Spark" package="OSHW-LOGO-S" value="OSHW-LOGOS" x="10.9" y="43.6"/>
 <element name="R7" library="SparkFun" package="0603-ARV" value="4.7kΩ" x="12.2" y="39.4" rot="R270"/>
 <element name="SW1" library="Seeed-OPL-Switch" package="SW2-4.0-6.0X3.0X2.5MM" value="" x="27" y="55.8" rot="R90"/>
@@ -5254,6 +5252,7 @@ design rules under a new name.</description>
 <element name="Y2" library="SparkFun-Clocks" package="CRYSTAL-SMD-3.2X1.5MM" value="" x="18.317465625" y="27.593546875" rot="R180"/>
 <element name="C8" library="rcl" package="C0402" value="" x="17.37588125" y="25.925521875"/>
 <element name="C10" library="rcl" package="C0402" value="" x="19.432271875" y="25.914353125" rot="R180"/>
+<element name="SPK1" library="adafruit" package="SMT-0540-S-R" value="SMT-0540-S-R" x="16.596359375" y="52.18633125" rot="R270"/>
 </elements>
 <signals>
 <signal name="GND">
@@ -5266,7 +5265,6 @@ design rules under a new name.</description>
 <contactref element="X1" pad="1"/>
 <contactref element="X1" pad="2"/>
 <contactref element="Y1" pad="2"/>
-<contactref element="BUZ1" pad="-"/>
 <contactref element="R7" pad="8"/>
 <contactref element="J2" pad="6"/>
 <contactref element="J2" pad="9"/>
@@ -5372,7 +5370,7 @@ design rules under a new name.</description>
 <via x="1.63365625" y="63.929865625" extent="1-16" drill="0.3"/>
 <via x="17.3" y="56.4" extent="1-16" drill="0.3"/>
 <via x="9.3" y="52.1556" extent="1-16" drill="0.3"/>
-<via x="13.1" y="49.6" extent="1-16" drill="0.3"/>
+<via x="12.926771875" y="49.06075625" extent="1-16" drill="0.3"/>
 <via x="16.5" y="49.9" extent="1-16" drill="0.3"/>
 <via x="11.520140625" y="29.9230625" extent="1-16" drill="0.3"/>
 <via x="10.823725" y="20.763553125" extent="1-16" drill="0.3"/>
@@ -5479,6 +5477,7 @@ design rules under a new name.</description>
 <wire x1="28.925146875" y1="24.278828125" x2="28.89720625" y2="22.9469875" width="0.8128" layer="1"/>
 <wire x1="28.89720625" y1="22.9469875" x2="28.484275" y2="22.910665625" width="0.8128" layer="1"/>
 <wire x1="28.484275" y1="20.160665625" x2="28.484275" y2="22.910665625" width="0.8128" layer="1"/>
+<contactref element="SPK1" pad="-"/>
 </signal>
 <signal name="SDA">
 <contactref element="U1" pad="27"/>
@@ -6265,7 +6264,6 @@ design rules under a new name.</description>
 </signal>
 <signal name="BUZZER">
 <contactref element="U1" pad="23"/>
-<contactref element="BUZ1" pad="+"/>
 <wire x1="15.5448" y1="35.5092" x2="15.5448" y2="34.5948" width="0.1524" layer="1"/>
 <wire x1="15.5448" y1="37.7952" x2="15.5448" y2="35.5092" width="0.1524" layer="16"/>
 <wire x1="14.1732" y1="39.1668" x2="15.5448" y2="37.7952" width="0.1524" layer="16"/>
@@ -6275,14 +6273,16 @@ design rules under a new name.</description>
 <wire x1="14.478" y1="40.5384" x2="14.478" y2="39.9288" width="0.1524" layer="1"/>
 <wire x1="14.1732" y1="40.8432" x2="14.478" y2="40.5384" width="0.1524" layer="1"/>
 <wire x1="14.1732" y1="40.9956" x2="14.1732" y2="40.8432" width="0.1524" layer="1"/>
-<wire x1="14.1732" y1="51.2588" x2="14.1732" y2="40.9956" width="0.1524" layer="16"/>
-<wire x1="14.0112" y1="51.4208" x2="14.1732" y2="51.2588" width="0.1524" layer="16"/>
-<wire x1="12.6112" y1="51.4304" x2="14.0112" y2="51.4208" width="0.1524" layer="16"/>
 <wire x1="15.5448" y1="34.5948" x2="15.62" y2="34.5" width="0.1524" layer="1"/>
-<wire x1="12.6112" y1="51.4304" x2="12.6" y2="51.4" width="0.1524" layer="16"/>
 <via x="15.5448" y="35.5092" extent="1-16" drill="0.3"/>
 <via x="14.1732" y="39.1668" extent="1-16" drill="0.3"/>
 <via x="14.1732" y="40.9956" extent="1-16" drill="0.3"/>
+<contactref element="SPK1" pad="+"/>
+<wire x1="14.1732" y1="40.9956" x2="14.18234375" y2="40.9956" width="0.1524" layer="16"/>
+<wire x1="14.18234375" y1="40.9956" x2="14.18234375" y2="48.378109375" width="0.1524" layer="16"/>
+<via x="14.18234375" y="48.378109375" extent="1-16" drill="0.3"/>
+<wire x1="14.18234375" y1="48.378109375" x2="13.896359375" y2="48.66409375" width="0.1524" layer="1"/>
+<wire x1="13.896359375" y1="48.66409375" x2="13.896359375" y2="50.48633125" width="0.1524" layer="1"/>
 </signal>
 <signal name="OUTA">
 <contactref element="U1" pad="14"/>
@@ -7030,8 +7030,8 @@ design rules under a new name.</description>
 <approved hash="19,1,685cabf31f9f94fd"/>
 <approved hash="19,1,b07fb1990ddd1b45"/>
 <approved hash="19,1,a9be2f48053c5e2e"/>
-<approved hash="19,1,37d3e82a893d2ca3"/>
 <approved hash="19,1,45da29bc29dd45bb"/>
+<approved hash="19,1,37d3e82a893d2ca3"/>
 <approved hash="19,1,078b36fb3d01f101"/>
 <approved hash="19,1,a6872499336f35a3"/>
 <approved hash="5,1,4ea9c08cb825d2da"/>
@@ -7039,8 +7039,8 @@ design rules under a new name.</description>
 <approved hash="19,1,d901cf875d70806b"/>
 <approved hash="19,1,a6325c490dda2160"/>
 <approved hash="19,1,12f49c6857fabd9d"/>
-<approved hash="19,1,f5216ed445ea0700"/>
 <approved hash="19,1,761637d879b99e89"/>
+<approved hash="19,1,f5216ed445ea0700"/>
 <approved hash="19,1,841a2ae90e7123a7"/>
 <approved hash="19,1,1d0c07f369bb0bfd"/>
 <approved hash="5,1,8b23f44398039ea3"/>
@@ -7048,35 +7048,36 @@ design rules under a new name.</description>
 <approved hash="19,1,5c27591fe8357cad"/>
 <approved hash="19,1,162e39cb45c0d891"/>
 <approved hash="19,1,e05253f76fa724f0"/>
-<approved hash="19,1,596d4c429e55793a"/>
 <approved hash="19,1,e613dab4ca181884"/>
+<approved hash="19,1,596d4c429e55793a"/>
 <approved hash="19,1,f7ea78263136f49d"/>
 <approved hash="19,1,d5dbf9bdf9e4d582"/>
 <approved hash="19,1,e0e106070603e0e5"/>
 <approved hash="19,1,0c271b999658a1e6"/>
 <approved hash="6,1,8990224e264e8d90"/>
-<approved hash="19,1,f28d37ded4d91972"/>
 <approved hash="19,1,6df4ba54a296582f"/>
+<approved hash="19,1,f28d37ded4d91972"/>
 <approved hash="5,1,9fb811b8760b368b"/>
-<approved hash="19,1,5b8c09b2e96f9848"/>
-<approved hash="19,1,2d5d3b3b11ea841c"/>
 <approved hash="5,1,3875dcf5794e3151"/>
-<approved hash="19,1,1f6d7dea7dc097e4"/>
+<approved hash="19,1,2d5d3b3b11ea841c"/>
+<approved hash="19,1,5b8c09b2e96f9848"/>
 <approved hash="19,1,489b35f25b3cbfe1"/>
+<approved hash="19,1,1f6d7dea7dc097e4"/>
 <approved hash="5,1,bcb93b8642e5e219"/>
 <approved hash="19,1,92890d848a909013"/>
 <approved hash="19,1,31dee93de255a149"/>
-<approved hash="19,1,953afd7eeebf48a7"/>
 <approved hash="5,1,352671f3f537c0f6"/>
+<approved hash="19,1,953afd7eeebf48a7"/>
 <approved hash="19,1,21eb11d5acf9fca5"/>
 <approved hash="6,1,23bb0bde4bdf63ba"/>
 <approved hash="6,1,8429d492f468a4d3"/>
 <approved hash="5,1,0c8dff1f8bdd59e0"/>
+<approved hash="5,1,a03882e2f13255e7"/>
+<approved hash="19,16,7d1ef6015f9bc393"/>
 <approved hash="19,16,9389875c9f0bce38"/>
 <approved hash="19,16,c881930ebd2ce9a3"/>
 <approved hash="19,16,fc4537f23668b839"/>
 <approved hash="19,16,0218c25a2f2723f8"/>
-<approved hash="19,16,7d1ef6015f9bc393"/>
 <approved hash="19,16,a9b43e52227fb599"/>
 <approved hash="19,16,1290de5849250446"/>
 <approved hash="19,16,b373e59548220570"/>
