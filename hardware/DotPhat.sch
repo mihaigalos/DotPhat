@@ -18649,10 +18649,9 @@ You are welcome to use this library for commercial purposes. For attribution, we
 <part name="D1" library="diode" deviceset="DIODE-" device="SOD523"/>
 <part name="D2" library="diode" deviceset="DIODE-" device="SOD523"/>
 <part name="SUPPLY14" library="supply2" deviceset="GND" device=""/>
-<part name="R2" library="rcl" deviceset="R-EU_" device="R0603"/>
-<part name="R3" library="rcl" deviceset="R-EU_" device="R0603"/>
-<part name="R5" library="rcl" deviceset="R-EU_" device="R0603"/>
-<part name="P+5" library="supply1" deviceset="+5V" device=""/>
+<part name="R2" library="rcl" deviceset="R-EU_" device="R0603" value="68Ω"/>
+<part name="R3" library="rcl" deviceset="R-EU_" device="R0603" value="68Ω"/>
+<part name="R5" library="rcl" deviceset="R-EU_" device="R0603" value="1.5kΩ"/>
 <part name="SUPPLY16" library="supply2" deviceset="GND" device=""/>
 <part name="IC1" library="CAT24M01YI" deviceset="CAT24M01" device="TS" technology="0"/>
 <part name="+3V9" library="supply1" deviceset="+3V3" device=""/>
@@ -18676,6 +18675,7 @@ You are welcome to use this library for commercial purposes. For attribution, we
 <part name="SUPPLY22" library="supply2" deviceset="GND" device=""/>
 <part name="JP3" library="SparkFun-Jumpers" deviceset="JUMPER-SMT_2_NC_TRACE" device="_NO-SILK"/>
 <part name="JP4" library="SparkFun-Jumpers" deviceset="JUMPER-SMT_2_NC_TRACE" device="_NO-SILK"/>
+<part name="+3V16" library="supply1" deviceset="+3V3" device=""/>
 </parts>
 <sheets>
 <sheet>
@@ -18766,8 +18766,7 @@ You are welcome to use this library for commercial purposes. For attribution, we
 <instance part="SUPPLY14" gate="GND" x="236.22" y="-78.74" rot="MR0"/>
 <instance part="R2" gate="G$1" x="261.62" y="-55.88"/>
 <instance part="R3" gate="G$1" x="261.62" y="-58.42"/>
-<instance part="R5" gate="G$1" x="271.78" y="-45.72" rot="R90"/>
-<instance part="P+5" gate="1" x="271.78" y="-38.1"/>
+<instance part="R5" gate="G$1" x="254" y="-45.72" rot="R90"/>
 <instance part="SUPPLY16" gate="GND" x="111.76" y="-170.18"/>
 <instance part="IC1" gate="G$1" x="93.98" y="-162.56"/>
 <instance part="+3V9" gate="G$1" x="111.76" y="-147.32"/>
@@ -18791,6 +18790,7 @@ You are welcome to use this library for commercial purposes. For attribution, we
 <instance part="SUPPLY22" gate="GND" x="-73.66" y="53.34" rot="MR0"/>
 <instance part="JP3" gate="G$1" x="215.9" y="81.28"/>
 <instance part="JP4" gate="G$1" x="231.14" y="81.28"/>
+<instance part="+3V16" gate="G$1" x="254" y="-38.1"/>
 </instances>
 <busses>
 </busses>
@@ -19187,6 +19187,10 @@ You are welcome to use this library for commercial purposes. For attribution, we
 <pinref part="C2" gate="G$1" pin="2"/>
 <pinref part="+3V15" gate="G$1" pin="+3V3"/>
 </segment>
+<segment>
+<pinref part="R5" gate="G$1" pin="2"/>
+<pinref part="+3V16" gate="G$1" pin="+3V3"/>
+</segment>
 </net>
 <net name="ADCENA" class="0">
 <segment>
@@ -19455,10 +19459,6 @@ You are welcome to use this library for commercial purposes. For attribution, we
 <wire x1="134.62" y1="-38.1" x2="134.62" y2="-35.56" width="0.1524" layer="91"/>
 <junction x="134.62" y="-35.56"/>
 </segment>
-<segment>
-<pinref part="R5" gate="G$1" pin="2"/>
-<pinref part="P+5" gate="1" pin="+5V"/>
-</segment>
 </net>
 <net name="N$7" class="0">
 <segment>
@@ -19505,9 +19505,13 @@ You are welcome to use this library for commercial purposes. For attribution, we
 <wire x1="236.22" y1="-66.04" x2="236.22" y2="-58.42" width="0.1524" layer="91"/>
 <wire x1="236.22" y1="-58.42" x2="231.14" y2="-58.42" width="0.1524" layer="91"/>
 <label x="231.14" y="-58.42" size="1.27" layer="95" rot="R180" xref="yes"/>
-<wire x1="236.22" y1="-58.42" x2="256.54" y2="-58.42" width="0.1524" layer="91"/>
+<wire x1="236.22" y1="-58.42" x2="254" y2="-58.42" width="0.1524" layer="91"/>
 <junction x="236.22" y="-58.42"/>
 <pinref part="R3" gate="G$1" pin="1"/>
+<pinref part="R5" gate="G$1" pin="1"/>
+<wire x1="254" y1="-58.42" x2="256.54" y2="-58.42" width="0.1524" layer="91"/>
+<wire x1="254" y1="-50.8" x2="254" y2="-58.42" width="0.1524" layer="91"/>
+<junction x="254" y="-58.42"/>
 </segment>
 </net>
 <net name="USB_D+" class="0">
@@ -19529,11 +19533,7 @@ You are welcome to use this library for commercial purposes. For attribution, we
 <net name="D-" class="0">
 <segment>
 <pinref part="R3" gate="G$1" pin="2"/>
-<wire x1="266.7" y1="-58.42" x2="271.78" y2="-58.42" width="0.1524" layer="91"/>
-<pinref part="R5" gate="G$1" pin="1"/>
-<wire x1="271.78" y1="-58.42" x2="281.94" y2="-58.42" width="0.1524" layer="91"/>
-<wire x1="271.78" y1="-50.8" x2="271.78" y2="-58.42" width="0.1524" layer="91"/>
-<junction x="271.78" y="-58.42"/>
+<wire x1="266.7" y1="-58.42" x2="281.94" y2="-58.42" width="0.1524" layer="91"/>
 <label x="281.94" y="-58.42" size="1.27" layer="95" xref="yes"/>
 </segment>
 <segment>
