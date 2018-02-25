@@ -18689,6 +18689,8 @@ You are welcome to use this library for commercial purposes. For attribution, we
 <text x="-10.922" y="50.8" size="1.27" layer="91">Red</text>
 <text x="228.6" y="20.32" size="1.016" layer="91" align="center">TMP102 or TMP112 (high acc +/-0.5°)</text>
 <text x="137.16" y="-147.32" size="3.81" layer="91">Authentification module</text>
+<text x="134.62" y="134.62" size="1.778" layer="91">white</text>
+<text x="134.62" y="124.46" size="1.778" layer="91">red</text>
 </plain>
 <instances>
 <instance part="U1" gate="G$1" x="50.8" y="63.5"/>
