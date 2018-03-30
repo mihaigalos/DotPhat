@@ -7017,66 +7017,6 @@ You are welcome to use this library for commercial purposes. For attribution, we
 </deviceset>
 </devicesets>
 </library>
-<library name="LDCL015">
-<packages>
-<package name="SOT23-5">
-<description>&lt;b&gt;Small Outline Transistor&lt;/b&gt;</description>
-<wire x1="1.4224" y1="0.4294" x2="1.4224" y2="-0.4294" width="0.2032" layer="21"/>
-<wire x1="1.4" y1="-0.8" x2="-1.4" y2="-0.8" width="0.1524" layer="51"/>
-<wire x1="-1.4224" y1="-0.4294" x2="-1.4224" y2="0.4294" width="0.2032" layer="21"/>
-<wire x1="-1.4" y1="0.8" x2="1.4" y2="0.8" width="0.1524" layer="51"/>
-<wire x1="-0.2684" y1="0.8104" x2="0.2684" y2="0.8104" width="0.2032" layer="21"/>
-<wire x1="1.4" y1="0.8" x2="1.4" y2="-0.8" width="0.1524" layer="51"/>
-<wire x1="-1.4" y1="0.8" x2="-1.4" y2="-0.8" width="0.1524" layer="51"/>
-<smd name="1" x="-0.95" y="-1.3001" dx="0.55" dy="1.2" layer="1"/>
-<smd name="2" x="0" y="-1.3001" dx="0.55" dy="1.2" layer="1"/>
-<smd name="3" x="0.95" y="-1.3001" dx="0.55" dy="1.2" layer="1"/>
-<smd name="4" x="0.95" y="1.3001" dx="0.55" dy="1.2" layer="1"/>
-<smd name="5" x="-0.95" y="1.3001" dx="0.55" dy="1.2" layer="1"/>
-<text x="-0.889" y="2.159" size="0.4064" layer="25">&gt;NAME</text>
-<text x="-0.9525" y="-0.1905" size="0.4064" layer="27">&gt;VALUE</text>
-<rectangle x1="-1.2" y1="-1.5" x2="-0.7" y2="-0.85" layer="51"/>
-<rectangle x1="-0.25" y1="-1.5" x2="0.25" y2="-0.85" layer="51"/>
-<rectangle x1="0.7" y1="-1.5" x2="1.2" y2="-0.85" layer="51"/>
-<rectangle x1="0.7" y1="0.85" x2="1.2" y2="1.5" layer="51"/>
-<rectangle x1="-1.2" y1="0.85" x2="-0.7" y2="1.5" layer="51"/>
-</package>
-</packages>
-<symbols>
-<symbol name="LDCL015">
-<wire x1="-7.62" y1="5.08" x2="-7.62" y2="-5.08" width="0.254" layer="94"/>
-<wire x1="-7.62" y1="-5.08" x2="10.16" y2="-5.08" width="0.254" layer="94"/>
-<wire x1="10.16" y1="-5.08" x2="10.16" y2="5.08" width="0.254" layer="94"/>
-<wire x1="10.16" y1="5.08" x2="-7.62" y2="5.08" width="0.254" layer="94"/>
-<pin name="VIN" x="-10.16" y="2.54" length="short"/>
-<pin name="ENA" x="-10.16" y="0" length="short"/>
-<pin name="ADJ/NC" x="0" y="7.62" length="short" rot="R270"/>
-<pin name="GND" x="5.08" y="-7.62" length="short" rot="R90"/>
-<pin name="OUT" x="12.7" y="2.54" length="short" rot="R180"/>
-</symbol>
-</symbols>
-<devicesets>
-<deviceset name="LDCL015">
-<gates>
-<gate name="G$1" symbol="LDCL015" x="0" y="0"/>
-</gates>
-<devices>
-<device name="" package="SOT23-5">
-<connects>
-<connect gate="G$1" pin="ADJ/NC" pad="4"/>
-<connect gate="G$1" pin="ENA" pad="3"/>
-<connect gate="G$1" pin="GND" pad="2"/>
-<connect gate="G$1" pin="OUT" pad="5"/>
-<connect gate="G$1" pin="VIN" pad="1"/>
-</connects>
-<technologies>
-<technology name=""/>
-</technologies>
-</device>
-</devices>
-</deviceset>
-</devicesets>
-</library>
 <library name="rcl">
 <description>&lt;b&gt;Resistors, Capacitors, Inductors&lt;/b&gt;&lt;p&gt;
 Based on the previous libraries:
@@ -18868,6 +18808,91 @@ Real Time Clock Module with I2C Bus&lt;/i&gt; &lt;br&gt;
 </deviceset>
 </devicesets>
 </library>
+<library name="MCP1700">
+<description>AWJ Logan Eagle Library v1.001</description>
+<packages>
+<package name="SOT-23">
+<wire x1="1.4224" y1="0.6604" x2="1.4224" y2="-0.6604" width="0.1524" layer="51"/>
+<wire x1="1.4224" y1="-0.6604" x2="-1.4224" y2="-0.6604" width="0.1524" layer="51"/>
+<wire x1="-1.4224" y1="-0.6604" x2="-1.4224" y2="0.6604" width="0.1524" layer="51"/>
+<wire x1="-1.4224" y1="0.6604" x2="1.4224" y2="0.6604" width="0.1524" layer="51"/>
+<smd name="3" x="0" y="1.1" dx="1" dy="1.4" layer="1"/>
+<smd name="2" x="0.95" y="-1.1" dx="1" dy="1.4" layer="1"/>
+<smd name="1" x="-0.95" y="-1.1" dx="1" dy="1.4" layer="1"/>
+<text x="-1.905" y="1.905" size="1.27" layer="25">&gt;NAME</text>
+<text x="-1.905" y="-3.175" size="1.27" layer="27">&gt;VALUE</text>
+<rectangle x1="-0.2286" y1="0.7112" x2="0.2286" y2="1.2954" layer="51"/>
+<rectangle x1="0.7112" y1="-1.2954" x2="1.1684" y2="-0.7112" layer="51"/>
+<rectangle x1="-1.1684" y1="-1.2954" x2="-0.7112" y2="-0.7112" layer="51"/>
+</package>
+<package name="TO92">
+<wire x1="-2.0946" y1="-2.921" x2="-2.6549" y2="-1.524" width="0.127" layer="21" curve="-32.781"/>
+<wire x1="-2.6549" y1="-1.524" x2="-0.7863" y2="1.2785" width="0.127" layer="21" curve="-78.3185"/>
+<wire x1="0.7863" y1="1.2784" x2="2.0945" y2="-2.921" width="0.127" layer="21" curve="-111.1"/>
+<wire x1="-2.0945" y1="-2.921" x2="2.0945" y2="-2.921" width="0.127" layer="21"/>
+<wire x1="-2.2537" y1="-1.524" x2="-0.2863" y2="-1.524" width="0.127" layer="51"/>
+<wire x1="-2.6549" y1="-1.524" x2="-2.2537" y2="-1.524" width="0.127" layer="21"/>
+<wire x1="-0.2863" y1="-1.524" x2="0.2863" y2="-1.524" width="0.127" layer="21"/>
+<wire x1="2.2537" y1="-1.524" x2="2.6549" y2="-1.524" width="0.127" layer="21"/>
+<wire x1="0.2863" y1="-1.524" x2="2.2537" y2="-1.524" width="0.127" layer="51"/>
+<wire x1="-0.7863" y1="1.2785" x2="0.7863" y2="1.2785" width="0.127" layer="51" curve="-34.2936"/>
+<pad name="1" x="1.27" y="-1.27" drill="0.8128" shape="octagon"/>
+<pad name="2" x="0" y="0.635" drill="0.8128" shape="octagon"/>
+<pad name="3" x="-1.27" y="-1.27" drill="0.8128" shape="octagon"/>
+<text x="3.175" y="-0.635" size="1.27" layer="25" ratio="10">&gt;NAME</text>
+<text x="3.175" y="-2.54" size="1.27" layer="27" ratio="10">&gt;VALUE</text>
+<text x="-0.635" y="-0.635" size="1.27" layer="51" ratio="10">2</text>
+<text x="-2.159" y="-1.27" size="1.27" layer="51" ratio="10">3</text>
+<text x="1.143" y="-1.27" size="1.27" layer="51" ratio="10">1</text>
+</package>
+</packages>
+<symbols>
+<symbol name="P3REG">
+<wire x1="-5.08" y1="-5.08" x2="5.08" y2="-5.08" width="0.4064" layer="94"/>
+<wire x1="5.08" y1="-5.08" x2="5.08" y2="2.54" width="0.4064" layer="94"/>
+<wire x1="5.08" y1="2.54" x2="-5.08" y2="2.54" width="0.4064" layer="94"/>
+<wire x1="-5.08" y1="2.54" x2="-5.08" y2="-5.08" width="0.4064" layer="94"/>
+<text x="2.54" y="-7.62" size="1.778" layer="95">&gt;NAME</text>
+<text x="2.54" y="-10.16" size="1.778" layer="96">&gt;VALUE</text>
+<text x="-2.032" y="-4.318" size="1.524" layer="95">GND</text>
+<text x="-4.445" y="-0.635" size="1.524" layer="95">IN</text>
+<text x="0.635" y="-0.635" size="1.524" layer="95">OUT</text>
+<pin name="IN" x="-7.62" y="0" visible="off" length="short" direction="in"/>
+<pin name="GND" x="0" y="-7.62" visible="off" length="short" direction="in" rot="R90"/>
+<pin name="OUT" x="7.62" y="0" visible="off" length="short" direction="pas" rot="R180"/>
+</symbol>
+</symbols>
+<devicesets>
+<deviceset name="MCP1700" prefix="IC" uservalue="yes">
+<description>Microchip MCP1700 positive regulator</description>
+<gates>
+<gate name="G$1" symbol="P3REG" x="0" y="0"/>
+</gates>
+<devices>
+<device name="TT" package="SOT-23">
+<connects>
+<connect gate="G$1" pin="GND" pad="1"/>
+<connect gate="G$1" pin="IN" pad="3"/>
+<connect gate="G$1" pin="OUT" pad="2"/>
+</connects>
+<technologies>
+<technology name=""/>
+</technologies>
+</device>
+<device name="TO" package="TO92">
+<connects>
+<connect gate="G$1" pin="GND" pad="3"/>
+<connect gate="G$1" pin="IN" pad="2"/>
+<connect gate="G$1" pin="OUT" pad="1"/>
+</connects>
+<technologies>
+<technology name=""/>
+</technologies>
+</device>
+</devices>
+</deviceset>
+</devicesets>
+</library>
 </libraries>
 <attributes>
 </attributes>
@@ -18922,11 +18947,10 @@ Real Time Clock Module with I2C Bus&lt;/i&gt; &lt;br&gt;
 <part name="+3V7" library="supply1" deviceset="+3V3" device=""/>
 <part name="R4" library="SparkFun" deviceset="RESISTOR-ARRAY" device="0603-ARV" value="150Ω"/>
 <part name="SUPPLY12" library="supply2" deviceset="GND" device=""/>
-<part name="U$4" library="LDCL015" deviceset="LDCL015" device=""/>
 <part name="SUPPLY27" library="supply2" deviceset="GND" device=""/>
 <part name="+3V19" library="supply1" deviceset="+3V3" device=""/>
 <part name="P+4" library="supply1" deviceset="+5V" device=""/>
-<part name="C1" library="rcl" deviceset="C-EU" device="C0603"/>
+<part name="C1" library="rcl" deviceset="C-EU" device="C0603" value="1uF"/>
 <part name="R1" library="SparkFun" deviceset="RESISTOR-ARRAY" device="0603-ARV"/>
 <part name="U2" library="SparkFun" deviceset="TMP102" device=""/>
 <part name="SUPPLY15" library="supply2" deviceset="GND" device=""/>
@@ -18976,6 +19000,8 @@ Real Time Clock Module with I2C Bus&lt;/i&gt; &lt;br&gt;
 <part name="X2" library="Microcrystal-RTC" deviceset="MC-RTC-RV-4162-C7-I2C" device=""/>
 <part name="+3V20" library="supply1" deviceset="+3V3" device=""/>
 <part name="SUPPLY25" library="supply2" deviceset="GND" device=""/>
+<part name="IC2" library="MCP1700" deviceset="MCP1700" device="TT"/>
+<part name="C9" library="rcl" deviceset="C-EU" device="C0603" value="1uF"/>
 </parts>
 <sheets>
 <sheet>
@@ -19052,11 +19078,10 @@ avoid a self-generated HW interrupt</text>
 <instance part="R4" gate="C" x="152.4" y="152.4"/>
 <instance part="R4" gate="D" x="152.4" y="142.24"/>
 <instance part="SUPPLY12" gate="GND" x="160.02" y="152.4" rot="R90"/>
-<instance part="U$4" gate="G$1" x="144.78" y="-38.1"/>
-<instance part="SUPPLY27" gate="GND" x="149.86" y="-50.8" rot="MR0"/>
-<instance part="+3V19" gate="G$1" x="157.48" y="-25.4"/>
-<instance part="P+4" gate="1" x="127" y="-25.4"/>
-<instance part="C1" gate="G$1" x="162.56" y="-38.1"/>
+<instance part="SUPPLY27" gate="GND" x="144.78" y="-48.26" rot="MR0"/>
+<instance part="+3V19" gate="G$1" x="152.4" y="-27.94"/>
+<instance part="P+4" gate="1" x="134.62" y="-27.94"/>
+<instance part="C1" gate="G$1" x="154.94" y="-38.1"/>
 <instance part="R1" gate="A" x="-43.18" y="60.96" rot="R90"/>
 <instance part="R1" gate="B" x="-22.86" y="60.96" rot="R90"/>
 <instance part="R1" gate="C" x="-33.02" y="60.96" rot="R90"/>
@@ -19109,6 +19134,8 @@ avoid a self-generated HW interrupt</text>
 <instance part="X2" gate="G$1" x="38.1" y="-114.3"/>
 <instance part="+3V20" gate="G$1" x="73.66" y="-114.3"/>
 <instance part="SUPPLY25" gate="GND" x="17.78" y="-119.38"/>
+<instance part="IC2" gate="G$1" x="144.78" y="-35.56"/>
+<instance part="C9" gate="G$1" x="134.62" y="-38.1"/>
 </instances>
 <busses>
 </busses>
@@ -19216,15 +19243,6 @@ avoid a self-generated HW interrupt</text>
 <wire x1="106.68" y1="125.73" x2="100.33" y2="125.73" width="0.1524" layer="91"/>
 </segment>
 <segment>
-<pinref part="U$4" gate="G$1" pin="GND"/>
-<pinref part="SUPPLY27" gate="GND" pin="GND"/>
-<wire x1="149.86" y1="-48.26" x2="149.86" y2="-45.72" width="0.1524" layer="91"/>
-<pinref part="C1" gate="G$1" pin="2"/>
-<wire x1="149.86" y1="-45.72" x2="162.56" y2="-45.72" width="0.1524" layer="91"/>
-<wire x1="162.56" y1="-45.72" x2="162.56" y2="-43.18" width="0.1524" layer="91"/>
-<junction x="149.86" y="-45.72"/>
-</segment>
-<segment>
 <pinref part="U2" gate="G$1" pin="GND"/>
 <pinref part="SUPPLY15" gate="GND" pin="GND"/>
 </segment>
@@ -19293,6 +19311,18 @@ avoid a self-generated HW interrupt</text>
 <pinref part="X2" gate="G$1" pin="GND"/>
 <pinref part="SUPPLY25" gate="GND" pin="GND"/>
 <wire x1="22.86" y1="-116.84" x2="17.78" y2="-116.84" width="0.1524" layer="91"/>
+</segment>
+<segment>
+<pinref part="C1" gate="G$1" pin="2"/>
+<wire x1="144.78" y1="-45.72" x2="154.94" y2="-45.72" width="0.1524" layer="91"/>
+<wire x1="154.94" y1="-45.72" x2="154.94" y2="-43.18" width="0.1524" layer="91"/>
+<pinref part="IC2" gate="G$1" pin="GND"/>
+<wire x1="144.78" y1="-43.18" x2="144.78" y2="-45.72" width="0.1524" layer="91"/>
+<pinref part="C9" gate="G$1" pin="2"/>
+<wire x1="134.62" y1="-43.18" x2="134.62" y2="-45.72" width="0.1524" layer="91"/>
+<wire x1="134.62" y1="-45.72" x2="144.78" y2="-45.72" width="0.1524" layer="91"/>
+<junction x="144.78" y="-45.72"/>
+<pinref part="SUPPLY27" gate="GND" pin="GND"/>
 </segment>
 </net>
 <net name="SDA" class="0">
@@ -19487,12 +19517,12 @@ avoid a self-generated HW interrupt</text>
 <pinref part="+3V7" gate="G$1" pin="+3V3"/>
 </segment>
 <segment>
-<pinref part="U$4" gate="G$1" pin="OUT"/>
 <pinref part="+3V19" gate="G$1" pin="+3V3"/>
-<wire x1="157.48" y1="-27.94" x2="157.48" y2="-35.56" width="0.1524" layer="91"/>
+<wire x1="152.4" y1="-30.48" x2="152.4" y2="-35.56" width="0.1524" layer="91"/>
 <pinref part="C1" gate="G$1" pin="1"/>
-<wire x1="162.56" y1="-35.56" x2="157.48" y2="-35.56" width="0.1524" layer="91"/>
-<junction x="157.48" y="-35.56"/>
+<wire x1="154.94" y1="-35.56" x2="152.4" y2="-35.56" width="0.1524" layer="91"/>
+<pinref part="IC2" gate="G$1" pin="OUT"/>
+<junction x="152.4" y="-35.56"/>
 </segment>
 <segment>
 <pinref part="+3V11" gate="G$1" pin="+3V3"/>
@@ -19820,11 +19850,10 @@ avoid a self-generated HW interrupt</text>
 </segment>
 <segment>
 <pinref part="P+4" gate="1" pin="+5V"/>
-<pinref part="U$4" gate="G$1" pin="VIN"/>
-<wire x1="127" y1="-27.94" x2="127" y2="-35.56" width="0.1524" layer="91"/>
-<wire x1="127" y1="-35.56" x2="134.62" y2="-35.56" width="0.1524" layer="91"/>
-<pinref part="U$4" gate="G$1" pin="ENA"/>
-<wire x1="134.62" y1="-38.1" x2="134.62" y2="-35.56" width="0.1524" layer="91"/>
+<wire x1="134.62" y1="-30.48" x2="134.62" y2="-35.56" width="0.1524" layer="91"/>
+<wire x1="134.62" y1="-35.56" x2="137.16" y2="-35.56" width="0.1524" layer="91"/>
+<pinref part="IC2" gate="G$1" pin="IN"/>
+<pinref part="C9" gate="G$1" pin="1"/>
 <junction x="134.62" y="-35.56"/>
 </segment>
 </net>
@@ -20012,6 +20041,8 @@ avoid a self-generated HW interrupt</text>
 </sheet>
 </sheets>
 <errors>
+<approved hash="101,1,-43.18,55.88,R1A,1,,,,"/>
+<approved hash="101,1,-43.18,66.04,R1A,2,,,,"/>
 <approved hash="104,1,142.24,83.82,U$1,VCC,+3V3,,,"/>
 <approved hash="104,1,142.24,43.18,U$1,GND1,GND,,,"/>
 <approved hash="104,1,-12.7,-10.16,J2,3.3V,+3V3,,,"/>
@@ -20020,7 +20051,29 @@ avoid a self-generated HW interrupt</text>
 <approved hash="104,1,-12.7,-5.08,J2,5V,+5V,,,"/>
 <approved hash="104,1,109.22,-157.48,IC1,VCC,+3V3,,,"/>
 <approved hash="104,1,53.34,-119.38,X2,VDD,+3V3,,,"/>
+<approved hash="106,1,27.94,68.58,ADC,,,,,"/>
+<approved hash="106,1,147.32,152.4,N$10,,,,,"/>
+<approved hash="113,1,181.61,73.3721,X1,,,,,"/>
+<approved hash="113,1,86.3092,68.4245,Y1,,,,,"/>
+<approved hash="113,1,64.77,-9.61813,SW1,,,,,"/>
 <approved hash="113,1,61.1971,120.781,JP1,,,,,"/>
+<approved hash="113,1,130.81,142.562,LED2,,,,,"/>
+<approved hash="113,1,130.81,132.402,LED3,,,,,"/>
+<approved hash="113,1,130.81,123.512,LED4,,,,,"/>
+<approved hash="113,1,-44.1748,60.96,R1,,,,,"/>
+<approved hash="113,1,235.733,-68.58,D1,,,,,"/>
+<approved hash="113,1,245.893,-68.58,D2,,,,,"/>
+<approved hash="113,1,131.085,-154.94,R6,,,,,"/>
+<approved hash="113,1,140.738,-87.63,C2,,,,,"/>
+<approved hash="113,1,227.562,67.31,C4,,,,,"/>
+<approved hash="113,1,229.87,72.6217,C5,,,,,"/>
+<approved hash="113,1,235.182,67.31,C6,,,,,"/>
+<approved hash="113,1,146.071,-121.92,Y2,,,,,"/>
+<approved hash="113,1,151.13,-112.798,C8,,,,,"/>
+<approved hash="113,1,151.13,-127.342,C10,,,,,"/>
+<approved hash="113,1,62.23,-158.518,C7,,,,,"/>
+<approved hash="113,1,144.78,-40.1574,IC2,,,,,"/>
+<approved hash="115,1,167.64,71.12,ANT_OUT,,,,,"/>
 </errors>
 </schematic>
 </drawing>
