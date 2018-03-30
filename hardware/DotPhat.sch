@@ -19760,6 +19760,11 @@ avoid a self-generated HW interrupt</text>
 <wire x1="76.2" y1="22.86" x2="78.74" y2="22.86" width="0.1524" layer="91"/>
 <label x="78.74" y="22.86" size="1.27" layer="95" xref="yes"/>
 </segment>
+<segment>
+<pinref part="J2" gate="G$1" pin="GP21"/>
+<wire x1="-12.7" y1="-35.56" x2="-17.78" y2="-35.56" width="0.1524" layer="91"/>
+<label x="-17.78" y="-35.56" size="1.27" layer="95" rot="R180" xref="yes"/>
+</segment>
 </net>
 <net name="ADC" class="0">
 <segment>
@@ -19783,6 +19788,11 @@ avoid a self-generated HW interrupt</text>
 <wire x1="106.68" y1="120.65" x2="86.36" y2="120.65" width="0.1524" layer="91"/>
 <junction x="106.68" y="120.65"/>
 <label x="86.36" y="120.65" size="1.27" layer="95" rot="R180" xref="yes"/>
+</segment>
+<segment>
+<pinref part="J2" gate="G$1" pin="GP20"/>
+<wire x1="-12.7" y1="-33.02" x2="-17.78" y2="-33.02" width="0.1524" layer="91"/>
+<label x="-17.78" y="-33.02" size="1.27" layer="95" rot="R180" xref="yes"/>
 </segment>
 </net>
 <net name="N$6" class="0">
