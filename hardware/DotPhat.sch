@@ -18791,6 +18791,83 @@ You are welcome to use this library for commercial purposes. For attribution, we
 </deviceset>
 </devicesets>
 </library>
+<library name="Microcrystal-RTC">
+<packages>
+<package name="MC-RTC-C7">
+<smd name="P$1" x="-1.35" y="-0.8" dx="0.5" dy="0.8" layer="1"/>
+<wire x1="-1.52" y1="0.75" x2="1.48" y2="0.75" width="0.05" layer="51"/>
+<wire x1="1.48" y1="0.75" x2="1.48" y2="-0.75" width="0.05" layer="51"/>
+<wire x1="1.48" y1="-0.75" x2="-1.52" y2="-0.75" width="0.05" layer="51"/>
+<wire x1="-1.52" y1="-0.75" x2="-1.52" y2="0.75" width="0.05" layer="51"/>
+<wire x1="-1.72" y1="1.3" x2="1.73" y2="1.3" width="0.05" layer="21"/>
+<wire x1="1.73" y1="1.3" x2="1.73" y2="-1.3" width="0.05" layer="21"/>
+<wire x1="1.73" y1="-1.3" x2="-1.72" y2="-1.3" width="0.05" layer="21"/>
+<wire x1="-1.72" y1="-1.3" x2="-1.72" y2="1.3" width="0.05" layer="21"/>
+<circle x="-1.37" y="-0.25" radius="0.01" width="0.2" layer="21"/>
+<text x="2.13" y="0.75" size="0.6096" layer="25" font="vector">&gt;Name</text>
+<text x="2.13" y="-0.05" size="0.4064" layer="27" font="vector">&gt;Value</text>
+<smd name="P$2" x="-0.45" y="-0.8" dx="0.5" dy="0.8" layer="1"/>
+<smd name="P$3" x="0.45" y="-0.8" dx="0.5" dy="0.8" layer="1"/>
+<smd name="P$4" x="1.35" y="-0.8" dx="0.5" dy="0.8" layer="1"/>
+<smd name="P$5" x="1.35" y="0.8" dx="0.5" dy="0.8" layer="1"/>
+<smd name="P$6" x="0.45" y="0.8" dx="0.5" dy="0.8" layer="1"/>
+<smd name="P$7" x="-0.45" y="0.8" dx="0.5" dy="0.8" layer="1"/>
+<smd name="P$8" x="-1.35" y="0.8" dx="0.5" dy="0.8" layer="1"/>
+</package>
+</packages>
+<symbols>
+<symbol name="MC-RTC-RV-4162-C7-I2C-8P">
+<pin name="SDA" x="-15.24" y="2.54" length="middle"/>
+<pin name="CLKOUT" x="-15.24" y="0" length="middle" function="clk"/>
+<pin name="GND" x="-15.24" y="-2.54" length="middle" direction="pwr"/>
+<pin name="NC@1" x="-15.24" y="-5.08" length="middle" direction="nc"/>
+<pin name="VDD" x="15.24" y="-5.08" length="middle" direction="pwr" rot="R180"/>
+<pin name="INT" x="15.24" y="-2.54" length="middle" rot="R180"/>
+<pin name="NC@2" x="15.24" y="0" length="middle" direction="nc" rot="R180"/>
+<pin name="SCL" x="15.24" y="2.54" length="middle" rot="R180"/>
+<wire x1="-10.16" y1="5.08" x2="10.16" y2="5.08" width="0.254" layer="94"/>
+<wire x1="10.16" y1="5.08" x2="10.16" y2="-7.62" width="0.254" layer="94"/>
+<wire x1="10.16" y1="-7.62" x2="-10.16" y2="-7.62" width="0.254" layer="94"/>
+<wire x1="-10.16" y1="-7.62" x2="-10.16" y2="5.08" width="0.254" layer="94"/>
+</symbol>
+</symbols>
+<devicesets>
+<deviceset name="MC-RTC-RV-4162-C7-I2C" prefix="X">
+<description>&lt;b&gt;Microcrystal RV-4162-C7&lt;/b&gt; &lt;br&gt; &lt;i&gt;
+Real Time Clock Module with I2C Bus&lt;/i&gt; &lt;br&gt;
+&lt;ul&gt;
+&lt;li&gt;Ultra small SMT ceramic package with integrated 32.768kHz Crystal
+&lt;li&gt;Automotive qualified, according to AEC-Q200 Rev. C
+&lt;li&gt;I2C Interface Address: D0h
+&lt;li&gt;Frequency-Offset Trimming Register
+&lt;li&gt;Programmable Alarm and Interrupt
+&lt;li&gt;Oscillator Fail Detection
+&lt;li&gt;Watchdog Timer
+&lt;li&gt;Programmable Clock-Output
+&lt;li&gt;Time keeping mode down to 1.0 V</description>
+<gates>
+<gate name="G$1" symbol="MC-RTC-RV-4162-C7-I2C-8P" x="0" y="0"/>
+</gates>
+<devices>
+<device name="" package="MC-RTC-C7">
+<connects>
+<connect gate="G$1" pin="CLKOUT" pad="P$2"/>
+<connect gate="G$1" pin="GND" pad="P$3"/>
+<connect gate="G$1" pin="INT" pad="P$6"/>
+<connect gate="G$1" pin="NC@1" pad="P$4"/>
+<connect gate="G$1" pin="NC@2" pad="P$7"/>
+<connect gate="G$1" pin="SCL" pad="P$8"/>
+<connect gate="G$1" pin="SDA" pad="P$1"/>
+<connect gate="G$1" pin="VDD" pad="P$5"/>
+</connects>
+<technologies>
+<technology name=""/>
+</technologies>
+</device>
+</devices>
+</deviceset>
+</devicesets>
+</library>
 </libraries>
 <attributes>
 </attributes>
@@ -18896,6 +18973,9 @@ You are welcome to use this library for commercial purposes. For attribution, we
 <part name="C7" library="rcl" deviceset="C-EU" device="C0603"/>
 <part name="R8" library="rcl" deviceset="R-EU_" device="R0603" value="1.5kΩ"/>
 <part name="+3V18" library="supply1" deviceset="+3V3" device=""/>
+<part name="X2" library="Microcrystal-RTC" deviceset="MC-RTC-RV-4162-C7-I2C" device=""/>
+<part name="+3V20" library="supply1" deviceset="+3V3" device=""/>
+<part name="SUPPLY25" library="supply2" deviceset="GND" device=""/>
 </parts>
 <sheets>
 <sheet>
@@ -18912,6 +18992,11 @@ You are welcome to use this library for commercial purposes. For attribution, we
 <text x="134.62" y="134.62" size="1.778" layer="91">white</text>
 <text x="134.62" y="124.46" size="1.778" layer="91">red</text>
 <text x="20.32" y="-142.24" size="1.778" layer="91">Use 128Mbit S25FL127SABNF instead.</text>
+<text x="25.4" y="-104.14" size="1.27" layer="91">Since nINT is conencted to CS_FLASH,
+special care when selecting the flash:
+avoid a self-generated HW interrupt</text>
+<text x="254" y="7.62" size="1.27" layer="91" rot="R90">needs Pullup for INT pin</text>
+<text x="66.04" y="-114.3" size="1.27" layer="91" rot="R90">needs Pullup for INT pin</text>
 </plain>
 <instances>
 <instance part="U1" gate="G$1" x="50.8" y="63.5"/>
@@ -19021,6 +19106,9 @@ You are welcome to use this library for commercial purposes. For attribution, we
 <instance part="C7" gate="G$1" x="60.96" y="-160.02" rot="R90"/>
 <instance part="R8" gate="G$1" x="25.4" y="-154.94" rot="R90"/>
 <instance part="+3V18" gate="G$1" x="25.4" y="-147.32"/>
+<instance part="X2" gate="G$1" x="38.1" y="-114.3"/>
+<instance part="+3V20" gate="G$1" x="73.66" y="-114.3"/>
+<instance part="SUPPLY25" gate="GND" x="17.78" y="-119.38"/>
 </instances>
 <busses>
 </busses>
@@ -19201,6 +19289,11 @@ You are welcome to use this library for commercial purposes. For attribution, we
 <pinref part="SUPPLY24" gate="GND" pin="GND"/>
 <pinref part="C7" gate="G$1" pin="2"/>
 </segment>
+<segment>
+<pinref part="X2" gate="G$1" pin="GND"/>
+<pinref part="SUPPLY25" gate="GND" pin="GND"/>
+<wire x1="22.86" y1="-116.84" x2="17.78" y2="-116.84" width="0.1524" layer="91"/>
+</segment>
 </net>
 <net name="SDA" class="0">
 <segment>
@@ -19232,6 +19325,11 @@ You are welcome to use this library for commercial purposes. For attribution, we
 <wire x1="81.28" y1="-157.48" x2="78.74" y2="-157.48" width="0.1524" layer="91"/>
 <label x="78.74" y="-157.48" size="1.27" layer="95" rot="R180" xref="yes"/>
 <pinref part="IC1" gate="G$1" pin="SDA"/>
+</segment>
+<segment>
+<pinref part="X2" gate="G$1" pin="SDA"/>
+<wire x1="22.86" y1="-111.76" x2="17.78" y2="-111.76" width="0.1524" layer="91"/>
+<label x="17.78" y="-111.76" size="1.27" layer="95" rot="R180" xref="yes"/>
 </segment>
 </net>
 <net name="RST" class="0">
@@ -19442,6 +19540,12 @@ You are welcome to use this library for commercial purposes. For attribution, we
 <pinref part="R8" gate="G$1" pin="2"/>
 <pinref part="+3V18" gate="G$1" pin="+3V3"/>
 </segment>
+<segment>
+<pinref part="X2" gate="G$1" pin="VDD"/>
+<pinref part="+3V20" gate="G$1" pin="+3V3"/>
+<wire x1="53.34" y1="-119.38" x2="73.66" y2="-119.38" width="0.1524" layer="91"/>
+<wire x1="73.66" y1="-119.38" x2="73.66" y2="-116.84" width="0.1524" layer="91"/>
+</segment>
 </net>
 <net name="ADCENA" class="0">
 <segment>
@@ -19571,6 +19675,11 @@ You are welcome to use this library for commercial purposes. For attribution, we
 <pinref part="IC1" gate="G$1" pin="SCL"/>
 <wire x1="81.28" y1="-160.02" x2="78.74" y2="-160.02" width="0.1524" layer="91"/>
 <label x="78.74" y="-160.02" size="1.27" layer="95" rot="R180" xref="yes"/>
+</segment>
+<segment>
+<pinref part="X2" gate="G$1" pin="SCL"/>
+<wire x1="53.34" y1="-111.76" x2="58.42" y2="-111.76" width="0.1524" layer="91"/>
+<label x="58.42" y="-111.76" size="1.27" layer="95" xref="yes"/>
 </segment>
 </net>
 <net name="PUSH" class="0">
@@ -19883,6 +19992,21 @@ You are welcome to use this library for commercial purposes. For attribution, we
 <wire x1="76.2" y1="60.96" x2="78.74" y2="60.96" width="0.1524" layer="91"/>
 <label x="78.74" y="60.96" size="1.27" layer="95" xref="yes"/>
 </segment>
+<segment>
+<pinref part="X2" gate="G$1" pin="INT"/>
+<wire x1="53.34" y1="-116.84" x2="58.42" y2="-116.84" width="0.1524" layer="91"/>
+<label x="58.42" y="-116.84" size="1.27" layer="95" xref="yes"/>
+</segment>
+<segment>
+<label x="243.84" y="5.08" size="1.27" layer="95" xref="yes"/>
+<pinref part="U2" gate="G$1" pin="ALERT"/>
+<wire x1="238.76" y1="5.08" x2="243.84" y2="5.08" width="0.1524" layer="91"/>
+</segment>
+<segment>
+<pinref part="J2" gate="G$1" pin="GP26"/>
+<wire x1="-12.7" y1="-38.1" x2="-17.78" y2="-38.1" width="0.1524" layer="91"/>
+<label x="-17.78" y="-38.1" size="1.27" layer="95" rot="R180" xref="yes"/>
+</segment>
 </net>
 </nets>
 </sheet>
@@ -19892,6 +20016,10 @@ You are welcome to use this library for commercial purposes. For attribution, we
 <approved hash="104,1,142.24,43.18,U$1,GND1,GND,,,"/>
 <approved hash="104,1,-12.7,-10.16,J2,3.3V,+3V3,,,"/>
 <approved hash="104,1,-12.7,-12.7,J2,3.3V,+3V3,,,"/>
+<approved hash="104,1,-12.7,-7.62,J2,5V,+5V,,,"/>
+<approved hash="104,1,-12.7,-5.08,J2,5V,+5V,,,"/>
+<approved hash="104,1,109.22,-157.48,IC1,VCC,+3V3,,,"/>
+<approved hash="104,1,53.34,-119.38,X2,VDD,+3V3,,,"/>
 <approved hash="113,1,61.1971,120.781,JP1,,,,,"/>
 </errors>
 </schematic>
