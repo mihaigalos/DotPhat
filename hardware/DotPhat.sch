@@ -6,7 +6,7 @@
 <setting alwaysvectorfont="no"/>
 <setting verticaltext="up"/>
 </settings>
-<grid distance="0.05" unitdist="inch" unit="inch" style="lines" multiple="1" display="no" altdistance="0.01" altunitdist="inch" altunit="inch"/>
+<grid distance="0.1" unitdist="inch" unit="inch" style="lines" multiple="1" display="no" altdistance="0.01" altunitdist="inch" altunit="inch"/>
 <layers>
 <layer number="1" name="Top" color="4" fill="1" visible="no" active="no"/>
 <layer number="2" name="Route2" color="1" fill="3" visible="no" active="no"/>
@@ -19200,6 +19200,8 @@ Real Time Clock Module with I2C Bus&lt;/i&gt; &lt;br&gt;
 <part name="IC2" library="MCP1700" deviceset="MCP1700" device="TT"/>
 <part name="C9" library="rcl" deviceset="C-EU" device="C0603" value="1uF"/>
 <part name="J4" library="solderjumper" deviceset="SOLDERJUMPER.2" device=".MED"/>
+<part name="LED5" library="SparkFun" deviceset="LED" device="0603"/>
+<part name="SUPPLY28" library="supply2" deviceset="GND" device=""/>
 </parts>
 <sheets>
 <sheet>
@@ -19221,6 +19223,8 @@ special care when selecting the flash:
 avoid a self-generated HW interrupt</text>
 <text x="254" y="7.62" size="1.27" layer="91" rot="R90">needs Pullup for INT pin</text>
 <text x="66.04" y="-114.3" size="1.27" layer="91" rot="R90">needs Pullup for INT pin</text>
+<text x="-58.42" y="50.8" size="1.27" layer="91">Radio ACT
+-Magenta-</text>
 </plain>
 <instances>
 <instance part="U1" gate="G$1" x="50.8" y="63.5"/>
@@ -19280,7 +19284,7 @@ avoid a self-generated HW interrupt</text>
 <instance part="+3V19" gate="G$1" x="152.4" y="-27.94"/>
 <instance part="P+4" gate="1" x="134.62" y="-27.94"/>
 <instance part="C1" gate="G$1" x="154.94" y="-38.1"/>
-<instance part="R1" gate="A" x="-43.18" y="60.96" rot="R90"/>
+<instance part="R1" gate="A" x="-45.72" y="60.96" rot="R270"/>
 <instance part="R1" gate="B" x="-22.86" y="60.96" rot="R90"/>
 <instance part="R1" gate="C" x="-33.02" y="60.96" rot="R90"/>
 <instance part="R1" gate="D" x="-12.7" y="60.96" rot="R90"/>
@@ -19335,6 +19339,8 @@ avoid a self-generated HW interrupt</text>
 <instance part="IC2" gate="G$1" x="144.78" y="-35.56"/>
 <instance part="C9" gate="G$1" x="134.62" y="-38.1"/>
 <instance part="J4" gate="G$1" x="124.46" y="142.24"/>
+<instance part="LED5" gate="G$1" x="-45.72" y="53.34"/>
+<instance part="SUPPLY28" gate="GND" x="-45.72" y="45.72" rot="MR0"/>
 </instances>
 <busses>
 </busses>
@@ -19522,6 +19528,10 @@ avoid a self-generated HW interrupt</text>
 <wire x1="134.62" y1="-45.72" x2="144.78" y2="-45.72" width="0.1524" layer="91"/>
 <junction x="144.78" y="-45.72"/>
 <pinref part="SUPPLY27" gate="GND" pin="GND"/>
+</segment>
+<segment>
+<pinref part="LED5" gate="G$1" pin="C"/>
+<pinref part="SUPPLY28" gate="GND" pin="GND"/>
 </segment>
 </net>
 <net name="SDA" class="0">
@@ -19789,6 +19799,11 @@ avoid a self-generated HW interrupt</text>
 <pinref part="R6" gate="G$1" pin="1"/>
 <wire x1="132.08" y1="-160.02" x2="129.54" y2="-160.02" width="0.1524" layer="91"/>
 <junction x="132.08" y="-160.02"/>
+</segment>
+<segment>
+<pinref part="R1" gate="A" pin="1"/>
+<wire x1="-45.72" y1="66.04" x2="-45.72" y2="71.12" width="0.1524" layer="91"/>
+<label x="-45.72" y="71.12" size="1.27" layer="95" xref="yes"/>
 </segment>
 </net>
 <net name="MOSI" class="0">
@@ -20252,12 +20267,16 @@ avoid a self-generated HW interrupt</text>
 <pinref part="J4" gate="G$1" pin="2"/>
 </segment>
 </net>
+<net name="N$13" class="0">
+<segment>
+<pinref part="R1" gate="A" pin="2"/>
+<pinref part="LED5" gate="G$1" pin="A"/>
+</segment>
+</net>
 </nets>
 </sheet>
 </sheets>
 <errors>
-<approved hash="101,1,-43.18,55.88,R1A,1,,,,"/>
-<approved hash="101,1,-43.18,66.04,R1A,2,,,,"/>
 <approved hash="104,1,142.24,83.82,U$1,VCC,+3V3,,,"/>
 <approved hash="104,1,142.24,43.18,U$1,GND1,GND,,,"/>
 <approved hash="104,1,-12.7,-10.16,J2,3.3V,+3V3,,,"/>
@@ -20275,7 +20294,7 @@ avoid a self-generated HW interrupt</text>
 <approved hash="113,1,130.81,142.562,LED2,,,,,"/>
 <approved hash="113,1,130.81,132.402,LED3,,,,,"/>
 <approved hash="113,1,130.81,123.512,LED4,,,,,"/>
-<approved hash="113,1,-44.1748,60.96,R1,,,,,"/>
+<approved hash="113,1,-44.7252,60.96,R1,,,,,"/>
 <approved hash="113,1,235.733,-68.58,D1,,,,,"/>
 <approved hash="113,1,245.893,-68.58,D2,,,,,"/>
 <approved hash="113,1,131.085,-154.94,R6,,,,,"/>
@@ -20288,6 +20307,8 @@ avoid a self-generated HW interrupt</text>
 <approved hash="113,1,151.13,-127.342,C10,,,,,"/>
 <approved hash="113,1,62.23,-158.518,C7,,,,,"/>
 <approved hash="113,1,144.78,-40.1574,IC2,,,,,"/>
+<approved hash="113,1,124.46,142.613,J4,,,,,"/>
+<approved hash="113,1,-45.3983,52.07,LED5,,,,,"/>
 <approved hash="115,1,167.64,71.12,ANT_OUT,,,,,"/>
 </errors>
 </schematic>
