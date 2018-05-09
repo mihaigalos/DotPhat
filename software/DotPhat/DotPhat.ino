@@ -38,8 +38,8 @@ void setup() {
   digitalWrite(kBlueLed, HIGH);
   digitalWrite(kGreenLed, HIGH);
 
-  digitalWrite(kOutALed, HIGH);
-  digitalWrite(kOutBLed, HIGH);
+  digitalWrite(kOutALed, LOW);
+  digitalWrite(kOutBLed, LOW);
 }
 
 void on_usb_data_receive(uint8_t* data, uint8_t length){
