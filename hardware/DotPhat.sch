@@ -19202,6 +19202,8 @@ Real Time Clock Module with I2C Bus&lt;/i&gt; &lt;br&gt;
 <part name="J4" library="solderjumper" deviceset="SOLDERJUMPER.2" device=".MED"/>
 <part name="LED5" library="SparkFun" deviceset="LED" device="0603"/>
 <part name="SUPPLY28" library="supply2" deviceset="GND" device=""/>
+<part name="LED6" library="SparkFun" deviceset="LED" device="0603"/>
+<part name="+3V21" library="supply1" deviceset="+3V3" device=""/>
 </parts>
 <sheets>
 <sheet>
@@ -19223,7 +19225,7 @@ special care when selecting the flash:
 avoid a self-generated HW interrupt</text>
 <text x="254" y="7.62" size="1.27" layer="91" rot="R90">needs Pullup for INT pin</text>
 <text x="66.04" y="-114.3" size="1.27" layer="91" rot="R90">needs Pullup for INT pin</text>
-<text x="-58.42" y="50.8" size="1.27" layer="91">Radio ACT
+<text x="-60.96" y="40.64" size="1.27" layer="91">Radio ACT
 -Magenta-</text>
 </plain>
 <instances>
@@ -19284,7 +19286,7 @@ avoid a self-generated HW interrupt</text>
 <instance part="+3V19" gate="G$1" x="152.4" y="-27.94"/>
 <instance part="P+4" gate="1" x="134.62" y="-27.94"/>
 <instance part="C1" gate="G$1" x="154.94" y="-38.1"/>
-<instance part="R1" gate="A" x="-45.72" y="60.96" rot="R270"/>
+<instance part="R1" gate="A" x="-45.72" y="63.5" rot="R270"/>
 <instance part="R1" gate="B" x="-22.86" y="60.96" rot="R90"/>
 <instance part="R1" gate="C" x="-33.02" y="60.96" rot="R90"/>
 <instance part="R1" gate="D" x="-12.7" y="60.96" rot="R90"/>
@@ -19341,6 +19343,8 @@ avoid a self-generated HW interrupt</text>
 <instance part="J4" gate="G$1" x="124.46" y="142.24"/>
 <instance part="LED5" gate="G$1" x="-45.72" y="53.34"/>
 <instance part="SUPPLY28" gate="GND" x="-45.72" y="45.72" rot="MR0"/>
+<instance part="LED6" gate="G$1" x="-55.88" y="53.34"/>
+<instance part="+3V21" gate="G$1" x="-63.5" y="48.26" rot="R90"/>
 </instances>
 <busses>
 </busses>
@@ -19785,6 +19789,11 @@ avoid a self-generated HW interrupt</text>
 <pinref part="+3V1" gate="G$1" pin="+3V3"/>
 <wire x1="121.92" y1="142.24" x2="118.11" y2="142.24" width="0.1524" layer="91"/>
 </segment>
+<segment>
+<pinref part="LED6" gate="G$1" pin="C"/>
+<pinref part="+3V21" gate="G$1" pin="+3V3"/>
+<wire x1="-55.88" y1="48.26" x2="-60.96" y2="48.26" width="0.1524" layer="91"/>
+</segment>
 </net>
 <net name="ADCENA" class="0">
 <segment>
@@ -19802,7 +19811,7 @@ avoid a self-generated HW interrupt</text>
 </segment>
 <segment>
 <pinref part="R1" gate="A" pin="1"/>
-<wire x1="-45.72" y1="66.04" x2="-45.72" y2="71.12" width="0.1524" layer="91"/>
+<wire x1="-45.72" y1="68.58" x2="-45.72" y2="71.12" width="0.1524" layer="91"/>
 <label x="-45.72" y="71.12" size="1.27" layer="95" xref="yes"/>
 </segment>
 </net>
@@ -20271,6 +20280,10 @@ avoid a self-generated HW interrupt</text>
 <segment>
 <pinref part="R1" gate="A" pin="2"/>
 <pinref part="LED5" gate="G$1" pin="A"/>
+<wire x1="-45.72" y1="58.42" x2="-45.72" y2="55.88" width="0.1524" layer="91"/>
+<pinref part="LED6" gate="G$1" pin="A"/>
+<wire x1="-55.88" y1="55.88" x2="-45.72" y2="55.88" width="0.1524" layer="91"/>
+<junction x="-45.72" y="55.88"/>
 </segment>
 </net>
 </nets>
