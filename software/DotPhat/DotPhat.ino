@@ -5,7 +5,7 @@
 
 
 
-enum class ApplicationsStatus { Unknown, Idle, RadioSend, RadioSendPeriodic, RadioReceive};
+enum class ApplicationsStatus { Unknown, Idle, RadioSend, RadioSendPeriodic, RadioReceive, DumpEeprom};
 
 
 static constexpr auto kEEPROMMetadataAddress = 0;
@@ -39,6 +39,22 @@ typedef struct SEEPROMMetadata {
             0xFF != software_version_last_updated_timestamp[2] && 0x00 != software_version_last_updated_timestamp[2] &&
             0xFF != software_version_last_updated_timestamp[3] && 0x00 != software_version_last_updated_timestamp[3];
   }
+
+  String to_hex()
+  {
+      String result;
+      for (uint8_t i = 0; i < sizeof(*this); ++i){
+        int i_element = *(reinterpret_cast<uint8_t*>(this) + i);
+        String s_element {i_element, HEX};
+
+        if(i_element < 16)
+            result += "0";
+
+        result += s_element+ " ";
+     }
+     return result;
+  }
+
 
 }EEPROMMetadata;
 
@@ -82,9 +98,8 @@ void setup() {
   {
     if(e2prom_metadata.is_valid_sw_timestamp()) EEPROM.put(kEEPROMMetadataAddress, e2prom_metadata);
     else EEPROM.put(kEEPROMMetadataAddress, current_configuration);
-      digitalWrite(kGreenLed, LOW);
-      while(1);
   }
+
 }
 
 void on_usb_data_receive(uint8_t* data, uint8_t length){
@@ -97,18 +112,30 @@ void on_usb_data_receive(uint8_t* data, uint8_t length){
 
     case 'r':
     app_status = ApplicationsStatus::RadioReceive;
+    digitalWrite(kBlueLed, LOW);
+    rf.receiveDone(100);
+    digitalWrite(kBlueLed, HIGH);
     break;
 
     case 'x':
     app_status = ApplicationsStatus::Idle;
     break;
+
+    case 'e':
+    app_status = ApplicationsStatus::DumpEeprom;
+    EEPROM.get(kEEPROMMetadataAddress, e2prom_metadata);
+    String stringified_metadata = e2prom_metadata.to_hex();
+    software_usb.copyToUSBBuffer(stringified_metadata.c_str(), stringified_metadata.length()); 
+    digitalWrite(kGreenLed, LOW);
+
+    break;
   }
 }
 
 void send_radio(const char * payload, char length){
-  digitalWrite(1, LOW);
+  digitalWrite(kGreenLed, LOW);
   rf.send(0x01, payload, length);
-  digitalWrite(1, HIGH);
+  digitalWrite(kGreenLed, HIGH);
 }
 
 void on_radio_receive(){
@@ -126,10 +153,4 @@ void on_radio_receive(){
 
 void loop() {
   software_usb.spin();
-
-  if(ApplicationsStatus::RadioReceive == app_status){
-    digitalWrite(kBlueLed, LOW);
-    rf.receiveDone(100);
-    digitalWrite(kBlueLed, HIGH);
-  }
 }
