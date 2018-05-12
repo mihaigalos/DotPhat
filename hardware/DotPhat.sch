@@ -6,7 +6,7 @@
 <setting alwaysvectorfont="no"/>
 <setting verticaltext="up"/>
 </settings>
-<grid distance="0.1" unitdist="inch" unit="inch" style="lines" multiple="1" display="no" altdistance="0.01" altunitdist="inch" altunit="inch"/>
+<grid distance="0.05" unitdist="inch" unit="inch" style="lines" multiple="1" display="no" altdistance="0.01" altunitdist="inch" altunit="inch"/>
 <layers>
 <layer number="1" name="Top" color="4" fill="1" visible="no" active="no"/>
 <layer number="2" name="Route2" color="1" fill="3" visible="no" active="no"/>
@@ -6587,57 +6587,6 @@ Source: http://document.sharpsma.com/files/GM1WA55311A_SS.pdf</description>
 </technologies>
 </device>
 <device name="L" package="OSHW-LOGO-L">
-<technologies>
-<technology name=""/>
-</technologies>
-</device>
-</devices>
-</deviceset>
-</devicesets>
-</library>
-<library name="Seeed-OPL-Switch">
-<packages>
-<package name="SW2-4.0-6.0X3.0X2.5MM">
-<smd name="1" x="-3.325" y="0" dx="2.65" dy="1.4" layer="1"/>
-<smd name="2" x="3.325" y="0" dx="2.65" dy="1.4" layer="1"/>
-<wire x1="-3.05" y1="-1.85" x2="3.05" y2="-1.85" width="0.127" layer="21"/>
-<wire x1="3.05" y1="-1.85" x2="3.05" y2="1.85" width="0.127" layer="51"/>
-<wire x1="3.05" y1="1.85" x2="-3.05" y2="1.85" width="0.127" layer="21"/>
-<wire x1="-3.05" y1="1.85" x2="-3.05" y2="-1.85" width="0.127" layer="51"/>
-<rectangle x1="-3.048" y1="-1.905" x2="3.048" y2="1.905" layer="39"/>
-<text x="-1.905" y="2.032" size="0.889" layer="25" ratio="11">&gt;NAME</text>
-<text x="-1.905" y="0" size="0.635" layer="25" ratio="11">&gt;VALUE</text>
-<wire x1="-3.05" y1="1.8" x2="-3.05" y2="0.8" width="0.127" layer="21"/>
-<wire x1="3.05" y1="1.8" x2="3.05" y2="0.8" width="0.127" layer="21"/>
-<wire x1="3.05" y1="-1.8" x2="3.05" y2="-0.8" width="0.127" layer="21"/>
-<wire x1="-3.05" y1="-1.8" x2="-3.05" y2="-0.8" width="0.127" layer="21"/>
-</package>
-</packages>
-<symbols>
-<symbol name="BUTTON-2P">
-<pin name="1" x="-7.62" y="0" length="short"/>
-<pin name="2" x="7.62" y="0" length="short" rot="R180"/>
-<wire x1="-5.08" y1="0" x2="-2.54" y2="0" width="0.1524" layer="94"/>
-<circle x="-1.905" y="0" radius="0.635" width="0.1524" layer="94"/>
-<wire x1="-1.905" y1="0.635" x2="1.27" y2="1.905" width="0.1524" layer="94"/>
-<circle x="1.905" y="0" radius="0.635" width="0.1524" layer="94"/>
-<wire x1="2.54" y1="0" x2="5.08" y2="0" width="0.1524" layer="94"/>
-<text x="-7.62" y="1.27" size="1.27" layer="95" ratio="10">&gt;NAME</text>
-<text x="1.27" y="1.27" size="1.27" layer="96" ratio="10">&gt;VALUE</text>
-</symbol>
-</symbols>
-<devicesets>
-<deviceset name="SMD-BUTTON(2P-6.0X3.0X2.5MM)" prefix="SW" uservalue="yes">
-<description>311020029</description>
-<gates>
-<gate name="G$1" symbol="BUTTON-2P" x="0" y="0"/>
-</gates>
-<devices>
-<device name="-DHT-1163S" package="SW2-4.0-6.0X3.0X2.5MM">
-<connects>
-<connect gate="G$1" pin="1" pad="1"/>
-<connect gate="G$1" pin="2" pad="2"/>
-</connects>
 <technologies>
 <technology name=""/>
 </technologies>
@@ -19090,6 +19039,43 @@ Real Time Clock Module with I2C Bus&lt;/i&gt; &lt;br&gt;
 </deviceset>
 </devicesets>
 </library>
+<library name="pusbbutton_4x2_5">
+<packages>
+<package name="PUSHBUTTON_4X2.5">
+<smd name="P$1" x="-1.27" y="0" dx="1.7" dy="0.8" layer="1" rot="R90"/>
+<smd name="P$2" x="2.159" y="0" dx="1.7" dy="0.8" layer="1" rot="R90"/>
+<wire x1="-1.27" y1="1.397" x2="2.032" y2="1.397" width="0.127" layer="21"/>
+<wire x1="-1.27" y1="-1.397" x2="2.032" y2="-1.397" width="0.127" layer="21"/>
+</package>
+</packages>
+<symbols>
+<symbol name="PUSHBUTTON_4X2.5">
+<pin name="P$1" x="-5.08" y="0" visible="off" length="short"/>
+<pin name="P$2" x="5.08" y="0" visible="off" length="short" rot="R180"/>
+<circle x="-1.778" y="0" radius="0.567959375" width="0.254" layer="94"/>
+<circle x="1.778" y="0" radius="0.567959375" width="0.254" layer="94"/>
+<wire x1="-1.778" y1="0" x2="1.27" y2="2.032" width="0.254" layer="94"/>
+</symbol>
+</symbols>
+<devicesets>
+<deviceset name="PUSHBUTTON_4X2.5">
+<gates>
+<gate name="G$1" symbol="PUSHBUTTON_4X2.5" x="0" y="0"/>
+</gates>
+<devices>
+<device name="" package="PUSHBUTTON_4X2.5">
+<connects>
+<connect gate="G$1" pin="P$1" pad="P$1"/>
+<connect gate="G$1" pin="P$2" pad="P$2"/>
+</connects>
+<technologies>
+<technology name=""/>
+</technologies>
+</device>
+</devices>
+</deviceset>
+</devicesets>
+</library>
 </libraries>
 <attributes>
 </attributes>
@@ -19120,8 +19106,6 @@ Real Time Clock Module with I2C Bus&lt;/i&gt; &lt;br&gt;
 <part name="+3V1" library="supply1" deviceset="+3V3" device=""/>
 <part name="R7" library="SparkFun" deviceset="RESISTOR-ARRAY" device="0603-ARV" value="4.7kΩ"/>
 <part name="+3V8" library="supply1" deviceset="+3V3" device=""/>
-<part name="SW1" library="Seeed-OPL-Switch" deviceset="SMD-BUTTON(2P-6.0X3.0X2.5MM)" device="-DHT-1163S"/>
-<part name="SUPPLY19" library="supply2" deviceset="GND" device=""/>
 <part name="+3V3" library="supply1" deviceset="+3V3" device=""/>
 <part name="SUPPLY1" library="supply2" deviceset="GND" device=""/>
 <part name="JP1" library="adafruit" deviceset="PINHD-1X6" device=""/>
@@ -19204,6 +19188,10 @@ Real Time Clock Module with I2C Bus&lt;/i&gt; &lt;br&gt;
 <part name="SUPPLY28" library="supply2" deviceset="GND" device=""/>
 <part name="LED6" library="SparkFun" deviceset="LED" device="0603"/>
 <part name="+3V21" library="supply1" deviceset="+3V3" device=""/>
+<part name="SUPPLY31" library="supply2" deviceset="GND" device=""/>
+<part name="U$2" library="pusbbutton_4x2_5" deviceset="PUSHBUTTON_4X2.5" device=""/>
+<part name="SUPPLY32" library="supply2" deviceset="GND" device=""/>
+<part name="U$3" library="pusbbutton_4x2_5" deviceset="PUSHBUTTON_4X2.5" device=""/>
 </parts>
 <sheets>
 <sheet>
@@ -19252,8 +19240,6 @@ avoid a self-generated HW interrupt</text>
 <instance part="R7" gate="C" x="78.74" y="-20.32"/>
 <instance part="R7" gate="D" x="78.74" y="-25.4"/>
 <instance part="+3V8" gate="G$1" x="101.6" y="-2.54"/>
-<instance part="SW1" gate="G$1" x="64.77" y="-10.16"/>
-<instance part="SUPPLY19" gate="GND" x="88.9" y="-10.16" rot="R90"/>
 <instance part="+3V3" gate="G$1" x="-16.51" y="-10.16"/>
 <instance part="SUPPLY1" gate="GND" x="-12.7" y="-63.5"/>
 <instance part="JP1" gate="A" x="63.5" y="118.11"/>
@@ -19345,6 +19331,10 @@ avoid a self-generated HW interrupt</text>
 <instance part="SUPPLY28" gate="GND" x="-45.72" y="45.72" rot="MR0"/>
 <instance part="LED6" gate="G$1" x="-55.88" y="53.34"/>
 <instance part="+3V21" gate="G$1" x="-63.5" y="48.26" rot="R90"/>
+<instance part="SUPPLY31" gate="GND" x="66.04" y="-2.54" rot="R180"/>
+<instance part="U$2" gate="G$1" x="66.04" y="-10.16" rot="R90"/>
+<instance part="SUPPLY32" gate="GND" x="57.15" y="2.54" rot="R180"/>
+<instance part="U$3" gate="G$1" x="57.15" y="-5.08" rot="R90"/>
 </instances>
 <busses>
 </busses>
@@ -19383,11 +19373,6 @@ avoid a self-generated HW interrupt</text>
 <segment>
 <pinref part="Y1" gate="G$1" pin="2"/>
 <pinref part="SUPPLY30" gate="GND" pin="GND"/>
-</segment>
-<segment>
-<pinref part="R7" gate="A" pin="2"/>
-<pinref part="SUPPLY19" gate="GND" pin="GND"/>
-<wire x1="83.82" y1="-10.16" x2="86.36" y2="-10.16" width="0.1524" layer="91"/>
 </segment>
 <segment>
 <pinref part="J2" gate="G$1" pin="GND@6"/>
@@ -19537,6 +19522,14 @@ avoid a self-generated HW interrupt</text>
 <pinref part="LED5" gate="G$1" pin="C"/>
 <pinref part="SUPPLY28" gate="GND" pin="GND"/>
 </segment>
+<segment>
+<pinref part="U$2" gate="G$1" pin="P$2"/>
+<pinref part="SUPPLY31" gate="GND" pin="GND"/>
+</segment>
+<segment>
+<pinref part="U$3" gate="G$1" pin="P$2"/>
+<pinref part="SUPPLY32" gate="GND" pin="GND"/>
+</segment>
 </net>
 <net name="SDA" class="0">
 <segment>
@@ -19583,8 +19576,11 @@ avoid a self-generated HW interrupt</text>
 </segment>
 <segment>
 <pinref part="R7" gate="B" pin="1"/>
-<wire x1="73.66" y1="-15.24" x2="55.88" y2="-15.24" width="0.1524" layer="91"/>
 <label x="55.88" y="-15.24" size="1.27" layer="95" rot="R180" xref="yes"/>
+<pinref part="U$2" gate="G$1" pin="P$1"/>
+<wire x1="73.66" y1="-15.24" x2="66.04" y2="-15.24" width="0.1524" layer="91"/>
+<wire x1="66.04" y1="-15.24" x2="55.88" y2="-15.24" width="0.1524" layer="91"/>
+<junction x="66.04" y="-15.24"/>
 </segment>
 <segment>
 <pinref part="J2" gate="G$1" pin="GP4"/>
@@ -19942,9 +19938,9 @@ avoid a self-generated HW interrupt</text>
 <label x="78.74" y="33.02" size="1.27" layer="95" xref="yes"/>
 </segment>
 <segment>
-<pinref part="SW1" gate="G$1" pin="1"/>
 <wire x1="57.15" y1="-10.16" x2="55.88" y2="-10.16" width="0.1524" layer="91"/>
 <label x="55.88" y="-10.16" size="1.27" layer="95" rot="R180" xref="yes"/>
+<pinref part="U$3" gate="G$1" pin="P$1"/>
 </segment>
 <segment>
 <pinref part="SPK1" gate="G$1" pin="-"/>
@@ -20053,13 +20049,6 @@ avoid a self-generated HW interrupt</text>
 <wire x1="-27.94" y1="68.58" x2="-33.02" y2="68.58" width="0.1524" layer="91"/>
 <wire x1="-33.02" y1="68.58" x2="-33.02" y2="66.04" width="0.1524" layer="91"/>
 <pinref part="R1" gate="C" pin="2"/>
-</segment>
-</net>
-<net name="N$5" class="0">
-<segment>
-<pinref part="R7" gate="A" pin="1"/>
-<pinref part="SW1" gate="G$1" pin="2"/>
-<wire x1="72.39" y1="-10.16" x2="73.66" y2="-10.16" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="+5V" class="0">
