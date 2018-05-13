@@ -3,12 +3,11 @@
 #include <RFM69.h>
 #include <EEPROM.h>
 
-
+#include "eeprom_metadata.h"
+#include "unix_timestamp.h"
 
 enum class ApplicationsStatus { Unknown, Idle, RadioSend, RadioSendPeriodic, RadioReceive, DumpEeprom};
 
-
-static constexpr auto kEEPROMMetadataAddress = 0;
 static constexpr auto kOwnId = 0x10;
 static constexpr auto kMaxRfPower = 31;
 
@@ -19,50 +18,31 @@ static constexpr uint8_t kGreenLed = 1;
 static constexpr uint8_t kOutALed = 10;
 static constexpr uint8_t kOutBLed = 7;
 
-typedef struct SEEPROMMetadata {
-  uint8_t software_version[3];
-  uint8_t software_version_last_updated_timestamp[4];
-  uint8_t hardware_version[3];
-  uint8_t hardware_version_timestamp[4];
-
-  bool operator!=(const struct SEEPROMMetadata & rhs) const{
-    const uint8_t* p = reinterpret_cast<const uint8_t*>(&rhs);
-    for( uint16_t i =0 ; i< sizeof(*this) ; ++i ){
-      if(*(p + i) != *(reinterpret_cast<const uint8_t*>(this) + i)) return true;
-    }
-    return false;
-  }
-
-  bool is_valid_sw_timestamp(){
-    return  0xFF != software_version_last_updated_timestamp[0] && 0x00 != software_version_last_updated_timestamp[0] &&
-            0xFF != software_version_last_updated_timestamp[1] && 0x00 != software_version_last_updated_timestamp[1] &&
-            0xFF != software_version_last_updated_timestamp[2] && 0x00 != software_version_last_updated_timestamp[2] &&
-            0xFF != software_version_last_updated_timestamp[3] && 0x00 != software_version_last_updated_timestamp[3];
-  }
-
-  String to_hex()
-  {
-      String result;
-      for (uint8_t i = 0; i < sizeof(*this); ++i){
-        int i_element = *(reinterpret_cast<uint8_t*>(this) + i);
-        String s_element {i_element, HEX};
-
-        if(i_element < 16)
-            result += "0";
-
-        result += s_element+ " ";
-     }
-     return result;
-  }
-
-
-}EEPROMMetadata;
-
 static constexpr EEPROMMetadata current_configuration{
-  {1,0,2},
-  {0x5A, 0xF3, 0x5A, 0x8B},
-  {3, 1, 1},
-  {0x5A, 0xBE, 0x94, 0xB2}
+  { //metadata_version_info
+    .major = 1, .minor = 0, .patch = 0,
+  },
+  DeviceType::DotPhat,
+  {// software_version
+    .major = 1, .minor = 0, .patch = 0
+  },
+  {// sofware_timestamp_info
+    .timezone_sign=1, .utc_offset=1, .is_daylight_saving_active=LOCATION_DAYLIGHT_SAVING, .is_china_time=0
+  },
+  {// software_version_last_updated_timestamp
+    //0x5A, 0xF5, 0x9E, 0x7F
+    static_cast<uint8_t>(UNIX_TIMESTAMP>>24), static_cast<uint8_t>(UNIX_TIMESTAMP>>16), static_cast<uint8_t>(UNIX_TIMESTAMP>>8), static_cast<uint8_t>(UNIX_TIMESTAMP)
+  },
+  {// hardware_version
+    .major = 2, .minor = 0, .patch = 0
+  },
+  {// hardware_timestamp_info
+    .timezone_sign=1, .utc_offset=8, .is_daylight_saving_active=1, // true if date is > last sunday of March and < Last sunday of October
+    .is_china_time=1
+  },
+  { // hardware_version_timestamp : add 8 hours to the PCB manufactureing time in China
+    0x5A, 0xBF, 0x78, 0x1D
+  }
 };
 
 EEPROMMetadata e2prom_metadata;
@@ -78,7 +58,7 @@ void setup() {
 
   pinMode(kOutALed, OUTPUT);
   pinMode(kOutBLed, OUTPUT);
-  software_usb.callback_on_usb_data_receive_ = on_usb_data_receive;
+    software_usb.callback_on_usb_data_receive_ = on_usb_data_receive;
 
   rf.initialize(RF69_868MHZ, kOwnId, 0xFF); // TODO: reenable node address in library
   rf.setHighSensitivity(true);
@@ -96,15 +76,15 @@ void setup() {
   EEPROM.get(kEEPROMMetadataAddress, e2prom_metadata);
   if(current_configuration != e2prom_metadata)
   {
-    if(e2prom_metadata.is_valid_sw_timestamp()) EEPROM.put(kEEPROMMetadataAddress, e2prom_metadata);
-    else EEPROM.put(kEEPROMMetadataAddress, current_configuration);
+    EEPROM.put(kEEPROMMetadataAddress, current_configuration);
   }
 
 }
 
 void on_usb_data_receive(uint8_t* data, uint8_t length){
+  
   switch (data[0]){
-
+  
     case 's':
     send_radio(&data[1], length-1);  
     app_status = ApplicationsStatus::RadioSend;
