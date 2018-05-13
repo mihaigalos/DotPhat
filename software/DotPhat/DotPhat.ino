@@ -92,9 +92,6 @@ void on_usb_data_receive(uint8_t* data, uint8_t length){
 
     case 'r':
     app_status = ApplicationsStatus::RadioReceive;
-    digitalWrite(kBlueLed, LOW);
-    rf.receiveDone(100);
-    digitalWrite(kBlueLed, HIGH);
     break;
 
     case 'x':
@@ -131,6 +128,15 @@ void on_radio_receive(){
   digitalWrite(kRedLed, HIGH);
 }
 
+void application_spin(){
+  if(ApplicationsStatus::RadioReceive == app_status){
+    digitalWrite(kBlueLed, LOW);
+    rf.receiveDone(1000);
+    digitalWrite(kBlueLed, HIGH);
+  }
+}
+
 void loop() {
   software_usb.spin();
+  application_spin();
 }
