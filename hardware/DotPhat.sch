@@ -6,7 +6,7 @@
 <setting alwaysvectorfont="no"/>
 <setting verticaltext="up"/>
 </settings>
-<grid distance="0.05" unitdist="inch" unit="inch" style="lines" multiple="1" display="no" altdistance="0.01" altunitdist="inch" altunit="inch"/>
+<grid distance="0.1" unitdist="inch" unit="inch" style="lines" multiple="1" display="no" altdistance="0.01" altunitdist="inch" altunit="inch"/>
 <layers>
 <layer number="1" name="Top" color="4" fill="1" visible="no" active="no"/>
 <layer number="2" name="Route2" color="1" fill="3" visible="no" active="no"/>
@@ -19213,8 +19213,10 @@ special care when selecting the flash:
 avoid a self-generated HW interrupt</text>
 <text x="254" y="7.62" size="1.27" layer="91" rot="R90">needs Pullup for INT pin</text>
 <text x="66.04" y="-114.3" size="1.27" layer="91" rot="R90">needs Pullup for INT pin</text>
-<text x="-60.96" y="40.64" size="1.27" layer="91">Radio ACT
+<text x="-60.96" y="38.1" size="1.27" layer="91">Radio Rx
 -Magenta-</text>
+<text x="-48.26" y="38.1" size="1.27" layer="91">Radio Tx
+-Cyan-</text>
 </plain>
 <instances>
 <instance part="U1" gate="G$1" x="50.8" y="63.5"/>
@@ -19329,7 +19331,7 @@ avoid a self-generated HW interrupt</text>
 <instance part="J4" gate="G$1" x="124.46" y="142.24"/>
 <instance part="LED5" gate="G$1" x="-45.72" y="53.34"/>
 <instance part="SUPPLY28" gate="GND" x="-45.72" y="45.72" rot="MR0"/>
-<instance part="LED6" gate="G$1" x="-55.88" y="53.34"/>
+<instance part="LED6" gate="G$1" x="-55.88" y="50.8" rot="R180"/>
 <instance part="+3V21" gate="G$1" x="-63.5" y="48.26" rot="R90"/>
 <instance part="SUPPLY31" gate="GND" x="66.04" y="-2.54" rot="R180"/>
 <instance part="U$2" gate="G$1" x="66.04" y="-10.16" rot="R90"/>
@@ -19786,9 +19788,9 @@ avoid a self-generated HW interrupt</text>
 <wire x1="121.92" y1="142.24" x2="118.11" y2="142.24" width="0.1524" layer="91"/>
 </segment>
 <segment>
-<pinref part="LED6" gate="G$1" pin="C"/>
 <pinref part="+3V21" gate="G$1" pin="+3V3"/>
-<wire x1="-55.88" y1="48.26" x2="-60.96" y2="48.26" width="0.1524" layer="91"/>
+<pinref part="LED6" gate="G$1" pin="A"/>
+<wire x1="-60.96" y1="48.26" x2="-55.88" y2="48.26" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="ADCENA" class="0">
@@ -20270,7 +20272,7 @@ avoid a self-generated HW interrupt</text>
 <pinref part="R1" gate="A" pin="2"/>
 <pinref part="LED5" gate="G$1" pin="A"/>
 <wire x1="-45.72" y1="58.42" x2="-45.72" y2="55.88" width="0.1524" layer="91"/>
-<pinref part="LED6" gate="G$1" pin="A"/>
+<pinref part="LED6" gate="G$1" pin="C"/>
 <wire x1="-55.88" y1="55.88" x2="-45.72" y2="55.88" width="0.1524" layer="91"/>
 <junction x="-45.72" y="55.88"/>
 </segment>
@@ -20291,12 +20293,10 @@ avoid a self-generated HW interrupt</text>
 <approved hash="106,1,147.32,152.4,N$10,,,,,"/>
 <approved hash="113,1,181.61,73.3721,X1,,,,,"/>
 <approved hash="113,1,86.3092,68.4245,Y1,,,,,"/>
-<approved hash="113,1,64.77,-9.61813,SW1,,,,,"/>
 <approved hash="113,1,61.1971,120.781,JP1,,,,,"/>
 <approved hash="113,1,130.81,142.562,LED2,,,,,"/>
 <approved hash="113,1,130.81,132.402,LED3,,,,,"/>
 <approved hash="113,1,130.81,123.512,LED4,,,,,"/>
-<approved hash="113,1,-44.7252,60.96,R1,,,,,"/>
 <approved hash="113,1,235.733,-68.58,D1,,,,,"/>
 <approved hash="113,1,245.893,-68.58,D2,,,,,"/>
 <approved hash="113,1,131.085,-154.94,R6,,,,,"/>
