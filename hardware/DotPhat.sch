@@ -25049,7 +25049,6 @@ avoid a self-generated HW interrupt</text>
 -Magenta-</text>
 <text x="-48.26" y="38.1" size="1.27" layer="91">Radio Tx
 -Cyan-</text>
-<text x="118.11" y="-180.34" size="1.27" layer="91">Disable reset in fuses before soldering. Thus, no external pullup for noisy envorinments.</text>
 <text x="78.74" y="-199.39" size="1.27" layer="91">no gate pulldown since
 AD1582 has 2 Resistors at ouput storey</text>
 </plain>
@@ -25180,13 +25179,13 @@ AD1582 has 2 Resistors at ouput storey</text>
 <instance part="C13" gate="G$1" x="46.99" y="-222.25" rot="MR0"/>
 <instance part="SUPPLY34" gate="GND" x="8.89" y="-232.41" rot="MR0"/>
 <instance part="+3V22" gate="G$1" x="113.03" y="-198.12" rot="MR0"/>
-<instance part="SUPPLY36" gate="GND" x="82.55" y="-223.52" rot="MR0"/>
+<instance part="SUPPLY36" gate="GND" x="82.55" y="-232.41" rot="MR0"/>
 <instance part="CN2" gate="G$1" x="113.03" y="-215.9" rot="MR90"/>
-<instance part="SUPPLY38" gate="GND" x="115.57" y="-224.79" rot="MR0"/>
+<instance part="SUPPLY38" gate="GND" x="115.57" y="-232.41" rot="MR0"/>
 <instance part="D5" gate="G$1" x="-5.08" y="-209.55" rot="MR180"/>
 <instance part="Q1" gate="G$1" x="97.79" y="-207.01"/>
 <instance part="U$4" gate="G$1" x="64.77" y="-212.09"/>
-<instance part="SUPPLY19" gate="GND" x="64.77" y="-217.17" rot="MR0"/>
+<instance part="SUPPLY19" gate="GND" x="64.77" y="-232.41" rot="MR0"/>
 <instance part="C12" gate="G$1" x="82.55" y="-212.09"/>
 </instances>
 <busses>
@@ -25403,16 +25402,17 @@ AD1582 has 2 Resistors at ouput storey</text>
 <segment>
 <pinref part="SUPPLY36" gate="GND" pin="GND"/>
 <pinref part="C12" gate="G$1" pin="2"/>
-<wire x1="82.55" y1="-220.98" x2="82.55" y2="-217.17" width="0.1524" layer="91"/>
+<wire x1="82.55" y1="-229.87" x2="82.55" y2="-217.17" width="0.1524" layer="91"/>
 </segment>
 <segment>
 <pinref part="SUPPLY38" gate="GND" pin="GND"/>
 <pinref part="CN2" gate="G$1" pin="1"/>
-<wire x1="115.57" y1="-222.25" x2="115.57" y2="-218.44" width="0.1524" layer="91"/>
+<wire x1="115.57" y1="-229.87" x2="115.57" y2="-218.44" width="0.1524" layer="91"/>
 </segment>
 <segment>
 <pinref part="U$4" gate="G$1" pin="P$2"/>
 <pinref part="SUPPLY19" gate="GND" pin="GND"/>
+<wire x1="64.77" y1="-229.87" x2="64.77" y2="-214.63" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="SDA" class="0">
