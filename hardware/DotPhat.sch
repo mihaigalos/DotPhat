@@ -6,7 +6,7 @@
 <setting alwaysvectorfont="no"/>
 <setting verticaltext="up"/>
 </settings>
-<grid distance="0.05" unitdist="inch" unit="inch" style="lines" multiple="1" display="no" altdistance="0.01" altunitdist="inch" altunit="inch"/>
+<grid distance="0.1" unitdist="inch" unit="inch" style="lines" multiple="1" display="no" altdistance="0.01" altunitdist="inch" altunit="inch"/>
 <layers>
 <layer number="1" name="Top" color="4" fill="1" visible="no" active="no"/>
 <layer number="2" name="Route2" color="1" fill="3" visible="no" active="no"/>
@@ -25049,8 +25049,6 @@ avoid a self-generated HW interrupt</text>
 -Magenta-</text>
 <text x="-48.26" y="38.1" size="1.27" layer="91">Radio Tx
 -Cyan-</text>
-<text x="78.74" y="-199.39" size="1.27" layer="91">no gate pulldown since
-AD1582 has 2 Resistors at ouput storey</text>
 </plain>
 <instances>
 <instance part="U1" gate="G$1" x="50.8" y="63.5"/>
