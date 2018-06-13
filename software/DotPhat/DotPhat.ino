@@ -30,7 +30,6 @@ static constexpr EEPROMMetadata current_configuration{
     .timezone_sign=1, .utc_offset=1, .is_daylight_saving_active=LOCATION_DAYLIGHT_SAVING, .is_china_time=0
   },
   {// software_version_last_updated_timestamp
-    //0x5A, 0xF5, 0x9E, 0x7F
     static_cast<uint8_t>(UNIX_TIMESTAMP>>24), static_cast<uint8_t>(UNIX_TIMESTAMP>>16), static_cast<uint8_t>(UNIX_TIMESTAMP>>8), static_cast<uint8_t>(UNIX_TIMESTAMP)
   },
   {// hardware_version
@@ -49,6 +48,18 @@ EEPROMMetadata e2prom_metadata;
 RFM69 rf;
 SoftwareUSB software_usb;
 ApplicationsStatus app_status;
+
+typedef struct {
+  uint8_t* payload {nullptr};
+  uint8_t payload_length {0};
+  uint8_t current_send_count {0};
+  
+  uint16_t send_repeatX100 {0};
+  int8_t send_repeatCount{0};
+  uint32_t start_timestamp {0};
+}SendMetadata;
+
+SendMetadata send_metadata;
 
 // the setup function runs once when you press reset or power the board
 void setup() {
@@ -86,8 +97,45 @@ void on_usb_data_receive(uint8_t* data, uint8_t length){
   switch (data[0]){
   
     case 's':
-    send_radio(&data[1], length-1);  
+    if(':'==data[1]){
+    
+      
+    String command{reinterpret_cast<char*>(data)};
+
+    int posistion_separator_start = command.indexOf(":",2);
+    uint8_t payload_start = 2;
+    
+    if(-1 != posistion_separator_start){
+      int posistion_separator_end = command.indexOf(":",posistion_separator_start+1);  
+      if(-1 != posistion_separator_end){
+        
+        send_metadata.send_repeatX100 = command.substring(posistion_separator_start, posistion_separator_end).toInt(); 
+        send_metadata.send_repeatCount= command.substring(posistion_separator_end, command.length()).toInt(); 
+        payload_start = posistion_separator_end + 1;
+      } else {
+        //
+        send_metadata.send_repeatX100 = command.substring(2,posistion_separator_start).toInt(); 
+        send_metadata.send_repeatCount= -1;
+        payload_start = posistion_separator_start + 1;
+      }
+    } else {
+      send_metadata.send_repeatX100 = 0;
+      send_metadata.send_repeatCount= 1; 
+    }
+    
+    send_metadata.payload = &data[payload_start];
+    send_metadata.payload_length = length-payload_start;
+    send_metadata.current_send_count = 0;
+
+   
+    String bytecount {send_metadata.payload_length};
+
+    bytecount +=" ";
+    
+    software_usb.copyToUSBBuffer(bytecount.c_str(), bytecount.length());
+    
     app_status = ApplicationsStatus::RadioSend;
+    }
     break;
 
     case 'r':
@@ -100,11 +148,6 @@ void on_usb_data_receive(uint8_t* data, uint8_t length){
 
     case 'e':
     app_status = ApplicationsStatus::DumpEeprom;
-    EEPROM.get(kEEPROMMetadataAddress, e2prom_metadata);
-    String stringified_metadata = e2prom_metadata.to_hex();
-    software_usb.copyToUSBBuffer(stringified_metadata.c_str(), stringified_metadata.length()); 
-    digitalWrite(kGreenLed, LOW);
-
     break;
   }
 }
@@ -113,6 +156,7 @@ void send_radio(const char * payload, char length){
   digitalWrite(kGreenLed, LOW);
   rf.send(0x01, payload, length);
   digitalWrite(kGreenLed, HIGH);
+  app_status = ApplicationsStatus::Idle;
 }
 
 void on_radio_receive(){
@@ -122,17 +166,35 @@ void on_radio_receive(){
   }
 
   software_usb.copyToUSBBuffer(rf.DATA, RF69_MAX_DATA_LEN);
-  
+    
   digitalWrite(kRedLed, LOW);
-  delay(300);
+  delay(50);
   digitalWrite(kRedLed, HIGH);
 }
 
 void application_spin(){
   if(ApplicationsStatus::RadioReceive == app_status){
     digitalWrite(kBlueLed, LOW);
-    rf.receiveDone(1000);
+    rf.receiveDone();  // TODO : remove time arguments for receiveDone(), not needed anymore since interrupts occur assynchronously.
     digitalWrite(kBlueLed, HIGH);
+  } else if (ApplicationsStatus::Idle == app_status){
+    rf.sleep();    
+  } else if(ApplicationsStatus::RadioSend == app_status){
+    if(-1 == send_metadata.send_repeatCount || send_metadata.current_send_count < static_cast<uint8_t>(send_metadata.send_repeatCount)){
+      if(millis() - send_metadata.start_timestamp > send_metadata.send_repeatX100*100){
+
+        send_radio(&send_metadata.payload[0], send_metadata.payload_length);
+        if(-1 != send_metadata.send_repeatCount) {
+          ++send_metadata.send_repeatCount;  
+        }
+        send_metadata.start_timestamp = millis();
+      }
+    }
+  } else if (ApplicationsStatus::DumpEeprom == app_status){
+    EEPROM.get(kEEPROMMetadataAddress, e2prom_metadata);
+    String stringified_metadata = e2prom_metadata.to_hex();
+    software_usb.copyToUSBBuffer(stringified_metadata.c_str(), stringified_metadata.length());
+    app_status = ApplicationsStatus::Idle;
   }
 }
 
