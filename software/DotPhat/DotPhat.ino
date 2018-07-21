@@ -94,7 +94,7 @@ void setup() {
     EEPROM.put(kEEPROMMetadataAddress, current_configuration);
   }
   pinMode(interruptPin, INPUT_PULLUP);
-  attachInterrupt(digitalPinToInterrupt(interruptPin), blink, LOW);
+  attachInterrupt(digitalPinToInterrupt(interruptPin), onButtonPress, LOW);
 }
 
 
@@ -198,31 +198,33 @@ void application_spin() {
   }
 }
 
+void doublePress(){
+    state = !state;
+}
 
-void blink() {
- static unsigned long last_interrupt_time = 0;
- unsigned long interrupt_time = millis();
-
-   if (interrupt_time - last_interrupt_time > 20 && interrupt_time - last_interrupt_time < 200){
-
+void singlePress(){
     digitalWrite(currentLedPin, HIGH);
     if (kRedLed == currentLedPin) currentLedPin = kGreenLed ;
     else if ( kGreenLed == currentLedPin) currentLedPin = kRedLed;
-    state = LOW;
-   }
-   else if (interrupt_time - last_interrupt_time > 200)
-   {
-    state = !state;
-   }
-   last_interrupt_time = interrupt_time;
+    state = LOW;  
 }
 
-void foobar(){
-  digitalWrite(currentLedPin, state);
+void onButtonPress() {
+ static unsigned long last_interrupt_time = 0;
+ unsigned long interrupt_time = millis();
+
+   if (interrupt_time - last_interrupt_time > 30 && interrupt_time - last_interrupt_time < 400){
+      doublePress();
+   }
+   else if (interrupt_time - last_interrupt_time > 400)
+   {
+      singlePress();
+   }
+   last_interrupt_time = interrupt_time;
+   digitalWrite(currentLedPin, state);
 }
 
 void loop() {
   software_usb.spin();
   application_spin();
-  foobar();
 }
