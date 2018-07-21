@@ -61,6 +61,10 @@ typedef struct {
 
 SendMetadata send_metadata;
 
+constexpr uint8_t interruptPin = 3;
+uint8_t currentLedPin = kRedLed;
+volatile uint8_t state = LOW;
+
 // the setup function runs once when you press reset or power the board
 void setup() {
   pinMode(kRedLed, OUTPUT);
@@ -89,8 +93,10 @@ void setup() {
   {
     EEPROM.put(kEEPROMMetadataAddress, current_configuration);
   }
-
+  pinMode(interruptPin, INPUT_PULLUP);
+  attachInterrupt(digitalPinToInterrupt(interruptPin), blink, LOW);
 }
+
 
 void on_usb_data_receive(uint8_t* data, uint8_t length) {
 
@@ -125,7 +131,7 @@ void on_usb_data_receive(uint8_t* data, uint8_t length) {
         send_metadata.payload_length = length - payload_start;
         send_metadata.current_send_count = 0;
 
-        software_usb.copyToUSBBuffer(bytecount.c_str(), bytecount.length());
+        //software_usb.copyToUSBBuffer(bytecount.c_str(), bytecount.length());
 
         app_status = ApplicationsStatus::RadioSend;
       }
@@ -192,7 +198,31 @@ void application_spin() {
   }
 }
 
+
+void blink() {
+ static unsigned long last_interrupt_time = 0;
+ unsigned long interrupt_time = millis();
+
+   if (interrupt_time - last_interrupt_time > 20 && interrupt_time - last_interrupt_time < 200){
+
+    digitalWrite(currentLedPin, HIGH);
+    if (kRedLed == currentLedPin) currentLedPin = kGreenLed ;
+    else if ( kGreenLed == currentLedPin) currentLedPin = kRedLed;
+    state = LOW;
+   }
+   else if (interrupt_time - last_interrupt_time > 200)
+   {
+    state = !state;
+   }
+   last_interrupt_time = interrupt_time;
+}
+
+void foobar(){
+  digitalWrite(currentLedPin, state);
+}
+
 void loop() {
   software_usb.spin();
   application_spin();
+  foobar();
 }
