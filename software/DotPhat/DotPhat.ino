@@ -1,4 +1,6 @@
 #include "software_usb.h"
+#include "ButtonMenu.h"
+
 
 #include <RFM69.h>
 #include <EEPROM.h>
@@ -17,6 +19,8 @@ static constexpr uint8_t kGreenLed = 1;
 
 static constexpr uint8_t kOutALed = 10;
 static constexpr uint8_t kOutBLed = 7;
+
+static constexpr uint8_t kInterruptPin = 3;
 
 static constexpr EEPROMMetadata current_configuration{
   { //metadata_version_info
@@ -61,10 +65,6 @@ typedef struct {
 
 SendMetadata send_metadata;
 
-constexpr uint8_t interruptPin = 3;
-uint8_t currentLedPin = kRedLed;
-volatile uint8_t state = LOW;
-
 // the setup function runs once when you press reset or power the board
 void setup() {
   pinMode(kRedLed, OUTPUT);
@@ -93,10 +93,26 @@ void setup() {
   {
     EEPROM.put(kEEPROMMetadataAddress, current_configuration);
   }
-  pinMode(interruptPin, INPUT_PULLUP);
-  attachInterrupt(digitalPinToInterrupt(interruptPin), onButtonPress, LOW);
+  pinMode(kInterruptPin, INPUT_PULLUP);
+  attachInterrupt(digitalPinToInterrupt(kInterruptPin), onButtonPress, LOW);
 }
 
+
+void sendDemo(){
+  digitalWrite(kBlueLed, HIGH);
+  digitalWrite(kGreenLed, HIGH);
+
+  send_metadata.send_repeatCount = -1;
+  send_metadata.send_repeatX100 = 5;
+  send_metadata.start_timestamp = millis();
+  static uint8_t myData[11];
+  memcpy(&myData[0],"HelloWorld", 11);
+  send_metadata.payload = myData;
+  send_metadata.payload_length = 11;
+  send_metadata.current_send_count = 0;
+
+  app_status = ApplicationsStatus::RadioSend;
+}
 
 void on_usb_data_receive(uint8_t* data, uint8_t length) {
 
@@ -198,30 +214,42 @@ void application_spin() {
   }
 }
 
+using TVoidVoid = void(*)(void);
+TVoidVoid actions[7] = {
+  [](){pinMode(kOutBLed, OUTPUT);digitalWrite(kOutBLed, !digitalRead(kOutBLed));},
+  nullptr,
+  nullptr,
+  [](){digitalWrite(kRedLed, HIGH); digitalWrite(kBlueLed, HIGH); digitalWrite(kGreenLed, HIGH);app_status = ApplicationsStatus::RadioReceive;},
+  sendDemo,
+  nullptr,
+  [](){pinMode(kOutALed, OUTPUT);digitalWrite(kOutALed, !digitalRead(kOutALed));}
+};
+
 void doublePress(){
-    state = !state;
+    uint8_t currentStateIndex = static_cast<uint8_t>(ButtonMenu::get());
+    if(nullptr != actions[currentStateIndex]){
+      actions[currentStateIndex]();
+    }
 }
 
 void singlePress(){
-    digitalWrite(currentLedPin, HIGH);
-    if (kRedLed == currentLedPin) currentLedPin = kGreenLed ;
-    else if ( kGreenLed == currentLedPin) currentLedPin = kRedLed;
-    state = LOW;  
+    ButtonMenu::changeState(kRedLed, kGreenLed, kBlueLed);
 }
 
 void onButtonPress() {
  static unsigned long last_interrupt_time = 0;
  unsigned long interrupt_time = millis();
 
-   if (interrupt_time - last_interrupt_time > 30 && interrupt_time - last_interrupt_time < 400){
+   if (interrupt_time - last_interrupt_time > 30 && interrupt_time - last_interrupt_time < 300){
+      app_status = ApplicationsStatus::Idle;
       doublePress();
    }
-   else if (interrupt_time - last_interrupt_time > 400)
+   else if (interrupt_time - last_interrupt_time >= 300 && interrupt_time - last_interrupt_time < 2000)
    {
+      app_status = ApplicationsStatus::Idle;
       singlePress();
    }
    last_interrupt_time = interrupt_time;
-   digitalWrite(currentLedPin, state);
 }
 
 void loop() {
