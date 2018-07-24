@@ -1,9 +1,9 @@
 #include "software_usb.h"
 #include "ButtonMenu.h"
 
-
 #include <RFM69.h>
 #include <EEPROM.h>
+#include <Wire.h>
 
 #include "eeprom_metadata.h"
 #include "unix_timestamp.h"
@@ -65,6 +65,29 @@ typedef struct {
 
 SendMetadata send_metadata;
 
+static inline uint8_t readI2CByte(const uint8_t source_address,
+                               const uint16_t register_address) {
+  uint8_t data = 0x55;
+
+  uint8_t result = 255;
+  do {
+    Wire.beginTransmission(source_address);
+    Wire.write(static_cast<uint8_t>(register_address >> 8));
+    Wire.write(static_cast<uint8_t>(register_address));
+    result = Wire.endTransmission();
+  } while (0 != result);
+
+  // Ask the I2C device for data
+  Wire.requestFrom(source_address, static_cast<uint8_t>(1));
+  while (!Wire.available())
+    ;
+  if (Wire.available()) {
+    data = Wire.read();
+  }
+  return data;
+}
+
+
 // the setup function runs once when you press reset or power the board
 void setup() {
   pinMode(kRedLed, OUTPUT);
@@ -95,6 +118,7 @@ void setup() {
   }
   pinMode(kInterruptPin, INPUT_PULLUP);
   attachInterrupt(digitalPinToInterrupt(kInterruptPin), onButtonPress, LOW);
+  SoftwareUSB::handler_i2c_read_ = readI2CByte;
 }
 
 
