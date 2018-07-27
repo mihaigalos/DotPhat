@@ -1,3 +1,5 @@
+#define F_CPU 16000000UL
+
 #include "software_usb.h"
 #include "ButtonMenu.h"
 
@@ -7,8 +9,11 @@
 
 #include "eeprom_metadata.h"
 #include "unix_timestamp.h"
+#include "own_voltage.h"
 
-enum class ApplicationsStatus { Unknown, Idle, RadioSend, RadioSendPeriodic, RadioReceive, DumpEeprom};
+
+
+enum class ApplicationsStatus { Unknown, Idle, RadioSend, RadioSendPeriodic, RadioReceive, DumpEeprom, VoltageToLeds};
 
 static constexpr auto kOwnId = 0x10;
 static constexpr auto kMaxRfPower = 31;
@@ -67,9 +72,11 @@ SendMetadata send_metadata;
 
 static inline uint8_t readI2CByte(const uint8_t source_address,
                                const uint16_t register_address) {
-  uint8_t data = 0x55;
-
+  uint8_t data = 0xAA;
   uint8_t result = 255;
+
+  Wire.setClock(400000);
+  Wire.begin();
   do {
     Wire.beginTransmission(source_address);
     Wire.write(static_cast<uint8_t>(register_address >> 8));
@@ -84,6 +91,7 @@ static inline uint8_t readI2CByte(const uint8_t source_address,
   if (Wire.available()) {
     data = Wire.read();
   }
+
   return data;
 }
 
@@ -236,12 +244,54 @@ void application_spin() {
     software_usb.copyToUSBBuffer(stringified_metadata.c_str(), stringified_metadata.length());
     app_status = ApplicationsStatus::Idle;
   }
+
+  if(ApplicationsStatus::VoltageToLeds == app_status) voltageToLeds();
+}
+
+void flashLed(uint8_t led, uint8_t times){
+  for(uint8_t i = 0; i<times; ++i){
+    digitalWrite(led, LOW);
+    delay(200);
+    digitalWrite(led, HIGH);
+    delay(200);
+  }
+}
+
+void voltageToLeds(){
+  digitalWrite(kRedLed, HIGH);
+  digitalWrite(kGreenLed, HIGH);
+  digitalWrite(kBlueLed, HIGH);
+
+    uint16_t vcc = readVcc();
+    uint8_t led =-1, times=0;
+    if(vcc >= 2900UL) {
+      led = kBlueLed; times=3;
+    } else if(vcc >= 2750UL && vcc < 2900UL){
+      led = kBlueLed; times=2;
+    } else if(vcc >= 2600UL && vcc < 2750UL){
+      led = kBlueLed; times=1;
+    } else if(vcc >= 2450UL && vcc < 2600UL){
+      led = kGreenLed; times=3;
+    } else if(vcc >= 2300UL && vcc < 2450UL){
+      led = kGreenLed; times=2;
+    }else if(vcc >= 2150UL && vcc < 2300UL){
+      led = kGreenLed; times=1;
+    }else if(vcc >= 2000UL && vcc < 2150UL){
+      led = kRedLed; times=3;
+    }else if(vcc >= 1900UL && vcc < 2000UL){
+      led = kRedLed; times=2;
+    }else if(vcc < 1900UL){
+      led = kRedLed; times=1;
+    }
+
+    flashLed(led, times);
+    delay(1000);
 }
 
 using TVoidVoid = void(*)(void);
 TVoidVoid actions[7] = {
   [](){pinMode(kOutBLed, OUTPUT);digitalWrite(kOutBLed, !digitalRead(kOutBLed));},
-  nullptr,
+  [](){app_status = ApplicationsStatus::VoltageToLeds;},
   nullptr,
   [](){digitalWrite(kRedLed, HIGH); digitalWrite(kBlueLed, HIGH); digitalWrite(kGreenLed, HIGH);app_status = ApplicationsStatus::RadioReceive;},
   sendDemo,
