@@ -70,22 +70,22 @@ typedef struct {
 
 SendMetadata send_metadata;
 
-static inline uint8_t readI2CByte(const uint8_t source_address,
+static inline uint8_t readI2CByte(const uint8_t destination_address,
                                const uint16_t register_address) {
   uint8_t data = 0xAA;
   uint8_t result = 255;
 
-  Wire.setClock(400000);
+
   Wire.begin();
   do {
-    Wire.beginTransmission(source_address);
+    Wire.beginTransmission(destination_address);
     Wire.write(static_cast<uint8_t>(register_address >> 8));
     Wire.write(static_cast<uint8_t>(register_address));
     result = Wire.endTransmission();
   } while (0 != result);
 
   // Ask the I2C device for data
-  Wire.requestFrom(source_address, static_cast<uint8_t>(1));
+  Wire.requestFrom(destination_address, static_cast<uint8_t>(1));
   while (!Wire.available())
     ;
   if (Wire.available()) {
@@ -95,9 +95,26 @@ static inline uint8_t readI2CByte(const uint8_t source_address,
   return data;
 }
 
+static inline uint8_t writeI2CByte(const uint8_t destination_address,
+                                const uint16_t register_address, const uint8_t data) {
+  uint8_t result = 0x0f;
+  Wire.beginTransmission(destination_address);
+  Wire.write(static_cast<uint8_t>(register_address >> 8));
+  Wire.write(static_cast<uint8_t>(register_address));
+  Wire.write(data);
+  uint8_t begin_timestamp=millis();
+  do{
+    result = Wire.endTransmission();
+  }while(millis() - begin_timestamp<200);
+
+  if(destination_address == 0x50 && register_address == 0x12 && data == 0x34)
+    digitalWrite(kBlueLed,false);
+  return result;
+}
 
 // the setup function runs once when you press reset or power the board
 void setup() {
+  Wire.setClock(400000);
   pinMode(kRedLed, OUTPUT);
   pinMode(kBlueLed, OUTPUT);
   pinMode(kGreenLed, OUTPUT);
@@ -127,6 +144,7 @@ void setup() {
   pinMode(kInterruptPin, INPUT_PULLUP);
   attachInterrupt(digitalPinToInterrupt(kInterruptPin), onButtonPress, LOW);
   SoftwareUSB::handler_i2c_read_ = readI2CByte;
+  SoftwareUSB::handler_i2c_write_ = writeI2CByte;
 }
 
 
