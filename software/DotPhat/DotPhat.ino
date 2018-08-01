@@ -70,19 +70,17 @@ typedef struct {
 
 SendMetadata send_metadata;
 
-static inline uint8_t readI2CByte(const uint8_t destination_address,
+/*static inline uint8_t readI2CByte(const uint8_t destination_address,
                                const uint16_t register_address) {
   uint8_t data = 0xAA;
-  uint8_t result = 255;
+  uint8_t transmission_status = 255;
 
-
-  Wire.begin();
   do {
     Wire.beginTransmission(destination_address);
     Wire.write(static_cast<uint8_t>(register_address >> 8));
     Wire.write(static_cast<uint8_t>(register_address));
-    result = Wire.endTransmission();
-  } while (0 != result);
+    transmission_status = Wire.endTransmission();
+  } while (0 != transmission_status);
 
   // Ask the I2C device for data
   Wire.requestFrom(destination_address, static_cast<uint8_t>(1));
@@ -91,30 +89,58 @@ static inline uint8_t readI2CByte(const uint8_t destination_address,
   if (Wire.available()) {
     data = Wire.read();
   }
-
+  Wire.end();
   return data;
+}*/
+
+
+static inline void readI2CBytes(const uint8_t destination_address,
+                               const uint16_t register_address, const uint8_t count, uint8_t *output) {
+  uint8_t transmission_status = 255;
+
+  do {
+    Wire.beginTransmission(destination_address);
+    Wire.write(static_cast<uint8_t>(register_address >> 8));
+    Wire.write(static_cast<uint8_t>(register_address));
+    transmission_status = Wire.endTransmission();
+  } while (0 != transmission_status);
+
+  // Ask the I2C device for data
+  Wire.requestFrom(destination_address, count);
+  while (!Wire.available())
+    ;
+  for(uint8_t i = 0 ; i < count; ++i){
+    if (Wire.available()) {
+      output[i] = Wire.read();
+    }
+  }
+  Wire.end();
 }
 
 static inline uint8_t writeI2CByte(const uint8_t destination_address,
                                 const uint16_t register_address, const uint8_t data) {
-  uint8_t result = 0x0f;
+  uint8_t transmission_status = 0x0f;
   Wire.beginTransmission(destination_address);
-  Wire.write(static_cast<uint8_t>(register_address >> 8));
-  Wire.write(static_cast<uint8_t>(register_address));
+  Wire.write(static_cast<uint8_t>((register_address >> 8)& 0xFF));
+  Wire.write(static_cast<uint8_t>(register_address& 0xFF));
   Wire.write(data);
-  uint8_t begin_timestamp=millis();
-  do{
-    result = Wire.endTransmission();
-  }while(millis() - begin_timestamp<200);
 
-  if(destination_address == 0x50 && register_address == 0x12 && data == 0x34)
-    digitalWrite(kBlueLed,false);
-  return result;
+  uint32_t begin_timestamp = millis();
+  do{
+    transmission_status = Wire.endTransmission(true);
+  }while(millis() - begin_timestamp<500 && transmission_status !=0 );
+
+  //Wire.end();
+  //if(destination_address == 0x50 && register_address == 0x12 && data == 0x34)
+  //  digitalWrite(kBlueLed,false);
+  return transmission_status;
 }
 
 // the setup function runs once when you press reset or power the board
 void setup() {
   Wire.setClock(400000);
+  Wire.begin();
+
   pinMode(kRedLed, OUTPUT);
   pinMode(kBlueLed, OUTPUT);
   pinMode(kGreenLed, OUTPUT);
@@ -143,7 +169,7 @@ void setup() {
   }
   pinMode(kInterruptPin, INPUT_PULLUP);
   attachInterrupt(digitalPinToInterrupt(kInterruptPin), onButtonPress, LOW);
-  SoftwareUSB::handler_i2c_read_ = readI2CByte;
+  SoftwareUSB::handler_i2c_read_ = readI2CBytes;
   SoftwareUSB::handler_i2c_write_ = writeI2CByte;
 }
 
