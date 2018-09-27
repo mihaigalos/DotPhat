@@ -9,7 +9,7 @@
 
 #include "eeprom_metadata.h"
 #include "unix_timestamp.h"
-#include "own_voltage.h"
+#include "supercapacitor.h"
 
 
 
@@ -70,30 +70,6 @@ typedef struct {
 
 SendMetadata send_metadata;
 
-/*static inline uint8_t readI2CByte(const uint8_t destination_address,
-                               const uint16_t register_address) {
-  uint8_t data = 0xAA;
-  uint8_t transmission_status = 255;
-
-  do {
-    Wire.beginTransmission(destination_address);
-    Wire.write(static_cast<uint8_t>(register_address >> 8));
-    Wire.write(static_cast<uint8_t>(register_address));
-    transmission_status = Wire.endTransmission();
-  } while (0 != transmission_status);
-
-  // Ask the I2C device for data
-  Wire.requestFrom(destination_address, static_cast<uint8_t>(1));
-  while (!Wire.available())
-    ;
-  if (Wire.available()) {
-    data = Wire.read();
-  }
-  Wire.end();
-  return data;
-}*/
-
-
 static inline void readI2CBytes(const uint8_t destination_address,
                                const uint16_t register_address, const uint8_t count, uint8_t *output) {
   uint8_t transmission_status = 255;
@@ -130,13 +106,9 @@ static inline uint8_t writeI2CByte(const uint8_t destination_address,
     transmission_status = Wire.endTransmission(true);
   }while(millis() - begin_timestamp<500 && transmission_status !=0 );
 
-  //Wire.end();
-  //if(destination_address == 0x50 && register_address == 0x12 && data == 0x34)
-  //  digitalWrite(kBlueLed,false);
   return transmission_status;
 }
 
-// the setup function runs once when you press reset or power the board
 void setup() {
   Wire.setClock(400000);
   Wire.begin();
@@ -292,44 +264,9 @@ void application_spin() {
   if(ApplicationsStatus::VoltageToLeds == app_status) voltageToLeds();
 }
 
-void flashLed(uint8_t led, uint8_t times){
-  for(uint8_t i = 0; i<times; ++i){
-    digitalWrite(led, LOW);
-    delay(200);
-    digitalWrite(led, HIGH);
-    delay(200);
-  }
-}
-
 void voltageToLeds(){
-  digitalWrite(kRedLed, HIGH);
-  digitalWrite(kGreenLed, HIGH);
-  digitalWrite(kBlueLed, HIGH);
-
-    uint16_t vcc = readVcc();
-    uint8_t led =-1, times=0;
-    if(vcc >= 2900UL) {
-      led = kBlueLed; times=3;
-    } else if(vcc >= 2750UL && vcc < 2900UL){
-      led = kBlueLed; times=2;
-    } else if(vcc >= 2600UL && vcc < 2750UL){
-      led = kBlueLed; times=1;
-    } else if(vcc >= 2450UL && vcc < 2600UL){
-      led = kGreenLed; times=3;
-    } else if(vcc >= 2300UL && vcc < 2450UL){
-      led = kGreenLed; times=2;
-    }else if(vcc >= 2150UL && vcc < 2300UL){
-      led = kGreenLed; times=1;
-    }else if(vcc >= 2000UL && vcc < 2150UL){
-      led = kRedLed; times=3;
-    }else if(vcc >= 1900UL && vcc < 2000UL){
-      led = kRedLed; times=2;
-    }else if(vcc < 1900UL){
-      led = kRedLed; times=1;
-    }
-
-    flashLed(led, times);
-    delay(1000);
+ auto supercap = Supercapacitor3V(kRedLed, kGreenLed, kBlueLed);
+ supercap.voltageToLeds();
 }
 
 using TVoidVoid = void(*)(void);
