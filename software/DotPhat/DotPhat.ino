@@ -25,13 +25,15 @@ static constexpr uint8_t kGreenLed = 1;
 static constexpr uint8_t kOutALed = 10;
 static constexpr uint8_t kOutBLed = 7;
 
+static constexpr uint8_t kTRXLed = 9;
+
 static constexpr uint8_t kInterruptPin = 3;
 
 static constexpr EEPROMMetadata current_configuration{
   { //metadata_version_info
     .major = 1, .minor = 0, .patch = 0,
   },
-  DeviceType::DotPhat,
+  DeviceType::DotShine,
   { // software_version
     .major = 1, .minor = 0, .patch = 0
   },
@@ -42,7 +44,7 @@ static constexpr EEPROMMetadata current_configuration{
     static_cast<uint8_t>(UNIX_TIMESTAMP >> 24), static_cast<uint8_t>(UNIX_TIMESTAMP >> 16), static_cast<uint8_t>(UNIX_TIMESTAMP >> 8), static_cast<uint8_t>(UNIX_TIMESTAMP)
   },
   { // hardware_version
-    .major = 2, .minor = 0, .patch = 0
+    .major = 1, .minor = 1, .patch = 0
   },
   { // hardware_timestamp_info
     .timezone_sign = 1, .utc_offset = 8, .is_daylight_saving_active = 1, // true if date is > last sunday of March and < Last sunday of October
@@ -50,6 +52,24 @@ static constexpr EEPROMMetadata current_configuration{
   },
   { // hardware_version_timestamp : add 8 hours to the PCB manufactureing time in China
     0x5A, 0xBF, 0x78, 0x1D
+  },
+  {"Board1"}, // device name
+  { // energy info
+    {InstalledCapacity::None, 0}
+  },
+  {
+    48.189756, 11.572531 // GPS Position
+  },
+  { "No xtra loc info"}, // additional info
+  { // Installed Devices
+    .temperature_sensor = 1, .ultraviolet_sensor = 1, .eeprom = 1, .piezo_speaker = 0,
+    .crypto_module = 0, .high_precision_time_reference = 1, .reset_pushbutton = 1, .act_pushbutton = 1
+  },
+  { // Installed Devices 2
+      .usb = 1, .external_antenna = 0, .antenna_calibration = 0, .solar_panel = 1
+  },
+  { // Installed Leds
+      .usb_power = 1, .outA = 1, .outB = 1, .reset = 1,  .rgb = 1, .tx = 1, .rx = 1, .reserved = 1
   }
 };
 
@@ -122,7 +142,7 @@ void setup() {
   software_usb.callback_on_usb_data_receive_ = on_usb_data_receive;
 
   rf.initialize(RF69_868MHZ, kOwnId, 0xFF); // TODO: reenable node address in library
-  rf.setHighSensitivity(true);
+  //rf.setHighSensitivity(true);
   rf.promiscuous(true);
   rf.setPowerLevel(kMaxRfPower);
   rf.setCallback(on_radio_receive);
@@ -216,9 +236,10 @@ void on_usb_data_receive(uint8_t* data, uint8_t length) {
 }
 
 void send_radio(const char * payload, char length) {
-  digitalWrite(kGreenLed, LOW);
+  pinMode(kTRXLed, OUTPUT);
+  digitalWrite(kTRXLed, HIGH);
   rf.send(0x01, payload, length);
-  digitalWrite(kGreenLed, HIGH);
+  pinMode(kTRXLed, INPUT);
 }
 
 void on_radio_receive() {
@@ -229,9 +250,10 @@ void on_radio_receive() {
 
   software_usb.copyToUSBBuffer(rf.DATA, RF69_MAX_DATA_LEN);
 
+  pinMode(kTRXLed, OUTPUT);
   digitalWrite(kRedLed, LOW);
   delay(50);
-  digitalWrite(kRedLed, HIGH);
+  pinMode(kTRXLed, INPUT);
 }
 
 void application_spin() {
