@@ -167,9 +167,6 @@ void setup() {
 
 
 void sendDemo(){
-  digitalWrite(kBlueLed, HIGH);
-  digitalWrite(kGreenLed, HIGH);
-
   send_metadata.send_repeatCount = -1;
   send_metadata.send_repeatX100 = 5;
   send_metadata.start_timestamp = millis();
@@ -243,25 +240,24 @@ void send_radio(const char * payload, char length) {
 }
 
 void on_radio_receive() {
+
+  pinMode(kTRXLed, INPUT);
   if (rf.ACKRequested())
   {
     rf.sendACK();
   }
 
   software_usb.copyToUSBBuffer(rf.DATA, RF69_MAX_DATA_LEN);
-
+  delay(100);
   pinMode(kTRXLed, OUTPUT);
-  digitalWrite(kRedLed, LOW);
-  delay(50);
-  pinMode(kTRXLed, INPUT);
+  digitalWrite(kTRXLed, LOW);
 }
 
 void application_spin() {
   if (ApplicationsStatus::RadioReceive == app_status) {
-    digitalWrite(kBlueLed, LOW);
     rf.receiveDone();  // TODO : remove time arguments for receiveDone(), not needed anymore since interrupts occur assynchronously.
-    digitalWrite(kBlueLed, HIGH);
   } else if (ApplicationsStatus::Idle == app_status) {
+    pinMode(kTRXLed, INPUT);
     rf.sleep();
   } else if (ApplicationsStatus::RadioSend == app_status) {
     if (-1 == send_metadata.send_repeatCount || (send_metadata.current_send_count < static_cast<uint8_t>(send_metadata.send_repeatCount))) {
@@ -296,7 +292,7 @@ TVoidVoid actions[7] = {
   [](){pinMode(kOutBLed, OUTPUT);digitalWrite(kOutBLed, !digitalRead(kOutBLed));},
   [](){app_status = ApplicationsStatus::VoltageToLeds;},
   nullptr,
-  [](){digitalWrite(kRedLed, HIGH); digitalWrite(kBlueLed, HIGH); digitalWrite(kGreenLed, HIGH);app_status = ApplicationsStatus::RadioReceive;},
+  [](){pinMode(kTRXLed, OUTPUT); digitalWrite(kTRXLed, LOW);app_status = ApplicationsStatus::RadioReceive;},
   sendDemo,
   nullptr,
   [](){pinMode(kOutALed, OUTPUT);digitalWrite(kOutALed, !digitalRead(kOutALed));}
@@ -306,6 +302,9 @@ void doublePress(){
     uint8_t currentStateIndex = static_cast<uint8_t>(ButtonMenu::get());
     if(nullptr != actions[currentStateIndex]){
       actions[currentStateIndex]();
+      digitalWrite(kRedLed, HIGH);
+      digitalWrite(kGreenLed, HIGH);
+      digitalWrite(kBlueLed, HIGH);
     }
 }
 
