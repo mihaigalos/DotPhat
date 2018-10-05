@@ -197,6 +197,7 @@ void temperatureToLeds(){
 
   uint8_t whole_digit_1 = whole/10;
   uint8_t whole_digit_2 = whole%10;
+  uint8_t fraction_digit= static_cast<uint8_t>(fraction*10);
 
   for(uint8_t i = 0; i<whole_digit_1;++i){
     digitalWrite(kGreenLed, LOW); delay(300);
@@ -206,6 +207,11 @@ void temperatureToLeds(){
   for(uint8_t i = 0; i<whole_digit_2;++i){
     digitalWrite(kGreenLed, LOW); delay(300);
     digitalWrite(kGreenLed, HIGH); delay(300);
+  }
+  delay(1000);
+  for(uint8_t i = 0; i<fraction_digit;++i){
+    digitalWrite(kRedLed, LOW); delay(300);
+    digitalWrite(kRedLed, HIGH); delay(300);
   }
 }
 
