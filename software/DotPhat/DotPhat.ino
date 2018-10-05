@@ -6,6 +6,8 @@
 #include <RFM69.h>
 #include <EEPROM.h>
 #include <Wire.h>
+#include <tmp112.h>
+
 
 #include "eeprom_metadata.h"
 #include "unix_timestamp.h"
@@ -13,7 +15,7 @@
 
 
 
-enum class ApplicationsStatus { Unknown, Idle, RadioSend, RadioSendPeriodic, RadioReceive, DumpEeprom, VoltageToLeds};
+enum class ApplicationsStatus { Unknown, Idle, RadioSend, RadioSendPeriodic, RadioReceive, DumpEeprom, VoltageToLeds, TemperatureToLeds};
 
 static constexpr auto kOwnId = 0x10;
 static constexpr auto kMaxRfPower = 31;
@@ -129,6 +131,8 @@ static inline uint8_t writeI2CByte(const uint8_t destination_address,
   return transmission_status;
 }
 
+
+
 void setup() {
   Wire.setClock(400000);
   Wire.begin();
@@ -177,6 +181,32 @@ void sendDemo(){
   send_metadata.current_send_count = 0;
 
   app_status = ApplicationsStatus::RadioSend;
+}
+
+void temperatureToLeds(){
+  delay(3000);
+  digitalWrite(kRedLed, HIGH);
+  digitalWrite(kBlueLed, HIGH);
+  digitalWrite(kGreenLed, HIGH);
+
+  Tmp112 tmp112;
+  float temperature = tmp112.getTemperature();
+  uint8_t whole = static_cast<int>(temperature);
+
+  float fraction = temperature - static_cast<float>(whole);
+
+  uint8_t whole_digit_1 = whole/10;
+  uint8_t whole_digit_2 = whole%10;
+
+  for(uint8_t i = 0; i<whole_digit_1;++i){
+    digitalWrite(kGreenLed, LOW); delay(300);
+    digitalWrite(kGreenLed, HIGH); delay(300);
+  }
+  delay(1000);
+  for(uint8_t i = 0; i<whole_digit_2;++i){
+    digitalWrite(kGreenLed, LOW); delay(300);
+    digitalWrite(kGreenLed, HIGH); delay(300);
+  }
 }
 
 void on_usb_data_receive(uint8_t* data, uint8_t length) {
@@ -279,6 +309,7 @@ void application_spin() {
   }
 
   if(ApplicationsStatus::VoltageToLeds == app_status) voltageToLeds();
+  else if(ApplicationsStatus::TemperatureToLeds == app_status) temperatureToLeds();
 }
 
 void voltageToLeds(){
@@ -291,7 +322,7 @@ TVoidVoid actions[] = {
   [](){pinMode(kOutBLed, OUTPUT);digitalWrite(kOutBLed, !digitalRead(kOutBLed));},
   [](){app_status = ApplicationsStatus::VoltageToLeds;},
   nullptr,
-  nullptr,
+  [](){app_status = ApplicationsStatus::TemperatureToLeds;},
   nullptr,
   nullptr,
   [](){pinMode(kOutALed, OUTPUT);digitalWrite(kOutALed, !digitalRead(kOutALed));},
