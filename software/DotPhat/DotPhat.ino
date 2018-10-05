@@ -257,7 +257,6 @@ void application_spin() {
   if (ApplicationsStatus::RadioReceive == app_status) {
     rf.receiveDone();  // TODO : remove time arguments for receiveDone(), not needed anymore since interrupts occur assynchronously.
   } else if (ApplicationsStatus::Idle == app_status) {
-    pinMode(kTRXLed, INPUT);
     rf.sleep();
   } else if (ApplicationsStatus::RadioSend == app_status) {
     if (-1 == send_metadata.send_repeatCount || (send_metadata.current_send_count < static_cast<uint8_t>(send_metadata.send_repeatCount))) {
@@ -288,14 +287,16 @@ void voltageToLeds(){
 }
 
 using TVoidVoid = void(*)(void);
-TVoidVoid actions[7] = {
+TVoidVoid actions[] = {
   [](){pinMode(kOutBLed, OUTPUT);digitalWrite(kOutBLed, !digitalRead(kOutBLed));},
   [](){app_status = ApplicationsStatus::VoltageToLeds;},
   nullptr,
-  [](){pinMode(kTRXLed, OUTPUT); digitalWrite(kTRXLed, LOW);app_status = ApplicationsStatus::RadioReceive;},
-  sendDemo,
   nullptr,
-  [](){pinMode(kOutALed, OUTPUT);digitalWrite(kOutALed, !digitalRead(kOutALed));}
+  nullptr,
+  nullptr,
+  [](){pinMode(kOutALed, OUTPUT);digitalWrite(kOutALed, !digitalRead(kOutALed));},
+  sendDemo,
+  [](){pinMode(kTRXLed, OUTPUT); digitalWrite(kTRXLed, LOW);app_status = ApplicationsStatus::RadioReceive;}
 };
 
 void doublePress(){
@@ -309,7 +310,7 @@ void doublePress(){
 }
 
 void singlePress(){
-    ButtonMenu::changeState(kRedLed, kGreenLed, kBlueLed);
+    ButtonMenu::changeState(kRedLed, kGreenLed, kBlueLed, kTRXLed);
 }
 
 void onButtonPress() {
