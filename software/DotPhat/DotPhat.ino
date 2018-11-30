@@ -3,6 +3,8 @@
 #include "ButtonMenu.h"
 #include "software_usb.h"
 
+#include <prescaler.h>
+
 #include <EEPROM.h>
 #include <RFM69.h>
 #include <Wire.h>
@@ -36,6 +38,9 @@ static constexpr uint8_t kOutBLed = 7;
 static constexpr uint8_t kTRXLed = 9;
 
 static constexpr uint8_t kInterruptPin = 3;
+
+static constexpr uint8_t kClockPrescaler = CLOCK_PRESCALER_16;
+
 
 static constexpr EEPROMMetadata current_configuration{
     {
@@ -162,6 +167,9 @@ static inline uint8_t writeI2CByte(const uint8_t destination_address,
 }
 
 void setup() {
+
+  setClockPrescaler(kClockPrescaler); //needed for smooth running under 3V.
+
   Wire.setClock(400000);
   Wire.begin();
 
@@ -211,7 +219,7 @@ void sendDemo() {
 }
 
 void temperatureToLeds() {
-  delay(3000);
+  delay(3000/kClockPrescaler);
   digitalWrite(kRedLed, HIGH);
   digitalWrite(kBlueLed, HIGH);
   digitalWrite(kGreenLed, HIGH);
@@ -228,23 +236,23 @@ void temperatureToLeds() {
 
   for (uint8_t i = 0; i < whole_digit_1; ++i) {
     digitalWrite(kGreenLed, LOW);
-    delay(300);
+    delay(300/kClockPrescaler);
     digitalWrite(kGreenLed, HIGH);
-    delay(300);
+    delay(300/kClockPrescaler);
   }
-  delay(1000);
+  delay(1000/kClockPrescaler);
   for (uint8_t i = 0; i < whole_digit_2; ++i) {
     digitalWrite(kGreenLed, LOW);
-    delay(300);
+    delay(300/kClockPrescaler);
     digitalWrite(kGreenLed, HIGH);
-    delay(300);
+    delay(300/kClockPrescaler);
   }
-  delay(1000);
+  delay(1000/kClockPrescaler);
   for (uint8_t i = 0; i < fraction_digit; ++i) {
     digitalWrite(kRedLed, LOW);
-    delay(300);
+    delay(300/kClockPrescaler);
     digitalWrite(kRedLed, HIGH);
-    delay(300);
+    delay(300/kClockPrescaler);
   }
 }
 
@@ -321,7 +329,7 @@ void on_radio_receive() {
   }
 
   software_usb.copyToUSBBuffer(rf.DATA, RF69_MAX_DATA_LEN);
-  delay(100);
+  delay(100/kClockPrescaler);
   pinMode(kTRXLed, OUTPUT);
   digitalWrite(kTRXLed, LOW);
 }
