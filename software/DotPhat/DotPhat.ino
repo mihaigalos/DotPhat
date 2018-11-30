@@ -25,6 +25,7 @@ enum class ApplicationsStatus {
   TemperatureToLeds
 };
 
+
 static constexpr auto kOwnId = 0x10;
 static constexpr auto kMaxRfPower = 31;
 
@@ -32,18 +33,16 @@ static constexpr uint8_t kRedLed = 8;
 static constexpr uint8_t kBlueLed = 0;
 static constexpr uint8_t kGreenLed = 1;
 
-static constexpr uint8_t kOutALed = 10;
-static constexpr uint8_t kOutBLed = 7;
+static constexpr uint8_t kOutABLed = 10;
 
 static constexpr uint8_t kTRXLed = 9;
 
 static constexpr uint8_t kInterruptPin = 3;
-
 static constexpr uint8_t kClockPrescaler = CLOCK_PRESCALER_16;
 
 
 static constexpr EEPROMMetadata current_configuration{
-    {
+{
         // metadata_version_info
         .major = 1,
         .minor = 0,
@@ -107,6 +106,7 @@ static constexpr EEPROMMetadata current_configuration{
      .tx = 1,
      .rx = 1,
      .reserved = 1}};
+    
 
 EEPROMMetadata e2prom_metadata;
 RFM69 rf;
@@ -114,10 +114,10 @@ SoftwareUSB software_usb;
 ApplicationsStatus app_status;
 
 typedef struct {
+
   uint8_t *payload{nullptr};
   uint8_t payload_length{0};
   uint8_t current_send_count{0};
-
   uint16_t send_repeatX100{0};
   int8_t send_repeatCount{0};
   uint32_t start_timestamp{0};
@@ -154,6 +154,7 @@ static inline uint8_t writeI2CByte(const uint8_t destination_address,
                                    const uint8_t data) {
   uint8_t transmission_status = 0x0f;
   Wire.beginTransmission(destination_address);
+
   Wire.write(static_cast<uint8_t>((register_address >> 8) & 0xFF));
   Wire.write(static_cast<uint8_t>(register_address & 0xFF));
   Wire.write(data);
@@ -177,8 +178,6 @@ void setup() {
   pinMode(kBlueLed, OUTPUT);
   pinMode(kGreenLed, OUTPUT);
 
-  pinMode(kOutALed, OUTPUT);
-  pinMode(kOutBLed, OUTPUT);
   software_usb.callback_on_usb_data_receive_ = on_usb_data_receive;
 
   rf.initialize(RF69_868MHZ, kOwnId,
@@ -192,8 +191,6 @@ void setup() {
   digitalWrite(kBlueLed, HIGH);
   digitalWrite(kGreenLed, HIGH);
 
-  digitalWrite(kOutALed, LOW);
-  digitalWrite(kOutBLed, LOW);
 
   EEPROM.get(kEEPROMMetadataAddress, e2prom_metadata);
   if (current_configuration != e2prom_metadata) {
@@ -204,6 +201,7 @@ void setup() {
   SoftwareUSB::handler_i2c_read_ = readI2CBytes;
   SoftwareUSB::handler_i2c_write_ = writeI2CByte;
 }
+
 
 void sendDemo() {
   send_metadata.send_repeatCount = -1;
@@ -219,7 +217,7 @@ void sendDemo() {
 }
 
 void temperatureToLeds() {
-  delay(3000/kClockPrescaler);
+  delay(3000/(1<<kClockPrescaler));
   digitalWrite(kRedLed, HIGH);
   digitalWrite(kBlueLed, HIGH);
   digitalWrite(kGreenLed, HIGH);
@@ -230,30 +228,26 @@ void temperatureToLeds() {
 
   float fraction = temperature - static_cast<float>(whole);
 
+
   uint8_t whole_digit_1 = whole / 10;
   uint8_t whole_digit_2 = whole % 10;
   uint8_t fraction_digit = static_cast<uint8_t>(fraction * 10);
 
   for (uint8_t i = 0; i < whole_digit_1; ++i) {
-    digitalWrite(kGreenLed, LOW);
-    delay(300/kClockPrescaler);
-    digitalWrite(kGreenLed, HIGH);
-    delay(300/kClockPrescaler);
+    digitalWrite(kGreenLed, LOW); delay(300/(1<<kClockPrescaler));
+    digitalWrite(kGreenLed, HIGH); delay(300/(1<<kClockPrescaler));
   }
-  delay(1000/kClockPrescaler);
+  delay(1000/(1<<kClockPrescaler));
   for (uint8_t i = 0; i < whole_digit_2; ++i) {
-    digitalWrite(kGreenLed, LOW);
-    delay(300/kClockPrescaler);
-    digitalWrite(kGreenLed, HIGH);
-    delay(300/kClockPrescaler);
+    digitalWrite(kGreenLed, LOW); delay(300/(1<<kClockPrescaler));
+    digitalWrite(kGreenLed, HIGH); delay(300/(1<<kClockPrescaler));
   }
   delay(1000/kClockPrescaler);
   for (uint8_t i = 0; i < fraction_digit; ++i) {
-    digitalWrite(kRedLed, LOW);
-    delay(300/kClockPrescaler);
-    digitalWrite(kRedLed, HIGH);
-    delay(300/kClockPrescaler);
-  }
+    
+      digitalWrite(kRedLed, LOW); delay(300/(1<<kClockPrescaler));
+      digitalWrite(kRedLed, HIGH); delay(300/(1<<kClockPrescaler));
+   }
 }
 
 void on_usb_data_receive(uint8_t *data, uint8_t length) {
@@ -265,36 +259,34 @@ void on_usb_data_receive(uint8_t *data, uint8_t length) {
 
       String command{reinterpret_cast<char *>(data)};
 
+
       int posistion_separator_delay = command.indexOf(":", 2);
       uint8_t payload_start = 2;
       int posistion_separator_repeat_count = 0;
 
+
       if (-1 != posistion_separator_delay) { //:<number>:
-        int posistion_separator_repeat_count =
-            command.indexOf(":", posistion_separator_delay + 1);
-        payload_start = posistion_separator_repeat_count + 1;
-        send_metadata.send_repeatX100 =
-            command.substring(2, posistion_separator_delay).toInt();
-        if (-1 != posistion_separator_repeat_count) { //:<number>:<number>:
-          send_metadata.send_repeatCount =
-              command
-                  .substring(posistion_separator_delay + 1,
-                             posistion_separator_repeat_count)
-                  .toInt();
+          int posistion_separator_repeat_count = command.indexOf(":", posistion_separator_delay + 1);
+          payload_start = posistion_separator_repeat_count + 1;
+          send_metadata.send_repeatX100 = command.substring(2, posistion_separator_delay).toInt();
+          if (-1 != posistion_separator_repeat_count) { //:<number>:<number>:
+            send_metadata.send_repeatCount = command.substring(posistion_separator_delay + 1, posistion_separator_repeat_count).toInt();
+          } else {
+            send_metadata.send_repeatCount = -1;
+          }
         } else {
-          send_metadata.send_repeatCount = -1;
+          send_metadata.send_repeatX100 = 0;
+          send_metadata.send_repeatCount = 1;
         }
-      } else {
-        send_metadata.send_repeatX100 = 0;
-        send_metadata.send_repeatCount = 1;
-      }
 
       send_metadata.start_timestamp = millis();
       send_metadata.payload = &data[payload_start];
       send_metadata.payload_length = length - payload_start;
       send_metadata.current_send_count = 0;
 
+        
       // software_usb.copyToUSBBuffer(bytecount.c_str(), bytecount.length());
+
 
       app_status = ApplicationsStatus::RadioSend;
     }
@@ -324,20 +316,22 @@ void send_radio(const char *payload, char length) {
 void on_radio_receive() {
 
   pinMode(kTRXLed, INPUT);
+
   if (rf.ACKRequested()) {
     rf.sendACK();
   }
 
   software_usb.copyToUSBBuffer(rf.DATA, RF69_MAX_DATA_LEN);
-  delay(100/kClockPrescaler);
+  delay(100/(1<<kClockPrescaler));
   pinMode(kTRXLed, OUTPUT);
   digitalWrite(kTRXLed, LOW);
 }
 
 void application_spin() {
   if (ApplicationsStatus::RadioReceive == app_status) {
+
     rf.receiveDone(); // TODO : remove time arguments for receiveDone(), not
-                      // needed anymore since interrupts occur assynchronously.
+                      // needed anymore since interrupts occur asynchronously.
   } else if (ApplicationsStatus::Idle == app_status) {
     rf.sleep();
   } else if (ApplicationsStatus::RadioSend == app_status) {
@@ -359,6 +353,7 @@ void application_spin() {
   } else if (ApplicationsStatus::DumpEeprom == app_status) {
     EEPROM.get(kEEPROMMetadataAddress, e2prom_metadata);
     String stringified_metadata = e2prom_metadata.to_hex();
+
     software_usb.copyToUSBBuffer(stringified_metadata.c_str(),
                                  stringified_metadata.length());
     app_status = ApplicationsStatus::Idle;
@@ -370,32 +365,26 @@ void application_spin() {
     temperatureToLeds();
 }
 
+
 void voltageToLeds() {
   auto supercap = Supercapacitor3V(kRedLed, kGreenLed, kBlueLed);
   supercap.voltageToLeds();
 }
 
+
 using TVoidVoid = void (*)(void);
 TVoidVoid actions[] = {
-    []() {
-      pinMode(kOutBLed, OUTPUT);
-      digitalWrite(kOutBLed, !digitalRead(kOutBLed));
-    },
-    []() { app_status = ApplicationsStatus::VoltageToLeds; },
-    nullptr,
-    []() { app_status = ApplicationsStatus::TemperatureToLeds; },
-    nullptr,
-    nullptr,
-    []() {
-      pinMode(kOutALed, OUTPUT);
-      digitalWrite(kOutALed, !digitalRead(kOutALed));
-    },
-    sendDemo,
-    []() {
-      pinMode(kTRXLed, OUTPUT);
-      digitalWrite(kTRXLed, LOW);
-      app_status = ApplicationsStatus::RadioReceive;
-    }};
+  nullptr,
+  [](){app_status = ApplicationsStatus::VoltageToLeds;},
+  nullptr,
+  [](){app_status = ApplicationsStatus::TemperatureToLeds;},
+  nullptr,
+  nullptr,
+  nullptr,
+  sendDemo,
+  [](){pinMode(kTRXLed, OUTPUT); digitalWrite(kTRXLed, LOW);app_status = ApplicationsStatus::RadioReceive;}
+};
+
 
 void doublePress() {
   uint8_t currentStateIndex = static_cast<uint8_t>(ButtonMenu::get());
@@ -413,14 +402,15 @@ void singlePress() {
 
 void onButtonPress() {
   static unsigned long last_interrupt_time = 0;
-  unsigned long interrupt_time = millis();
+ unsigned long interrupt_time = millis()/(1<<kClockPrescaler );
 
-  if (interrupt_time - last_interrupt_time > 30 &&
-      interrupt_time - last_interrupt_time < 300) {
+
+  if (interrupt_time - last_interrupt_time > 30/(1<<kClockPrescaler ) &&
+      interrupt_time - last_interrupt_time < 300/(1<<kClockPrescaler )) {
     app_status = ApplicationsStatus::Idle;
     doublePress();
-  } else if (interrupt_time - last_interrupt_time >= 300 &&
-             interrupt_time - last_interrupt_time < 2000) {
+  } else if (interrupt_time - last_interrupt_time >= 300/(1<<kClockPrescaler ) &&
+             interrupt_time - last_interrupt_time < 2000/(1<<kClockPrescaler )) {
     app_status = ApplicationsStatus::Idle;
     singlePress();
   }
