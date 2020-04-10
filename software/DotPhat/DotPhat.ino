@@ -19,6 +19,8 @@
 #include "i2c_transaction.h"
 #include "temperature_to_leds.h"
 
+#include "parse_usb_command.h"
+
 RFM69 rf;
 SoftwareUSB software_usb;
 
@@ -54,44 +56,13 @@ void setup() {
 }
 
 
-void on_usb_data_receive(uint8_t *data, uint8_t length) {
+void on_usb_data_receive(uint8_t *data, uint8_t usb_data_length) {
 
   switch (data[0]) {
 
   case 's':
     if (':' == data[1]) {
-
-      String command{reinterpret_cast<char *>(data)};
-
-
-      int posistion_separator_delay = command.indexOf(":", 2);
-      uint8_t payload_start = 2;
-      int posistion_separator_repeat_count = 0;
-
-
-      if (-1 != posistion_separator_delay) { //:<number>:
-          int posistion_separator_repeat_count = command.indexOf(":", posistion_separator_delay + 1);
-          payload_start = posistion_separator_repeat_count + 1;
-          send_metadata.send_repeatX100 = command.substring(2, posistion_separator_delay).toInt();
-          if (-1 != posistion_separator_repeat_count) { //:<number>:<number>:
-            send_metadata.send_repeatCount = command.substring(posistion_separator_delay + 1, posistion_separator_repeat_count).toInt();
-          } else {
-            send_metadata.send_repeatCount = -1;
-          }
-        } else {
-          send_metadata.send_repeatX100 = 0;
-          send_metadata.send_repeatCount = 1;
-        }
-
-      send_metadata.start_timestamp = millis();
-      send_metadata.payload = &data[payload_start];
-      send_metadata.payload_length = length - payload_start;
-      send_metadata.current_send_count = 0;
-
-        
-      // software_usb.copyToUSBBuffer(bytecount.c_str(), bytecount.length());
-
-
+      radio_send_from_usb(data, usb_data_length);
       app_status = ApplicationsStatus::RadioSend;
     }
     break;
@@ -117,7 +88,7 @@ void send_radio(const char *payload, char length) {
   pinMode(kTRXLed, INPUT);
 }
 
-void on_radio_receive() {
+void on_radio_receive(SoftwareUSB& software_usb) {
 
   pinMode(kTRXLed, INPUT);
 
@@ -130,7 +101,6 @@ void on_radio_receive() {
   pinMode(kTRXLed, OUTPUT);
   digitalWrite(kTRXLed, LOW);
 }
-
 void application_spin() {
   if (ApplicationsStatus::RadioReceive == app_status) {
 
@@ -174,7 +144,6 @@ void voltageToLeds() {
   auto supercap = Supercapacitor3V(kRedLed, kGreenLed, kBlueLed);
   supercap.voltageToLeds();
 }
-
 
 
 void loop() {

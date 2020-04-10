@@ -3,7 +3,6 @@
 #include "config.h"
 #include "radio.h"
 
-
 using TVoidVoid = void (*)(void);
 TVoidVoid actions[] = {
   nullptr,
