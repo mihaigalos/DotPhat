@@ -7,14 +7,17 @@
 
 #include <EEPROM.h>
 #include <RFM69.h>
-#include <Wire.h>
+
 #include <tmp112.h>
 
-#include "eeprom_metadata.h"
+
 #include "supercapacitor.h"
 #include "unix_timestamp.h"
 
 #include "eeprom_config.h"
+#include "config.h"
+#include "i2c_transaction.h"
+
 
 enum class ApplicationsStatus {
   Unknown,
@@ -27,24 +30,6 @@ enum class ApplicationsStatus {
   TemperatureToLeds
 };
 
-
-static constexpr auto kOwnId = 0x10;
-static constexpr auto kMaxRfPower = 31;
-
-static constexpr uint8_t kRedLed = 8;
-static constexpr uint8_t kBlueLed = 0;
-static constexpr uint8_t kGreenLed = 1;
-
-static constexpr uint8_t kOutABLed = 10;
-
-static constexpr uint8_t kTRXLed = 9;
-
-static constexpr uint8_t kInterruptPin = 3;
-static constexpr uint8_t kClockPrescaler = CLOCK_PRESCALER_16;
-
-    
-
-EEPROMMetadata e2prom_metadata;
 RFM69 rf;
 SoftwareUSB software_usb;
 ApplicationsStatus app_status;
@@ -61,54 +46,12 @@ typedef struct {
 
 SendMetadata send_metadata;
 
-static inline void readI2CBytes(const uint8_t destination_address,
-                                const uint16_t register_address,
-                                const uint8_t count, uint8_t *output) {
-  uint8_t transmission_status = 255;
-
-  do {
-    Wire.beginTransmission(destination_address);
-    Wire.write(static_cast<uint8_t>(register_address >> 8));
-    Wire.write(static_cast<uint8_t>(register_address));
-    transmission_status = Wire.endTransmission(false);
-  } while (0 != transmission_status);
-
-  // Ask the I2C device for data
-  Wire.requestFrom(destination_address, count);
-  while (!Wire.available())
-    ;
-  for (uint8_t i = 0; i < count; ++i) {
-    if (Wire.available()) {
-      output[i] = Wire.read();
-    }
-  }
-  Wire.end();
-}
-
-static inline uint8_t writeI2CByte(const uint8_t destination_address,
-                                   const uint16_t register_address,
-                                   const uint8_t data) {
-  uint8_t transmission_status = 0x0f;
-  Wire.beginTransmission(destination_address);
-
-  Wire.write(static_cast<uint8_t>((register_address >> 8) & 0xFF));
-  Wire.write(static_cast<uint8_t>(register_address & 0xFF));
-  Wire.write(data);
-
-  uint32_t begin_timestamp = millis();
-  do {
-    transmission_status = Wire.endTransmission(true);
-  } while (millis() - begin_timestamp < 500 && transmission_status != 0);
-
-  return transmission_status;
-}
 
 void setup() {
 
   setClockPrescaler(kClockPrescaler); //needed for smooth running under 3V.
 
-  Wire.setClock(400000);
-  Wire.begin();
+  init_wire();
 
   pinMode(kRedLed, OUTPUT);
   pinMode(kBlueLed, OUTPUT);
@@ -127,11 +70,8 @@ void setup() {
   digitalWrite(kBlueLed, HIGH);
   digitalWrite(kGreenLed, HIGH);
 
+  update_eeprom_config(current_configuration, e2prom_metadata);
 
-  EEPROM.get(kEEPROMMetadataAddress, e2prom_metadata);
-  if (current_configuration != e2prom_metadata) {
-    EEPROM.put(kEEPROMMetadataAddress, current_configuration);
-  }
   pinMode(kInterruptPin, INPUT_PULLUP);
   attachInterrupt(digitalPinToInterrupt(kInterruptPin), onButtonPress, LOW);
   SoftwareUSB::handler_i2c_read_ = readI2CBytes;
