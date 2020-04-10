@@ -53,6 +53,12 @@ void setup()
     SoftwareUSB::handler_i2c_write_ = writeI2CByte;
 }
 
+void loop()
+{
+    software_usb.spin();
+    application_spin();
+}
+
 void on_usb_data_receive(uint8_t* data, uint8_t usb_data_length)
 {
     switch (data[0]) {
@@ -108,20 +114,7 @@ void application_spin()
         rf.sleep();
     }
     else if (ApplicationsStatus::RadioSend == app_status) {
-        if (-1 == send_metadata.send_repeatCount ||
-            (send_metadata.current_send_count <
-             static_cast<uint8_t>(send_metadata.send_repeatCount))) {
-            if (millis() - send_metadata.start_timestamp > send_metadata.send_repeatX100 * 100) {
-                send_radio(&send_metadata.payload[0], send_metadata.payload_length);
-                if (-1 != send_metadata.current_send_count) {
-                    ++send_metadata.current_send_count;
-                }
-                send_metadata.start_timestamp = millis();
-            }
-        }
-        else {
-            app_status = ApplicationsStatus::Idle;
-        }
+        send_logic();
     }
     else if (ApplicationsStatus::DumpEeprom == app_status) {
         EEPROM.get(kEEPROMMetadataAddress, e2prom_metadata);
@@ -142,10 +135,4 @@ void voltageToLeds()
 {
     auto supercap = Supercapacitor3V(kRedLed, kGreenLed, kBlueLed);
     supercap.voltageToLeds();
-}
-
-void loop()
-{
-    software_usb.spin();
-    application_spin();
 }

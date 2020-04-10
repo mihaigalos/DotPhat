@@ -11,6 +11,8 @@ typedef struct {
 
 SendMetadata send_metadata;
 
+extern void send_radio(const char* payload, char length);
+
 void sendDemo()
 {
     send_metadata.send_repeatCount = -1;
@@ -23,4 +25,22 @@ void sendDemo()
     send_metadata.current_send_count = 0;
 
     app_status = ApplicationsStatus::RadioSend;
+}
+
+void send_logic(){
+
+  if (-1 == send_metadata.send_repeatCount ||
+            (send_metadata.current_send_count <
+             static_cast<uint8_t>(send_metadata.send_repeatCount))) {
+            if (millis() - send_metadata.start_timestamp > send_metadata.send_repeatX100 * 100) {
+                send_radio(&send_metadata.payload[0], send_metadata.payload_length);
+                if (-1 != send_metadata.current_send_count) {
+                    ++send_metadata.current_send_count;
+                }
+                send_metadata.start_timestamp = millis();
+            }
+        }
+        else {
+            app_status = ApplicationsStatus::Idle;
+        }
 }
