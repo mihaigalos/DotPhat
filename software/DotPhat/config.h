@@ -1,4 +1,4 @@
-#pragma once 
+#pragma once
 
 static constexpr auto kOwnId = 0x10;
 static constexpr auto kMaxRfPower = 31;
@@ -15,14 +15,14 @@ static constexpr uint8_t kInterruptPin = 3;
 static constexpr uint8_t kClockPrescaler = CLOCK_PRESCALER_16;
 
 enum class ApplicationsStatus {
-  Unknown,
-  Idle,
-  RadioSend,
-  RadioSendPeriodic,
-  RadioReceive,
-  DumpEeprom,
-  VoltageToLeds,
-  TemperatureToLeds
+    Unknown,
+    Idle,
+    RadioSend,
+    RadioSendPeriodic,
+    RadioReceive,
+    DumpEeprom,
+    VoltageToLeds,
+    TemperatureToLeds
 };
 
 ApplicationsStatus app_status;

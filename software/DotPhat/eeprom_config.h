@@ -3,6 +3,7 @@
 #include "eeprom_metadata.h"
 EEPROMMetadata e2prom_metadata;
 
+// clang-format off
 static constexpr EEPROMMetadata current_configuration{
     MetadataVersion{
         .major = 1,
@@ -66,3 +67,4 @@ static constexpr EEPROMMetadata current_configuration{
      .tx = 1,
      .rx = 1,
      .reserved = 1}};
+// clang-format on
