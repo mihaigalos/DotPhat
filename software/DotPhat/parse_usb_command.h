@@ -2,7 +2,7 @@
 
 #include "radio.h"
 
-void radio_send_from_usb(uint8_t* data, uint8_t usb_data_length)
+void parse_send_command_from_usb(uint8_t* data, uint8_t usb_data_length)
 {
     String command{reinterpret_cast<char*>(data)};
     int posistion_separator_delay = command.indexOf(":", 2);

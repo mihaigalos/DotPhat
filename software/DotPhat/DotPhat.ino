@@ -64,7 +64,7 @@ void on_usb_data_receive(uint8_t* data, uint8_t usb_data_length)
     switch (data[0]) {
     case 's':
         if (':' == data[1]) {
-            radio_send_from_usb(data, usb_data_length);
+            parse_send_command_from_usb(data, usb_data_length);
             app_status = ApplicationsStatus::RadioSend;
         }
         break;
