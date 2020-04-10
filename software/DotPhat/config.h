@@ -13,3 +13,16 @@ static constexpr uint8_t kTRXLed = 9;
 
 static constexpr uint8_t kInterruptPin = 3;
 static constexpr uint8_t kClockPrescaler = CLOCK_PRESCALER_16;
+
+enum class ApplicationsStatus {
+  Unknown,
+  Idle,
+  RadioSend,
+  RadioSendPeriodic,
+  RadioReceive,
+  DumpEeprom,
+  VoltageToLeds,
+  TemperatureToLeds
+};
+
+ApplicationsStatus app_status;

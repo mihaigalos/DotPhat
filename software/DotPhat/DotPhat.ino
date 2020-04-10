@@ -12,39 +12,15 @@
 #include "supercapacitor.h"
 #include "unix_timestamp.h"
 
+
+#include "button.h"
 #include "eeprom_config.h"
 #include "config.h"
 #include "i2c_transaction.h"
 #include "temperature_to_leds.h"
 
-
-enum class ApplicationsStatus {
-  Unknown,
-  Idle,
-  RadioSend,
-  RadioSendPeriodic,
-  RadioReceive,
-  DumpEeprom,
-  VoltageToLeds,
-  TemperatureToLeds
-};
-
 RFM69 rf;
 SoftwareUSB software_usb;
-ApplicationsStatus app_status;
-
-typedef struct {
-
-  uint8_t *payload{nullptr};
-  uint8_t payload_length{0};
-  uint8_t current_send_count{0};
-  uint16_t send_repeatX100{0};
-  int8_t send_repeatCount{0};
-  uint32_t start_timestamp{0};
-} SendMetadata;
-
-SendMetadata send_metadata;
-
 
 void setup() {
 
@@ -75,20 +51,6 @@ void setup() {
   attachInterrupt(digitalPinToInterrupt(kInterruptPin), onButtonPress, LOW);
   SoftwareUSB::handler_i2c_read_ = readI2CBytes;
   SoftwareUSB::handler_i2c_write_ = writeI2CByte;
-}
-
-
-void sendDemo() {
-  send_metadata.send_repeatCount = -1;
-  send_metadata.send_repeatX100 = 5;
-  send_metadata.start_timestamp = millis();
-  static uint8_t myData[11];
-  memcpy(&myData[0], "HelloWorld", 11);
-  send_metadata.payload = myData;
-  send_metadata.payload_length = 11;
-  send_metadata.current_send_count = 0;
-
-  app_status = ApplicationsStatus::RadioSend;
 }
 
 
@@ -214,50 +176,6 @@ void voltageToLeds() {
 }
 
 
-using TVoidVoid = void (*)(void);
-TVoidVoid actions[] = {
-  nullptr,
-  [](){app_status = ApplicationsStatus::VoltageToLeds;},
-  nullptr,
-  [](){app_status = ApplicationsStatus::TemperatureToLeds;},
-  nullptr,
-  nullptr,
-  nullptr,
-  sendDemo,
-  [](){pinMode(kTRXLed, OUTPUT); digitalWrite(kTRXLed, LOW);app_status = ApplicationsStatus::RadioReceive;}
-};
-
-
-void doublePress() {
-  uint8_t currentStateIndex = static_cast<uint8_t>(ButtonMenu::get());
-  if (nullptr != actions[currentStateIndex]) {
-    actions[currentStateIndex]();
-    digitalWrite(kRedLed, HIGH);
-    digitalWrite(kGreenLed, HIGH);
-    digitalWrite(kBlueLed, HIGH);
-  }
-}
-
-void singlePress() {
-  ButtonMenu::changeState(kRedLed, kGreenLed, kBlueLed, kTRXLed);
-}
-
-void onButtonPress() {
-  static unsigned long last_interrupt_time = 0;
- unsigned long interrupt_time = millis()/(1<<kClockPrescaler );
-
-
-  if (interrupt_time - last_interrupt_time > 30/(1<<kClockPrescaler ) &&
-      interrupt_time - last_interrupt_time < 300/(1<<kClockPrescaler )) {
-    app_status = ApplicationsStatus::Idle;
-    doublePress();
-  } else if (interrupt_time - last_interrupt_time >= 300/(1<<kClockPrescaler ) &&
-             interrupt_time - last_interrupt_time < 2000/(1<<kClockPrescaler )) {
-    app_status = ApplicationsStatus::Idle;
-    singlePress();
-  }
-  last_interrupt_time = interrupt_time;
-}
 
 void loop() {
   software_usb.spin();
