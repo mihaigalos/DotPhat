@@ -114,7 +114,7 @@ void application_spin()
         rf.sleep();
     }
     else if (ApplicationsStatus::RadioSend == app_status) {
-        send_logic();
+        radio_send_logic();
     }
     else if (ApplicationsStatus::DumpEeprom == app_status) {
         EEPROM.get(kEEPROMMetadataAddress, e2prom_metadata);

@@ -27,7 +27,7 @@ void sendDemo()
     app_status = ApplicationsStatus::RadioSend;
 }
 
-void send_logic(){
+void radio_send_logic(){
 
   if (-1 == send_metadata.send_repeatCount ||
             (send_metadata.current_send_count <
