@@ -40,20 +40,18 @@ static constexpr uint8_t kTRXLed = 9;
 static constexpr uint8_t kInterruptPin = 3;
 static constexpr uint8_t kClockPrescaler = CLOCK_PRESCALER_16;
 
-
 static constexpr EEPROMMetadata current_configuration{
-{
-        // metadata_version_info
+    MetadataVersion{
         .major = 1,
         .minor = 0,
         .patch = 0,
     },
     DeviceType::DotShine,
-    {// software_version
+    SoftwareVersion{
      .major = 1,
      .minor = 0,
      .patch = 0},
-    {// sofware_timestamp_info
+    TimeZoneInfo{
      .timezone_sign = 1,
      .utc_offset = 1,
      .is_daylight_saving_active = LOCATION_DAYLIGHT_SAVING,
@@ -63,27 +61,26 @@ static constexpr EEPROMMetadata current_configuration{
      static_cast<uint8_t>(UNIX_TIMESTAMP >> 16),
      static_cast<uint8_t>(UNIX_TIMESTAMP >> 8),
      static_cast<uint8_t>(UNIX_TIMESTAMP)},
-    {// hardware_version
+    HardwareVersion{
      .major = 1,
      .minor = 1,
      .patch = 0},
-    {// hardware_timestamp_info
+    TimeZoneInfo{
      .timezone_sign = 1,
      .utc_offset = 8,
-     .is_daylight_saving_active = 1, // true if date is > last sunday of March
-                                     // and < Last sunday of October
+     .is_daylight_saving_active = 1,
      .is_china_time = 1},
     {// hardware_version_timestamp : add 8 hours to the PCB manufactureing time
      // in China
      0x5A, 0xBF, 0x78, 0x1D},
-    {"Board1"}, // device name
-    {           // energy info
+    {"Board1"},
+    UEnergyInfo{
      {InstalledCapacity::None, 0}},
-    {
-        48.189756, 11.572531 // GPS Position
+    GPSPosition{
+        48.189756, 11.572531
     },
-    {"No xtra loc info"}, // additional info
-    {                     // Installed Devices
+    {"No xtra loc info"},
+    InstalledDevices{
      .temperature_sensor = 1,
      .ultraviolet_sensor = 1,
      .eeprom = 1,
@@ -92,12 +89,12 @@ static constexpr EEPROMMetadata current_configuration{
      .high_precision_time_reference = 1,
      .reset_pushbutton = 1,
      .act_pushbutton = 1},
-    {// Installed Devices 2
+    InstalledDevices2{
      .usb = 1,
      .external_antenna = 0,
      .antenna_calibration = 0,
      .solar_panel = 1},
-    {// Installed Leds
+    InstalledLeds{
      .usb_power = 1,
      .outA = 1,
      .outB = 1,
