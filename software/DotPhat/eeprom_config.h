@@ -1,5 +1,7 @@
 #pragma once
 
+#include "eeprom_metadata.h"
+EEPROMMetadata e2prom_metadata;
 
 static constexpr EEPROMMetadata current_configuration{
     MetadataVersion{
