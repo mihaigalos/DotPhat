@@ -1,5 +1,8 @@
 #pragma once
 
+#include <tmp112.h>
+#include "config.h"
+
 void temperatureToLeds() {
   delay(3000/(1<<kClockPrescaler));
   digitalWrite(kRedLed, HIGH);

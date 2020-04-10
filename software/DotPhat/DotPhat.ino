@@ -8,8 +8,6 @@
 #include <EEPROM.h>
 #include <RFM69.h>
 
-#include <tmp112.h>
-
 
 #include "supercapacitor.h"
 #include "unix_timestamp.h"
